@@ -60,7 +60,7 @@
 	    	</div>
 	    	<div class="span10">
 	    		<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button"><i class="icon-plus"></i> Add an University</button>
+					<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUniversity'><i class="icon-plus"></i> Add an University</button>
 				    <button class="btn btn-small">Check All</button>
 				    <button class="btn btn-small">Uncheck All</button>
     			</div>
@@ -158,6 +158,68 @@
 		    			Susbcription: Yes<br/>
 		    			Checking State: Yes<br/>
 		    			Interns: Interns1, Interns2, Interns3
+		</div>
+		<input class="btn" type="button" value="Modify">
+		<input class="btn" type="button" value="Delete">
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+	<div id="addUniversity" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 id="addUniversityLabel">Add an University</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal">
+			<div class="control-group">
+			<label class="control-label" for="inputName">University Name</label>
+			<div class="controls">
+			<input type="text" id="UniversityName" placeholder="University Name">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputAddress">Address</label>
+			<div class="controls">
+			<textarea rows="3" placeholder="Address"></textarea>
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputEmail">Email</label>
+			<div class="controls">
+			<input type="text" id="inputEmail" placeholder="Email">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputPhone">Phone</label>
+			<div class="controls">
+			<input type="text" id="inputPhone" placeholder="Phone">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputCountry">Country</label>
+			<div class="controls">
+			<input type="text" id="inputCountry" placeholder="Country">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputIntern">Intern</label>
+			<div class="controls">
+			<input type="text" id="inputIntern" placeholder="Intern">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<div class="controls">
+			<button type="submit" class="btn">Submit</button>
+			</div>
+			</div>
+			</form>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
