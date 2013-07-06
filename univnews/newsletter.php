@@ -75,7 +75,7 @@
     </div>
     <div class="container">
     			<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-plus"></i> Add a Newsletter</button>
+					<button class="btn btn-small btn btn-info" type="button" onclick="window.location.href = 'mail.php';"><i class="icon-plus"></i> Add a Newsletter</button>
     			</div>
 	    		<table class="table table-hover">
 		    		<thead>
