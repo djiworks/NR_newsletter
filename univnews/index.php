@@ -52,7 +52,7 @@
 				    <li><a href='#myModal' data-toggle='modal'>University 1</a></li>
 				    <li class="divider"></li>
 				    <li>
-				    	<button class="btn btn-mini btn-primary" type="button"><i class="icon-envelope icon-white"></i> Send Mail</button>
+				    	<button class="btn btn-mini btn-primary" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-envelope icon-white"></i> Send Mail</button>
 				  		<button class="btn btn-mini btn-inverse" type="button"><i class="icon-trash icon-white"></i> Empty List</button>
 				  	</li>
 	    		</ul>
@@ -90,7 +90,7 @@
 			    			<td>France</td>
 			    			<td>Yes</td>
 			    			<td>Approved</td>
-			    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 			    		</tr>
 			    		<tr class="error">
 			    			<td>N/A</td>
@@ -102,7 +102,7 @@
 			    			<td>France</td>
 			    			<td>Yes</td>
 			    			<td>Wrong</td>
-			    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 			    		</tr>
 			    		<tr class="warning">
 			    			<td>N/A</td>
@@ -114,7 +114,7 @@
 			    			<td>France</td>
 			    			<td>Yes</td>
 			    			<td>Waiting</td>
-			    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 			    		</tr>
 			    		<?php 
 			    		for($i=4;$i<=40;$i++)
@@ -129,7 +129,7 @@
 			    			<td>France</td>
 			    			<td>Yes</td>
 			    			<td>Approved</td>
-			    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 			    		</tr>";
 			    		}
 			    		?>
@@ -143,8 +143,8 @@
 		    </div>
 		</div>
     </div>
-    <!-- Modal -->
-	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- Modals -->
+	<div id="viewdetail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">University Name</h3>
@@ -223,6 +223,43 @@
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+	 
+	<div id="sendingbox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 id="myModalLabel">Prepare to send Newsletter</h3>
+		</div>
+		<div class="modal-body">
+			<label>Select the newsletter to send:</label>
+			<select>
+				<option>1 - Newsletter One</option>
+				<option>2 - Newsletter Two</option>
+				<option>3 - Newsletter Three</option>
+				<option>4 - Newsletter Four</option>
+				<option>5 - Newsletter Five</option>
+			</select>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-info" onclick="$('#sendingbox2').modal('show');$('#sendingbox').modal('hide')">Confirm</button>
+		</div>
+	</div>
+	
+	<div id="sendingbox2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 id="myModalLabel">Ready to send Newsletter - Preview</h3>
+		</div>
+		<div class="modal-body">
+			<h3>Object: Newsletter Name</h3>
+			<h3>Content:</h3>
+			newsletter contents in html
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-info"><i class="icon-envelope icon-white"></i> Send Now</button>
 		</div>
 	</div>
     <script src="http://code.jquery.com/jquery.js"></script>
