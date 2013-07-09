@@ -50,9 +50,24 @@
 	    		<ul class="nav nav-list">
 				    <li class="nav-header">Information selected</li>
 				    <li>University checked:</li>
-				    <li><a href='#myModal' data-toggle='modal'>University 1</a></li>
-				    <li><a href='#myModal' data-toggle='modal'>University 1</a></li>
-				    <li><a href='#myModal' data-toggle='modal'>University 1</a></li>
+				    <li>
+				    	<label class="checkbox inline">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<a href='#myModal' data-toggle='modal'>University 1</a>
+				    	</label>
+				    </li>
+				    <li>
+				    	<label class="checkbox inline">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<a href='#myModal' data-toggle='modal'>University 1</a>
+				    	</label>
+			    	</li>
+				    <li>
+				    	<label class="checkbox inline">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<a href='#myModal' data-toggle='modal'>University 1</a>
+				    	</label>
+			    	</li>
 				    <li class="divider"></li>
 				    <li>
 				    	<button class="btn btn-mini btn-primary" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-envelope icon-white"></i> Send Mail</button>
@@ -154,6 +169,7 @@
 		</div>
     </div>
     <!-- Modals -->
+    
 	<div id="viewdetail" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -239,6 +255,7 @@
 		</div>
 	</div>
 	
+<!-- 
 	<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
@@ -246,31 +263,32 @@
 		</div>
 		<div class="modal-body">
 			<form class="form-horizontal">
-			<div class="control-group">
-			<label class="control-label" for="inputName">Username</label>
-			<div class="controls">
-			<input type="text" id="Username" placeholder="Username">
-			</div>
-			</div>
+				<div class="control-group">
+					<label class="control-label" for="inputName">Username</label>
+					<div class="controls">
+						<input type="text" id="Username" placeholder="Username">
+					</div>
+				</div>
 			
-			<div class="control-group">
-			<label class="control-label" for="inputName">Password</label>
-			<div class="controls">
-			<input type="text" id="Password" placeholder="Password">
-			</div>
-			</div>
+				<div class="control-group">
+					<label class="control-label" for="inputName">Password</label>
+					<div class="controls">
+						<input type="text" id="Password" placeholder="Password">
+					</div>
+				</div>
 			
-			<div class="control-group">
-			<div class="controls">
-			<button type="submit" class="btn">Log in</button>
-			</div>
-			</div>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">Log in</button>
+					</div>
+				</div>
 			</form>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+-->
 	 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
