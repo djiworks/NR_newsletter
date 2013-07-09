@@ -28,9 +28,12 @@
           </button>
           <a class="brand" href="index.php">University Newsletter Management</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
+            <p class="navbar-text pull-right" data-toggle='modal' data-target='#login'>
+				Log in
+<!--
               Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
+-->
+               </p>
             <ul class="nav">
               <li class="active"><a href="index.php">University <span class="badge badge-important">1</span></a></li>
               <li><a href="interns.php">Interns</a></li>
@@ -64,6 +67,13 @@
 				    <button class="btn btn-small">Check All</button>
 				    <button class="btn btn-small">Uncheck All</button>
     			</div>
+    			
+				<form class="form-search pull-right" >
+					<i class="icon-zoom-in"></i>
+					<input type="text" class="input-medium search-query" placeholder="Search ...">
+					<button type="submit" class="btn">Search</button>
+				</form>
+    			
 	    		<table class="table table-hover">
 		    		<thead>
 			    		<tr>
@@ -206,17 +216,53 @@
 			<input type="text" id="inputCountry" placeholder="Country">
 			</div>
 			</div>
-			
+
+
 			<div class="control-group">
 			<label class="control-label" for="inputIntern">Intern</label>
 			<div class="controls">
-			<input type="text" id="inputIntern" placeholder="Intern">
+			<input type="text" id="inputIntern" placeholder="Intern" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' autocomplete="off">
 			</div>
 			</div>
+			
+			<div class="bs-docs-example" style="background-color: #f5f5f5;">	
 			
 			<div class="control-group">
 			<div class="controls">
 			<button type="submit" class="btn">Submit</button>
+			</div>
+			</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+	
+	<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<h3 id="loginLabel">Log in</h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-horizontal">
+			<div class="control-group">
+			<label class="control-label" for="inputName">Username</label>
+			<div class="controls">
+			<input type="text" id="Username" placeholder="Username">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="inputName">Password</label>
+			<div class="controls">
+			<input type="text" id="Password" placeholder="Password">
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<div class="controls">
+			<button type="submit" class="btn">Log in</button>
 			</div>
 			</div>
 			</form>
