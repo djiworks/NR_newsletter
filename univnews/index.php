@@ -28,11 +28,8 @@
           </button>
           <a class="brand" href="index.php">University Newsletter Management</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right" data-toggle='modal' data-target='#login'>
-				Log in
-<!--
+            <p class="navbar-text pull-right">
               Logged in as <a href="#" class="navbar-link">Username</a>
--->
                </p>
             <ul class="nav">
               <li class="active"><a href="index.php">University <span class="badge badge-important">1</span></a></li>
@@ -83,11 +80,14 @@
 				    <button class="btn btn-small">Uncheck All</button>
     			</div>
     			
-				<form class="form-search pull-right" >
-					<i class="icon-zoom-in"></i>
+				<form class="form-search pull-right">
+					<i class="icon-search"></i>
+					<div class="input-append">
 					<input type="text" class="input-medium search-query" placeholder="Search ...">
 					<button type="submit" class="btn">Search</button>
+					</div>
 				</form>
+				
     			
 	    		<table class="table table-hover">
 		    		<thead>
@@ -191,51 +191,52 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+	
 	<div id="addUniversity" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="addUniversityLabel">Add an University</h3>
 		</div>
-		<div class="modal-body">
+			<div class="modal-body">
 			<form class="form-horizontal">
 			<div class="control-group">
 			<label class="control-label" for="inputName">University Name</label>
-			<div class="controls">
-			<input type="text" id="UniversityName" placeholder="University Name">
-			</div>
+				<div class="controls">
+				<input type="text" id="UniversityName" placeholder="University Name">
+				</div>
 			</div>
 			
 			<div class="control-group">
 			<label class="control-label" for="inputAddress">Address</label>
-			<div class="controls">
-			<textarea rows="3" placeholder="Address"></textarea>
-			</div>
+				<div class="controls">
+				<textarea rows="3" placeholder="Address"></textarea>
+				</div>
 			</div>
 			
 			<div class="control-group">
 			<label class="control-label" for="inputEmail">Email</label>
-			<div class="controls">
-			<input type="text" id="inputEmail" placeholder="Email">
-			</div>
+				<div class="controls">
+				<input type="text" id="inputEmail" placeholder="Email">
+				</div>
 			</div>
 			
 			<div class="control-group">
 			<label class="control-label" for="inputPhone">Phone</label>
-			<div class="controls">
-			<input type="text" id="inputPhone" placeholder="Phone">
-			</div>
+				<div class="controls">
+				<input type="text" id="inputPhone" placeholder="Phone">
+				</div>
 			</div>
 			
 			<div class="control-group">
 			<label class="control-label" for="inputCountry">Country</label>
-			<div class="controls">
-			<input type="text" id="inputCountry" placeholder="Country">
+				<div class="controls">
+				<input type="text" id="inputCountry" placeholder="Country">
+				</div>
 			</div>
-			</div>
-
 
 			<div class="control-group">
 			<label class="control-label" for="inputIntern">Intern</label>
+			
 			<div class="controls">
 			<input type="text" id="inputIntern" placeholder="Intern" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' autocomplete="off">
 			</div>
@@ -254,41 +255,7 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
-	
-<!-- 
-	<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-			<h3 id="loginLabel">Log in</h3>
-		</div>
-		<div class="modal-body">
-			<form class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="inputName">Username</label>
-					<div class="controls">
-						<input type="text" id="Username" placeholder="Username">
-					</div>
-				</div>
-			
-				<div class="control-group">
-					<label class="control-label" for="inputName">Password</label>
-					<div class="controls">
-						<input type="text" id="Password" placeholder="Password">
-					</div>
-				</div>
-			
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn">Log in</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		</div>
-	</div>
--->
+</div>	
 	 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
