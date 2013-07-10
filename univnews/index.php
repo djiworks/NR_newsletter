@@ -49,19 +49,19 @@
 				    <li>University checked:</li>
 				    <li>
 				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
 				    		<a href='#myModal' data-toggle='modal'>University 1</a>
 				    	</label>
 				    </li>
 				    <li>
 				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
 				    		<a href='#myModal' data-toggle='modal'>University 1</a>
 				    	</label>
 			    	</li>
 				    <li>
 				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1">
+				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
 				    		<a href='#myModal' data-toggle='modal'>University 1</a>
 				    	</label>
 			    	</li>
