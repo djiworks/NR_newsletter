@@ -35,6 +35,7 @@
               <li class="active"><a href="index.php">University <span class="badge badge-important">1</span></a></li>
               <li><a href="interns.php">Interns</a></li>
               <li><a href="newsletter.php">Newsletter <span class="badge badge-important">2</span></a></li>
+              <li><a href="#">How to <i class="icon-question-sign icon-white"></i></a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -228,22 +229,22 @@
 			</div>
 			
 			<div class="control-group">
-			<label class="control-label" for="inputCountry">Country</label>
+				<label class="control-label" for="inputCountry">Country</label>
 				<div class="controls">
 				<input type="text" id="inputCountry" placeholder="Country">
 				</div>
 			</div>
 
 			<div class="control-group">
-			<label class="control-label" for="inputIntern">Intern</label>
-			
-			<div class="controls">
-			<input type="text" id="inputIntern" placeholder="Intern" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' autocomplete="off">
+				<label class="control-label" for="inputIntern">Intern</label>
+				<div class="controls">
+					<div class="input-append">
+						<input class="span2" type="text" id="inputIntern" placeholder="Intern" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]' autocomplete="off">
+    					<button class="btn btn-success" type="button"><i class="icon-plus icon-white"></i></button>
+    				</div>
+				</div>
 			</div>
-			</div>
-			
-			<div class="bs-docs-example" style="background-color: #f5f5f5;">	
-			
+
 			<div class="control-group">
 			<div class="controls">
 			<button type="submit" class="btn">Submit</button>
@@ -255,7 +256,7 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
-</div>	
+
 	 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
