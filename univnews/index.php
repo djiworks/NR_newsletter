@@ -35,7 +35,7 @@
               <li class="active"><a href="index.php">University <span class="badge badge-important">1</span></a></li>
               <li><a href="interns.php">Interns</a></li>
               <li><a href="newsletter.php">Newsletter <span class="badge badge-important">2</span></a></li>
-              <li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>Guidelines</a></li>
+              <li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

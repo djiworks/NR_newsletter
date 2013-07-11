@@ -33,6 +33,7 @@
               <li><a href="index.php">University</a></li>
               <li class="active"><a href="interns.php">Interns</a></li>
               <li><a href="newsletter.php">Newsletter</a></li>
+              <li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
