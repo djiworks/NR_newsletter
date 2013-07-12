@@ -65,10 +65,12 @@
               Logged in as <a href="#" class="navbar-link">Username</a>
             </p>
             <ul class="nav">
-              <li><a href="index.php">University</a></li>
-              <li><a href="interns.php">Interns</a></li>
-              <li class="active"><a href="newsletter.php">Newsletter</a></li>
-              <li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
+            	<li><a href="index.php">University</a></li>
+            	<li><a href="interns.php">Interns</a></li>
+            	<li class="active"><a href="newsletter.php">Newsletter</a></li>
+            	<li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
+				<li class="divider-vertical"></li>
+				<li><a href="admin.php">Administration</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -78,35 +80,35 @@
 			<form class="form-horizontal" name="add" action="newsletter.php" method="GET" id="addnews">
 			    
 			    <div class="control-group">
-				    <label class="control-label" for="nam">Name (will be the object field of mail):</label>
+				    <label class="control-label" for="inputName">Name (will be the object field of mail):</label>
 				    <div class="controls">
-				    	<input type="text" id="nam" placeholder="Name" name="koko">
+				    	<input type="text" id="inputName" placeholder="Name" name="inputName">
 				    </div>
 			    </div>
 			    
 			    <div class="control-group">
-				    <label class="control-label" for="inputEmail">Description:</label>
+				    <label class="control-label" for="inputDescription">Description:</label>
 				    <div class="controls">
-				    	<textarea rows="3" name="koko" id="inputEmail" placeholder="Description"></textarea>
+				    	<textarea rows="3" name="inputDesc" id="inputDescription" placeholder="Description"></textarea>
 				    </div>
 			    </div>
 		    
 		    	<div class="control-group">
-				    <label class="control-label" for="inputEmail">Path:</label>
+				    <label class="control-label" for="inputPath">Path:</label>
 				    <div class="controls">
-				    	<input type="file" id="inputEmail" placeholder="Email" name="koko">
+				    	<input type="file" id="inputPath" placeholder="Path" name="inputPath">
 				    </div>
 			    </div>
 			    
 			    <div class="control-group">
-				    <label class="control-label" for="inputEmail">Cover:</label>
+				    <label class="control-label" for="inputCover">Cover:</label>
 				    <div class="controls">
-				    	<input type="file" id="inputEmail" placeholder="Email" name="koko">
+				    	<input type="file" id="inputCover" placeholder="Cover" name="inputCover">
 				    </div>
 			    </div>
 			    
-				   Content:
-				    <textarea class="myTextEditor"></textarea>
+				Content:
+				<textarea class="myTextEditor"></textarea>
 		    </form>
 		</div>
     <script src="http://code.jquery.com/jquery.js"></script>
