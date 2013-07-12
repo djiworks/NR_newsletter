@@ -80,14 +80,14 @@
 			    <div class="control-group">
 				    <label class="control-label" for="nam">Name (will be the object field of mail):</label>
 				    <div class="controls">
-				    	<input type="text" id="nam" placeholder="Email" name="koko">
+				    	<input type="text" id="nam" placeholder="Name" name="koko">
 				    </div>
 			    </div>
 			    
 			    <div class="control-group">
 				    <label class="control-label" for="inputEmail">Description:</label>
 				    <div class="controls">
-				    	<textarea rows="3" name="koko" id="inputEmail" placeholder="Email"></textarea>
+				    	<textarea rows="3" name="koko" id="inputEmail" placeholder="Description"></textarea>
 				    </div>
 			    </div>
 		    
