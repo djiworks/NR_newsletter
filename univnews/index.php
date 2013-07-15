@@ -5,17 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-     <style type="text/css">
-	     .table th, .table td {
-	        text-align:center;
-	      }
-	      
-	    body {
-        	padding-top: 60px;
-        	padding-bottom: 40px;
-      	}
-      	.ajust {margin-top: 60px;}
-     </style>
+	<style type="text/css">
+		.table th, .table td {
+			text-align:center;
+		}
+
+		body {
+			padding-top: 60px;
+			padding-bottom: 40px;
+		}
+		.ajust {
+			margin-top: 60px;
+		}
+	</style>
+	<script>
+		function selectedUniv (univName, univId) {
+			//Creation of variables
+			var chkName = "chk".concat(univId);
+			checkBoxState = document.getElementById(chkName).checked;
+			
+			//Creation or removal of the universty from the list
+			if(checkBoxState === true) {
+				addUniv(univName, univId);
+			} else {
+				removeUniv(univId);
+			}
+		}
+	
+		function addUniv(univName, univId) {
+			//Creation of the new li element
+			var newElementInList = document.createElement('li');
+			newElementInList.id = "li".concat(univId);
+			
+			//Creation of the label
+			var newLabel = document.createElement('label');
+			newLabel.class = "checkbox inline";
+		
+			//Creation of the input
+			var newInput = document.createElement('input');
+			newInput.type = "checkbox";
+			newInput.id = "inlineCheckbox1";
+			newInput.value = "option1";
+			newInput.checked = true;
+			newInput.onclick = "removeUniv("+univId+")";
+		
+			//Creation of the link
+			var newLink = document.createElement('a');
+			var newLinkText =  document.createTextNode(" ".concat(univName));
+			newLink.href = "#myModal";
+			newLink.setAttribute("data-toggle", "modal");
+			newLink.appendChild(newLinkText);
+		
+			//appending the elements all together
+			newLabel.appendChild(newInput);
+			newLabel.appendChild(newLink);
+			newElementInList.appendChild(newLabel);
+		
+			//appending the new list element to the list
+			document.getElementById("listSelectedUniversity").insertBefore(newElementInList, document.getElementById("liDivider"));
+		}
+		
+		function removeUniv(univId) {
+			//Creation of variables
+			var listElementToRemove = "li".concat(univId);
+			var listElem = document.getElementById(listElementToRemove);
+			
+			//Removal of the university from the list
+			listElem.parentNode.removeChild(listElem);
+		}
+	</script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -47,9 +105,10 @@
 	    <div class="row-fluid">
 	    	<div class="span2 ajust">
 	    	<div class="affix">
-	    		<ul class="nav nav-list">
+	    		<ul class="nav nav-list" id="listSelectedUniversity">
 				    <li class="nav-header">Information selected</li>
 				    <li>University checked:</li>
+				<!--
 				    <li>
 				    	<label class="checkbox inline">
 				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
@@ -68,7 +127,8 @@
 				    		<a href='#myModal' data-toggle='modal'>University 1</a>
 				    	</label>
 			    	</li>
-				    <li class="divider"></li>
+			    -->
+				    <li class="divider" id="liDivider"></li>
 				    <li>
 				    	<button class="btn btn-mini btn-primary" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-envelope icon-white"></i> Send Mail</button>
 				  		<button class="btn btn-mini btn-inverse" type="button"><i class="icon-trash icon-white"></i> Empty List</button>
@@ -109,7 +169,7 @@
 		    		</thead>
 		    		<tbody>
 		    		<tr class="success">
-		    				<td><input type='checkbox'/></td>
+		    				<td><input type='checkbox' id="chk1" onClick="selectedUniv('University 1', '1')"></td>
 			    			<td>1</td>
 			    			<td>University OK</td>
 			    			<td>3 Littlestone Road, New Romney, England</td>
@@ -148,7 +208,7 @@
 			    		for($i=4;$i<=40;$i++)
 			    		{
 			    			echo "<tr>
-			    			<td><input type='checkbox'/></td>
+			    			<td><input type='checkbox' id='chk".$i."' onClick=\"selectedUniv('University ".$i."', '".$i."')\"></td>
 			    			<td>".$i."</td>
 			    			<td>University ".$i."</td>
 			    			<td>3 Littlestone Road, New Romney, England</td>
