@@ -17,6 +17,11 @@
 		.ajust {
 			margin-top: 60px;
 		}
+		#divListUniv {
+			height:auto;
+			max-height:270px;
+			overflow: auto;
+		}
 	</style>
 	<script>
 		function selectedUniv (univName, univId) {
@@ -47,8 +52,8 @@
 			newInput.id = "inlineCheckbox1";
 			newInput.value = "option1";
 			newInput.checked = true;
-			newInput.onclick = "removeUniv("+univId+")";
-		
+			newInput.setAttribute("onclick", "removeUniv("+univId+")");
+			
 			//Creation of the link
 			var newLink = document.createElement('a');
 			var newLinkText =  document.createTextNode(" ".concat(univName));
@@ -62,7 +67,7 @@
 			newElementInList.appendChild(newLabel);
 		
 			//appending the new list element to the list
-			document.getElementById("listSelectedUniversity").insertBefore(newElementInList, document.getElementById("liDivider"));
+			document.getElementById("divListUniv").appendChild(newElementInList);
 		}
 		
 		function removeUniv(univId) {
@@ -72,7 +77,44 @@
 			
 			//Removal of the university from the list
 			listElem.parentNode.removeChild(listElem);
+			
+			//Uncheck the checkbox
+			document.getElementById("chk"+univId).checked = false;
 		}
+		
+		function unselectAll() {
+			//Get all the children of the ul element
+			var arrayLi = document.getElementById("divListUniv");
+		
+			//We remove the element in the list
+			while(arrayLi.hasChildNodes()){
+    			arrayLi.removeChild(arrayLi.lastChild);
+			}
+			
+			//Uncheck all the checkboxes
+			var arrayInput = document.getElementsByTagName("input");
+			
+			for(var i = 0 ; i <= arrayInput.length ; i++) {
+				if(arrayInput[i].type == 'checkbox') {
+					arrayInput[i].checked = false;
+				}
+			}
+		}
+/*	
+		function selectAll() {
+			//Check all the checkboxes
+			var arrayInput = document.getElementsByTagName("input");
+			var nbCheckbox = arrayInput.length
+			//Checking the checkbox and add the university as selected
+			for(var i = 0 ; i <= nbCheckbox ; i++) {
+				if(/^chk/.test(arrayInput[i].id)) {
+					tmpString = arrayInput[i].getAttribute('onclick');
+					var arrayString = tmpString.split("'");
+					addUniv(arrayString[1], arrayString[3]);
+				}
+			}
+		}
+*/
 	</script>
 </head>
 <body>
@@ -128,10 +170,11 @@
 				    	</label>
 			    	</li>
 			    -->
+			    	<div id="divListUniv"></div>
 				    <li class="divider" id="liDivider"></li>
 				    <li>
 				    	<button class="btn btn-mini btn-primary" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-envelope icon-white"></i> Send Mail</button>
-				  		<button class="btn btn-mini btn-inverse" type="button"><i class="icon-trash icon-white"></i> Empty List</button>
+				  		<button class="btn btn-mini btn-inverse" type="button" onclick="unselectAll()"><i class="icon-trash icon-white"></i> Empty List</button>
 				  	</li>
 	    		</ul>
 	    		</div>
@@ -139,8 +182,8 @@
 	    	<div class="span10">
 	    		<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUniversity'><i class="icon-plus"></i> Add an University</button>
-				    <button class="btn btn-small">Check All</button>
-				    <button class="btn btn-small">Uncheck All</button>
+				    <button class="btn btn-small" onclick="selectAll()">Check All</button>
+				    <button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
     			</div>
     			
 				<form class="form-search pull-right">
@@ -168,42 +211,42 @@
 			    		</tr>
 		    		</thead>
 		    		<tbody>
-		    		<tr class="success">
-		    				<td><input type='checkbox' id="chk1" onClick="selectedUniv('University 1', '1')"></td>
-			    			<td>1</td>
-			    			<td>University OK</td>
-			    			<td>3 Littlestone Road, New Romney, England</td>
-			    			<td>0000 000 000</td>
-			    			<td>example@mail.com</td>
-			    			<td>France</td>
-			    			<td>Yes</td>
-			    			<td>Approved</td>
-			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-			    		</tr>
-			    		<tr class="error">
-			    			<td>N/A</td>
-			    			<td>2</td>
-			    			<td>University doesn't work</td>
-			    			<td>3 Littlestone Road, New Romney, England</td>
-			    			<td>0000 000 000</td>
-			    			<td>example@mail.com</td>
-			    			<td>France</td>
-			    			<td>Yes</td>
-			    			<td>Wrong</td>
-			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-			    		</tr>
-			    		<tr class="warning">
-			    			<td>N/A</td>
-			    			<td>3</td>
-			    			<td>University waiting for</td>
-			    			<td>3 Littlestone Road, New Romney, England</td>
-			    			<td>0000 000 000</td>
-			    			<td>example@mail.com</td>
-			    			<td>France</td>
-			    			<td>Yes</td>
-			    			<td>Waiting</td>
-			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-			    		</tr>
+						<tr class="success" id="test">
+							<td><input type='checkbox' id="chk1" onClick="selectedUniv('University 1', '1')"></td>
+							<td>1</td>
+							<td>University OK</td>
+							<td>3 Littlestone Road, New Romney, England</td>
+							<td>0000 000 000</td>
+							<td>example@mail.com</td>
+							<td>France</td>
+							<td>Yes</td>
+							<td>Approved</td>
+							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+						</tr>
+						<tr class="error">
+							<td>N/A</td>
+							<td>2</td>
+							<td>University doesn't work</td>
+							<td>3 Littlestone Road, New Romney, England</td>
+							<td>0000 000 000</td>
+							<td>example@mail.com</td>
+							<td>France</td>
+							<td>Yes</td>
+							<td>Wrong</td>
+							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+						</tr>
+							<tr class="warning">
+							<td>N/A</td>
+							<td>3</td>
+							<td>University waiting for</td>
+							<td>3 Littlestone Road, New Romney, England</td>
+							<td>0000 000 000</td>
+							<td>example@mail.com</td>
+							<td>France</td>
+							<td>Yes</td>
+							<td>Waiting</td>
+							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+						</tr>
 			    		<?php 
 			    		for($i=4;$i<=40;$i++)
 			    		{
@@ -225,8 +268,8 @@
 		    	</table>
 		    	<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"><i class="icon-plus"></i> Add an University</button>
-				    <button class="btn btn-small">Check All</button>
-				    <button class="btn btn-small">Uncheck All</button>
+					<button class="btn btn-small">Check All</button>
+					<button class="btn btn-small">Uncheck All</button>
     			</div>
 		    </div>
 		</div>
