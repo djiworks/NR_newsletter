@@ -27,7 +27,7 @@
 		function selectedUniv (univName, univId) {
 			//Creation of variables
 			var chkName = "chk".concat(univId);
-			checkBoxState = document.getElementById(chkName).checked;
+			var checkBoxState = document.getElementById(chkName).checked;
 			
 			//Creation or removal of the universty from the list
 			if(checkBoxState === true) {
@@ -56,7 +56,7 @@
 			
 			//Creation of the link
 			var newLink = document.createElement('a');
-			var newLinkText =  document.createTextNode(" ".concat(univName));
+			var newLinkText = document.createTextNode(" ".concat(univName));
 			newLink.href = "#myModal";
 			newLink.setAttribute("data-toggle", "modal");
 			newLink.appendChild(newLinkText);
@@ -100,21 +100,23 @@
 				}
 			}
 		}
-/*	
+
 		function selectAll() {
 			//Check all the checkboxes
-			var arrayInput = document.getElementsByTagName("input");
-			var nbCheckbox = arrayInput.length
-			//Checking the checkbox and add the university as selected
-			for(var i = 0 ; i <= nbCheckbox ; i++) {
-				if(/^chk/.test(arrayInput[i].id)) {
-					tmpString = arrayInput[i].getAttribute('onclick');
-					var arrayString = tmpString.split("'");
-					addUniv(arrayString[1], arrayString[3]);
+			var arrayInput = document.getElementById("displayUnivList").getElementsByTagName("input");
+			var nbCheckbox = arrayInput.length;
+			
+			for(var i = 0 ; i <= nbCheckbox*2 ; i++) {
+				if(arrayInput[i].getAttribute('type') == 'checkbox') {
+					if(arrayInput[i].checked == false) {						
+						arrayInput[i].checked = true;
+						var tmpString = arrayInput[i].getAttribute('onclick');
+						var arrayString = tmpString.split("'");
+						addUniv(arrayString[1], arrayString[3]);
+					}
 				}
 			}
 		}
-*/
 	</script>
 </head>
 <body>
@@ -150,26 +152,6 @@
 	    		<ul class="nav nav-list" id="listSelectedUniversity">
 				    <li class="nav-header">Information selected</li>
 				    <li>University checked:</li>
-				<!--
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-				    </li>
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-			    	</li>
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-			    	</li>
-			    -->
 			    	<div id="divListUniv"></div>
 				    <li class="divider" id="liDivider"></li>
 				    <li>
@@ -195,7 +177,7 @@
 				</form>
 				
     			
-	    		<table class="table table-hover">
+	    		<table class="table table-hover" id="displayUnivList">
 		    		<thead>
 			    		<tr>
 			    			<th>To Send</th>
@@ -211,8 +193,8 @@
 			    		</tr>
 		    		</thead>
 		    		<tbody>
-						<tr class="success" id="test">
-							<td><input type='checkbox' id="chk1" onClick="selectedUniv('University 1', '1')"></td>
+						<tr class="success" >
+							<td><input type='checkbox' id="chk1" onclick="selectedUniv('University 1', '1')"></td>
 							<td>1</td>
 							<td>University OK</td>
 							<td>3 Littlestone Road, New Romney, England</td>
@@ -248,10 +230,10 @@
 							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 						</tr>
 			    		<?php 
-			    		for($i=4;$i<=40;$i++)
+			    		for($i=4;$i<=80;$i++)
 			    		{
 			    			echo "<tr>
-			    			<td><input type='checkbox' id='chk".$i."' onClick=\"selectedUniv('University ".$i."', '".$i."')\"></td>
+			    			<td><input type='checkbox' id='chk".$i."' onclick=\"selectedUniv('University ".$i."', '".$i."')\"></td>
 			    			<td>".$i."</td>
 			    			<td>University ".$i."</td>
 			    			<td>3 Littlestone Road, New Romney, England</td>
@@ -268,8 +250,8 @@
 		    	</table>
 		    	<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"><i class="icon-plus"></i> Add an University</button>
-					<button class="btn btn-small">Check All</button>
-					<button class="btn btn-small">Uncheck All</button>
+					<button class="btn btn-small" onclick="selectAll()">Check All</button>
+					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
     			</div>
 		    </div>
 		</div>
@@ -300,7 +282,7 @@
 	
 	<div id="addUniversity" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+			<button type="button" class="closefor($i=4;$i<=40;$i++)" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="addUniversityLabel">Add an University</h3>
 		</div>
 			<div class="modal-body">
