@@ -9,12 +9,20 @@ class University extends CI_Controller
 
     public function index()
     {
-		$this->load->view('leftmenu');
+    	//echo "Hello world";
+		//$this->load->view('leftmenu');
+		$this->load->view('university/topmenu');
+		$this->load->view('university/leftmenu');
 		//~ $this->load->view('topmenu');
     }
     public function accueil()
     {
-		$this->load->view('leftmenu');
+    	//echo "Hello world";
+		//$this->load->view('leftmenu');
+		$this->load->view('university/topmenu');
+		$this->load->view('university/leftmenu');
 		//~ $this->load->view('topmenu');
     }
 }
+
+?>
