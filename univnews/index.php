@@ -123,56 +123,6 @@ body {
 	</script>
 </head>
 <body>
-<<<<<<< HEAD
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="index.php">University Newsletter Management</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-               </p>
-            <ul class="nav">
-              <li class="active"><a href="index.php">University <span class="badge badge-important">1</span></a></li>
-              <li><a href="interns.php">Interns</a></li>
-              <li><a href="newsletter.php">Newsletter <span class="badge badge-important">2</span></a></li>
-              <li><a href="guidelines.php"><i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
-				<li class="divider-vertical"></li>
-				<li><a href="admin.php">Administration</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid">
-	    <div class="row-fluid">
-	    	<div class="span2 ajust">
-	    	<div class="affix">
-	    		<ul class="nav nav-list" id="listSelectedUniversity">
-				    <li class="nav-header">Information selected</li>
-				    <li>University checked:</li>
-			    	<div id="divListUniv"></div>
-				    <li class="divider" id="liDivider"></li>
-				    <li>
-				    	<button class="btn btn-mini btn-primary" type="button" onclick="$('#sendingbox').modal('show')"><i class="icon-envelope icon-white"></i> Send Mail</button>
-				  		<button class="btn btn-mini btn-inverse" type="button" onclick="unselectAll()"><i class="icon-trash icon-white"></i> Empty List</button>
-				  	</li>
-	    		</ul>
-	    		</div>
-	    	</div>
-	    	<div class="span10">
-	    		<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUniversity'><i class="icon-plus"></i> Add an University</button>
-				    <button class="btn btn-small" onclick="selectAll()">Check All</button>
-				    <button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
-    			</div>
-    			
-=======
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -209,26 +159,6 @@ body {
 					<ul class="nav nav-list" id="listSelectedUniversity">
 						<li class="nav-header">Information selected</li>
 						<li>University checked:</li>
-						<!--
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-				    </li>
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-			    	</li>
-				    <li>
-				    	<label class="checkbox inline">
-				    		<input type="checkbox" id="inlineCheckbox1" value="option1" checked>
-				    		<a href='#myModal' data-toggle='modal'>University 1</a>
-				    	</label>
-			    	</li>
-			    -->
 						<div id="divListUniv"></div>
 						<li class="divider" id="liDivider"></li>
 						<li>
@@ -253,8 +183,6 @@ body {
 					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
 				</div>
-
->>>>>>> b317a4ed7a235d6df5945c5a12a7b692f7377d45
 				<form class="form-search pull-right">
 					<i class="icon-search"></i>
 					<div class="input-append">
@@ -263,9 +191,6 @@ body {
 						<button type="submit" class="btn">Search</button>
 					</div>
 				</form>
-<<<<<<< HEAD
-				
-    			
 	    		<table class="table table-hover" id="displayUnivList">
 		    		<thead>
 			    		<tr>
@@ -284,29 +209,6 @@ body {
 		    		<tbody>
 						<tr class="success" >
 							<td><input type='checkbox' id="chk1" onclick="selectedUniv('University 1', '1')"></td>
-=======
-
-
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>To Send</th>
-							<th>#</th>
-							<th><a><i class="icon-chevron-down"></i> Name</a></th>
-							<th>Address</th>
-							<th>Phone</th>
-							<th>Mail</th>
-							<th><a><i class="icon-chevron-down"></i> Country</a></th>
-							<th><a><i class="icon-chevron-up"></i> Subcription</a></th>
-							<th><a><i class="icon-chevron-down"></i> Checking State</a></th>
-							<th>View Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="success" id="test">
-							<td><input type='checkbox' id="chk1"
-								onClick="selectedUniv('University 1', '1')"></td>
->>>>>>> b317a4ed7a235d6df5945c5a12a7b692f7377d45
 							<td>1</td>
 							<td>University OK</td>
 							<td>3 Littlestone Road, New Romney, England</td>
@@ -341,7 +243,6 @@ body {
 							<td>Waiting</td>
 							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 						</tr>
-<<<<<<< HEAD
 			    		<?php 
 			    		for($i=4;$i<=80;$i++)
 			    		{
@@ -349,14 +250,6 @@ body {
 			    			<td><input type='checkbox' id='chk".$i."' onclick=\"selectedUniv('University ".$i."', '".$i."')\"></td>
 			    			<td>".$i."</td>
 			    			<td>University ".$i."</td>
-=======
-			    		<?php
-									for($i = 4; $i <= 40; $i ++) {
-										echo "<tr>
-			    			<td><input type='checkbox' id='chk" . $i . "' onClick=\"selectedUniv('University " . $i . "', '" . $i . "')\"></td>
-			    			<td>" . $i . "</td>
-			    			<td>University " . $i . "</td>
->>>>>>> b317a4ed7a235d6df5945c5a12a7b692f7377d45
 			    			<td>3 Littlestone Road, New Romney, England</td>
 			    			<td>0000 000 000</td>
 			    			<td>example@mail.com</td>
@@ -368,7 +261,6 @@ body {
 									}
 									?>
 		    		</tbody>
-<<<<<<< HEAD
 		    	</table>
 		    	<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"><i class="icon-plus"></i> Add an University</button>
@@ -376,17 +268,6 @@ body {
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
     			</div>
 		    </div>
-=======
-				</table>
-				<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button">
-						<i class="icon-plus"></i> Add an University
-					</button>
-					<button class="btn btn-small">Check All</button>
-					<button class="btn btn-small">Uncheck All</button>
-				</div>
-			</div>
->>>>>>> b317a4ed7a235d6df5945c5a12a7b692f7377d45
 		</div>
 	</div>
 	<!-- Modals -->
@@ -414,12 +295,8 @@ body {
 	<div id="addUniversity" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-<<<<<<< HEAD
-			<button type="button" class="closefor($i=4;$i<=40;$i++)" data-dismiss="modal" aria-hidden="true">x</button>
-=======
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
->>>>>>> b317a4ed7a235d6df5945c5a12a7b692f7377d45
 			<h3 id="addUniversityLabel">Add an University</h3>
 		</div>
 		<div class="modal-body">
