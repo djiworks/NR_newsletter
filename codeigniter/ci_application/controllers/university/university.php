@@ -2,7 +2,13 @@
  
 class University extends CI_Controller
 {
-	public $id;
+	private $id;
+	private $name;
+	private $address;
+	private $country;
+	private $subscription;
+	private $checking_state;
+	private $comment;
 	
 	public function __construct($id = false){
 		parent::__construct(); 
@@ -31,8 +37,8 @@ class University extends CI_Controller
 		$this->index();
     }
     
-     public function get()
-     {
+    public function get()
+    {
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('university_md');
 		$id = $ci->uri->segment(4);
@@ -41,19 +47,42 @@ class University extends CI_Controller
 		
 		exit (json_encode(
 							array(
-									"id" => $university->get_id(), 
-									"name" => $university->get_name(), 
-									"address" => $university->get_adress(),
-									"country" => $university->get_country(), 
-									"subscription" => $university->get_subscription(), 
-									"checking state" => $university->get_checking_state(),  
-									"comment" => $university->get_comment()
+									"id" => $university->getId(), 
+									"name" => $university->getName(), 
+									"address" => $university->getAdress(),
+									"country" => $country->getCountry(), 
+									"subscription" => $university->getSubscription(), 
+									"checking state" => $university->getCheckingState(),  
+									"comment" => $university->getComment()
 							)
 		));
 	 }
 
-     public function get()
-     {
-		 
+     public function getId() {
+		 return $this->id;
+	 }
+	 
+	 public function getName() {
+		 return $this->name;
+	 }
+	 
+	 public function getAdress() {
+		 return $this->address;
+	 }
+	 
+	 public function getCountry() {
+		 return $this->country;
+	 }
+	 
+	 public function getSubscription() {
+		 return $this->subscription;
+	 }
+	 
+	 public function getCheckingState() {
+		 return $this->checking_state;
+	 }
+	 
+	 public function getComment() {
+		 return $this->comment;
 	 }
 }
