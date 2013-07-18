@@ -2,7 +2,7 @@
 
 class University_md extends CI_Model
 {
-	public $table = "university";
+	 $table = "university";
 	
 	public function update($id, $name, $adresse, $country, $subscription, $checking_state){
 		 

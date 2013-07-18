@@ -56,4 +56,20 @@ class University extends CI_Controller
      {
 		 
 	 }
+	 
+	 public function initialiseValue(){
+		$result = $this->university_md->get($this->id);
+		
+		if($result->num_rows()){
+			$data = $result->row();
+			$this->name = $data->name;
+			$this->address = $data->address;
+			$this->country = $data->country;
+			$this->subscription = $data->subscription;
+			$this->checking_state = $data->checking_state;
+			$this->comment = $data->comment;
+			
+			}
+		}
+	}
 }
