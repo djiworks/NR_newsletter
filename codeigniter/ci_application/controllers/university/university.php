@@ -65,6 +65,8 @@ class University extends CI_Controller
 		$this->load->view('university/topmenu');
 		$this->load->view('university/leftmenu');
 		$this->load->view('university/footer');
+		$this->load->view('university/body');
+
     }
     
     public function accueil()
