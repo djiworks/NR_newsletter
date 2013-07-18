@@ -23,4 +23,9 @@ class University extends CI_Controller
 		$this->index();
     }
     
+     public function get()
+     {
+		 
+	 }
+
 }

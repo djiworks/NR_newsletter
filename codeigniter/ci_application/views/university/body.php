@@ -1,5 +1,3 @@
-	<div class="container-fluid">
-		<div class="row-fluid">
 			<div class="span10">
 				<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"
