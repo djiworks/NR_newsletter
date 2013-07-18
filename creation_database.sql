@@ -57,13 +57,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletters` (
   CONSTRAINT `fk_university_has_newsletter_university1`
     FOREIGN KEY (`id_university` )
     REFERENCES `mydb`.`university` (`id_university` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_university_has_newsletter_newsletter1`
     FOREIGN KEY (`id_newsletter` )
     REFERENCES `mydb`.`newsletter` (`id_newsletter` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -99,13 +99,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`recommended_by` (
   CONSTRAINT `fk_person_has_university_person1`
     FOREIGN KEY (`id_person` )
     REFERENCES `mydb`.`person` (`id_person` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_person_has_university_university1`
     FOREIGN KEY (`id_university` )
     REFERENCES `mydb`.`university` (`id_university` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -135,8 +135,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`contacts` (
   CONSTRAINT `fk_contacts_university1`
     FOREIGN KEY (`id_university` )
     REFERENCES `mydb`.`university` (`id_university` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -154,8 +154,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`phone` (
   CONSTRAINT `fk_table1_contacts1`
     FOREIGN KEY (`id_contacts` )
     REFERENCES `mydb`.`contacts` (`idcontacts` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -173,8 +173,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`mail` (
   CONSTRAINT `fk_mail_contacts1`
     FOREIGN KEY (`id_contacts` )
     REFERENCES `mydb`.`contacts` (`idcontacts` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -196,12 +196,12 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`users` (
     FOREIGN KEY (`id_person` )
     REFERENCES `mydb`.`person` (`id_person` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_users_role1`
     FOREIGN KEY (`id_role` )
     REFERENCES `mydb`.`role` (`id_role` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
