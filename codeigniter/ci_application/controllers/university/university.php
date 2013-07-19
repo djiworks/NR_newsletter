@@ -12,13 +12,12 @@ class University extends CI_Controller
 	
 	public function __construct($id = false){
 		parent::__construct(); 
-		if(isset($id)){
+		if($id){
 			$this->load->model('university_md');
 					
 			$this->id = $id;
 			$this->initialiseValue();	
 		}
-		
 	}
 
     public function index()
@@ -58,37 +57,50 @@ class University extends CI_Controller
 		));
 	 }
 
-     public function getId() {
-		 return $this->id;
-	 }
-	 
-	 public function getName() {
-		 return $this->name;
-	 }
-	 
-	 public function getAdress() {
-		 return $this->address;
-	 }
-	 
-	 public function getCountry() {
-		 return $this->country;
-	 }
-	 
-	 public function getSubscription() {
-		 return $this->subscription;
-	 }
-	 
-	 public function getCheckingState() {
-		 return $this->checking_state;
-	 }
-	 
-	 public function getComment() {
-		 return $this->comment;
-	 }
-	 
-	 public function initialiseValue(){
+	public function getId() {
+		return $this->id;
+	}
+
+	public function getName() {
+		return $this->name;
+	}
+
+	public function getAdress() {
+		return $this->address;
+	}
+
+	public function getCountry() {
+		return $this->country;
+	}
+
+	public function getSubscription() {
+		return $this->subscription;
+	}
+
+	public function getCheckingState() {
+		return $this->checking_state;
+	}
+
+	public function getComment() {
+	return $this->comment;
+	}
+
+	public static function addUniversity(){
+		$ci = new CI_CONTROLLER();
+		$ci->load->model('university_md');
+
+		$name = $ci->uri->segment(4);
+		$address = $ci->uri->segment(5);
+		$country = $ci->uri->segment(6);
+		$subscription = $ci->uri->segment(7);
+		$checking_state = $ci->uri->segment(8);
+	
+		$result = $ci->university_md->create($name, $address, $country, $subscription, $checking_state);
+	}
+
+	public function initialiseValue(){
 		$result = $this->university_md->get($this->id);
-		
+
 		if($result->num_rows()){
 			$data = $result->row();
 			$this->name = $data->name;
@@ -97,8 +109,6 @@ class University extends CI_Controller
 			$this->subscription = $data->subscription;
 			$this->checking_state = $data->checking_state;
 			$this->comment = $data->comment;
-			
-			}
 		}
 	}
 }

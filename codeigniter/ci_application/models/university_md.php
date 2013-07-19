@@ -2,12 +2,12 @@
 
 class University_md extends CI_Model
 {
-	 $table = "university";
+	private $table = "university";
 	
-	public function update($id, $name, $adresse, $country, $subscription, $checking_state){
+	public function update($id, $name, $address, $country, $subscription, $checking_state){
 		 
 		$this->db->set("name",$name)
-				 ->set("adresse",$adresse)
+				 ->set("address",$address)
 				 ->set("country",$country)
 				 ->set("subscription",$subscription)
 				 ->set("checking_state",$checking_state)
@@ -16,13 +16,13 @@ class University_md extends CI_Model
 	}
 	 
 	 public function get($id){
-		 return $this->db->where("id",$id)
-		 			 	 ->get($this->table);
+		return $this->db->where("id",$id)
+						->get($this->table);
 	 }
 	 
-	 public function create($name, $adresse, $country, $subscription, $checking_state){
+	 public function create($name, $address, $country, $subscription, $checking_state){
 		$this->db->set("name",$name)
-				 ->set("adresse",$adresse)
+				 ->set("address",$address)
 				 ->set("country",$country)
 				 ->set("subscription",$subscription)
 				 ->set("checking_state",$checking_state)

@@ -34,6 +34,10 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'development':
 			error_reporting(E_ALL);
+			
+			//Debut ajout Alexis
+			ini_set('display_errors', 1);
+			//Fin ajout Alexis
 		break;
 	
 		case 'testing':
