@@ -12,8 +12,11 @@ class University extends CI_Controller
 	
 	public function __construct($id = false){
 		parent::__construct(); 
+		$this->load->model('university_md');
+
+		$this->load->database();
+
 		if($id){
-			$this->load->model('university_md');
 					
 			$this->id = $id;
 			$this->initialiseValue();	
