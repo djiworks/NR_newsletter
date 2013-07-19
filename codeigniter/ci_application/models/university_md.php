@@ -11,12 +11,12 @@ class University_md extends CI_Model
 				 ->set("country",$country)
 				 ->set("subscription",$subscription)
 				 ->set("checking_state",$checking_state)
-				 ->where("id",$id)
+				 ->where("id_university",$id)
 				 ->update($this->table);
 	}
 	 
 	 public function get($id){
-		return $this->db->where("id",$id)
+		return $this->db->where("id_university",$id)
 						->get($this->table);
 	 }
 	 
@@ -31,7 +31,7 @@ class University_md extends CI_Model
 	 
 	 public function getSearchedUniversities($field, $value){
 		 return $this->db->query("
-					SELECT id
+					SELECT id_university
 					FROM ".$this->table."
 					WHERE ".$this->table.".".$field." LIKE '%".$value."%'
 			");

@@ -52,7 +52,7 @@ class University extends CI_Controller
 									"id" => $university->getId(), 
 									"name" => $university->getName(), 
 									"address" => $university->getAdress(),
-									"country" => $country->getCountry(), 
+									"country" => $university->getCountry(), 
 									"subscription" => $university->getSubscription(), 
 									"checking state" => $university->getCheckingState(),  
 									"comment" => $university->getComment()

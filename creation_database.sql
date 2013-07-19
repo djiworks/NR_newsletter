@@ -1,6 +1,6 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
@@ -14,10 +14,10 @@ DROP TABLE IF EXISTS `mydb`.`university` ;
 CREATE  TABLE IF NOT EXISTS `mydb`.`university` (
   `id_university` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
-  `adress` VARCHAR(255) NULL ,
+  `address` VARCHAR(255) NULL ,
   `country` VARCHAR(45) NULL ,
   `subscription` TINYINT(1) NULL ,
-  `checking state` INT NOT NULL ,
+  `checking_state` INT NOT NULL ,
   `comment` LONGTEXT NULL ,
   PRIMARY KEY (`id_university`) )
 ENGINE = InnoDB;
@@ -195,7 +195,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`users` (
   CONSTRAINT `fk_users_person1`
     FOREIGN KEY (`id_person` )
     REFERENCES `mydb`.`person` (`id_person` )
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_users_role1`
     FOREIGN KEY (`id_role` )
@@ -219,6 +219,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`ci_sessions` (
   PRIMARY KEY (`session_id`) )
 ENGINE = InnoDB;
 
+USE `mydb` ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
