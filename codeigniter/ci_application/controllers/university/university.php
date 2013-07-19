@@ -13,7 +13,6 @@ class University extends CI_Controller
 	public function __construct($id = false){
 		parent::__construct(); 
 		$this->load->model('university_md');
-
 		$this->load->database();
 
 		if($id){
@@ -25,13 +24,11 @@ class University extends CI_Controller
 
     public function index()
     {
-		//~ echo 'coucou';
 		$this->load->view('university/head');
 		$this->load->view('university/topmenu');
 		$this->load->view('university/leftmenu');
 		$this->load->view('university/body');
 		$this->load->view('university/footer');
-
     }
     
     public function accueil()
@@ -42,7 +39,6 @@ class University extends CI_Controller
     public function get()
     {
 		$ci = new CI_CONTROLLER();
-		$ci->load->model('university_md');
 		$id = $ci->uri->segment(4);
 		
 		$university = new University($id);
@@ -88,9 +84,10 @@ class University extends CI_Controller
 	return $this->comment;
 	}
 
-	public static function addUniversity(){
+	public function addUniversity(){
 		$ci = new CI_CONTROLLER();
-		$ci->load->model('university_md');
+		$this->load->model('university_md');
+		$this->load->database();
 
 		$name = $ci->uri->segment(4);
 		$address = $ci->uri->segment(5);
@@ -98,7 +95,18 @@ class University extends CI_Controller
 		$subscription = $ci->uri->segment(7);
 		$checking_state = $ci->uri->segment(8);
 	
-		$result = $ci->university_md->create($name, $address, $country, $subscription, $checking_state);
+		$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
+	}
+
+	public function addCommentOnUniversity(){
+		$ci = new CI_CONTROLLER();
+		$this->load->model('university_md');
+		$this->load->database();
+
+		$id = $ci->uri->segment(4);
+		$comment = $ci->uri->segment(5);
+	
+		$result = $this->university_md->addCommentOnUniversity($id, $comment);
 	}
 
 	public function initialiseValue(){
