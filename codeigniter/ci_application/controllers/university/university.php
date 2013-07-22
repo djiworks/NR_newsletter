@@ -26,10 +26,14 @@ class University extends CI_Controller
     public function index()
     {
 		//~ echo 'coucou';
+		
+		$data = array();
+		$data['allUniv'] = $this->getAllUniversities();
+		
 		$this->load->view('university/head');
 		$this->load->view('university/topmenu');
 		$this->load->view('university/leftmenu');
-		$this->load->view('university/body');
+		$this->load->view('university/body', $data);
 		$this->load->view('university/footer');
 
     }
@@ -38,6 +42,60 @@ class University extends CI_Controller
     {
 		$this->index();
     }
+    
+	public function getAllUniversities()
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->model('university_md');
+		$this->load->database();
+		$fetched = $ci->university_md->getAll();
+		
+		$result = "";		
+		$i = 1;
+		
+		foreach($fetched->result() as $ligne)
+		{
+			//Switching the state number to the real values
+			switch($ligne->checking_state) {
+				case 0:
+					$classUniv = "";
+					$state = "Approved";
+					break;
+				case 1:
+					$classUniv = "success";
+					$state = "Approved";
+					break;
+				case 2:
+					$classUniv = "warning";
+					$state = "Waiting";
+					break;
+				case 3:
+					$classUniv = "error";
+					$state = "Wrong";
+					break;
+			}
+			
+			$subcription = ($ligne->subscription == 1) ? "Yes" : "No";
+		
+			$result = $result."
+			<tr class='".$classUniv."'>
+				<td>
+					<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\")'>
+				</td>
+				<td>".$ligne->id_university."</td>
+				<td>".$ligne->name."</td>
+				<td>".$ligne->address."</td>
+				<td>".$ligne->phone."</td>
+				<td>".$ligne->mail."</td>
+				<td>".$ligne->country."</td>
+				<td>".$subcription."</td>
+				<td>".$state."</td>
+				<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+			</tr>";
+		}
+		
+		return $result;
+	}
     
     public function get()
     {
