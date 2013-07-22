@@ -12,9 +12,9 @@
 					Logged in as <a href="#" class="navbar-link">Username</a>
 				</p>
 				<ul class="nav">
-					<li class="active"><a href="index.php">University <span
+					<li><a href="index.php">University <span
 							class="badge badge-important">1</span></a></li>
-					<li><a href="interns.php">Interns</a></li>
+					<li class="active"><a href="interns.php">Interns</a></li>
 					<li><a href="newsletter.php">Newsletter <span
 							class="badge badge-important">2</span></a></li>
 					<li><a href="guidelines.php"><i
