@@ -76,12 +76,12 @@ class University extends CI_Controller
 			$result = $result."
 			<tr class='".$classUniv."'>
 				<td>
-					<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\")'>
+					<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
 				</td>
 				<td>".$ligne->id_university."</td>
 				<td>".$ligne->name."</td>
 				<td>".$ligne->address."</td>
-				<td>".$ligne->phone."</td>
+				<td>".$ligne->number."</td>
 				<td>".$ligne->mail."</td>
 				<td>".$ligne->country."</td>
 				<td>".$subcription."</td>

@@ -1,17 +1,17 @@
-		function selectedUniv (univName, univId) {
+		function selectedUniv (univName, univId, chkName) {
 			//Creation of variables
-			var chkName = "chk".concat(univId);
+			//~ var chkName = "chk".concat(univId);
 			var checkBoxState = document.getElementById(chkName).checked;
 			
 			//Creation or removal of the universty from the list
 			if(checkBoxState === true) {
-				addUniv(univName, univId);
+				addUniv(univName, univId, chkName);
 			} else {
-				removeUniv(univId);
+				removeUniv(univId, chkName);
 			}
 		}
 	
-		function addUniv(univName, univId) {
+		function addUniv(univName, univId, chkName) {
 			//Creation of the new li element
 			var newElementInList = document.createElement('li');
 			newElementInList.id = "li".concat(univId);
@@ -26,7 +26,7 @@
 			newInput.id = "inlineCheckbox1";
 			newInput.value = "option1";
 			newInput.checked = true;
-			newInput.setAttribute("onclick", "removeUniv("+univId+")");
+			newInput.setAttribute("onclick", "removeUniv(\""+univId+"\",\""+chkName+"\")");
 			
 			//Creation of the link
 			var newLink = document.createElement('a');
@@ -44,7 +44,7 @@
 			document.getElementById("divListUniv").appendChild(newElementInList);
 		}
 		
-		function removeUniv(univId) {
+		function removeUniv(univId, chkName) {
 			//Creation of variables
 			var listElementToRemove = "li".concat(univId);
 			var listElem = document.getElementById(listElementToRemove);
@@ -53,7 +53,7 @@
 			listElem.parentNode.removeChild(listElem);
 			
 			//Uncheck the checkbox
-			document.getElementById("chk"+univId).checked = false;
+			document.getElementById(chkName).checked = false;
 		}
 		
 		function unselectAll() {
@@ -85,7 +85,7 @@
 					if(arrayInput[i].checked == false) {						
 						arrayInput[i].checked = true;
 						var tmpString = arrayInput[i].getAttribute('onclick');
-						var arrayString = tmpString.split("'");
+						var arrayString = tmpString.split('"');
 						addUniv(arrayString[1], arrayString[3]);
 					}
 				}
