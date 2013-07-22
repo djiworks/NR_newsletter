@@ -61,11 +61,11 @@ class University_md extends CI_Model
 												 m.mail, 
 												 p.phone
 									FROM ".$this->table." AS u 
-										INNER JOIN contacts AS c 
+										INNER JOIN contact AS c 
 										INNER JOIN phone AS p 
 										INNER JOIN mail AS m
 									ON u.id_university = c.id_university
-										AND c.idcontacts = p.id_contacts
-										AND c.idcontacts = m.id_contacts;");
+										AND c.id_contact = p.id_contact
+										AND c.id_contact = m.id_contact;");
 	}
 }
