@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS `mydb`.`newsletter` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`newsletter` (
   `id_newsletter` INT NOT NULL AUTO_INCREMENT ,
+  `type` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `description` VARCHAR(255) NULL ,
   `path` VARCHAR(100) NULL ,
@@ -43,11 +44,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`sent_newsletters`
+-- Table `mydb`.`sent_newsletter_university`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`sent_newsletters` ;
+DROP TABLE IF EXISTS `mydb`.`sent_newsletter_university` ;
 
-CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletters` (
+CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletter_university` (
   `id_university` INT NOT NULL ,
   `id_newsletter` INT NOT NULL ,
   `sending_date` DATETIME NULL ,
@@ -206,17 +207,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`ci_sessions`
+-- Table `mydb`.`sent_newsletter_person`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`ci_sessions` ;
+DROP TABLE IF EXISTS `mydb`.`sent_newsletter_person` ;
 
-CREATE  TABLE IF NOT EXISTS `mydb`.`ci_sessions` (
-  `session_id` VARCHAR(40) NOT NULL DEFAULT '0' ,
-  `ip_address` VARCHAR(16) NOT NULL DEFAULT '0' ,
-  `user_agent` VARCHAR(120) NOT NULL ,
-  `last_activity` INT(10) UNSIGNED NOT NULL DEFAULT 0 ,
-  `user_data` TEXT NOT NULL ,
-  PRIMARY KEY (`session_id`) )
+CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletter_person` (
+  `newsletter_id_newsletter` INT NOT NULL ,
+  `person_id_person` INT NOT NULL ,
+  `sending_date` DATETIME NULL ,
+  PRIMARY KEY (`newsletter_id_newsletter`, `person_id_person`) ,
+  INDEX `fk_newsletter_has_person_person1_idx` (`person_id_person` ASC) ,
+  INDEX `fk_newsletter_has_person_newsletter1_idx` (`newsletter_id_newsletter` ASC) ,
+  CONSTRAINT `fk_newsletter_has_person_newsletter1`
+    FOREIGN KEY (`newsletter_id_newsletter` )
+    REFERENCES `mydb`.`newsletter` (`id_newsletter` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_newsletter_has_person_person1`
+    FOREIGN KEY (`person_id_person` )
+    REFERENCES `mydb`.`person` (`id_person` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 USE `mydb` ;
