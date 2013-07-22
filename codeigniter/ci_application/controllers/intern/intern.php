@@ -26,7 +26,6 @@ class Intern extends CI_Controller
     {
 		$this->load->view('intern/head');
 		$this->load->view('intern/topmenu');
-		//~ $this->load->view('intern/leftmenu');
 		$this->load->view('intern/body');
 		$this->load->view('intern/footer');
     }
