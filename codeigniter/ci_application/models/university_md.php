@@ -50,5 +50,22 @@ class University_md extends CI_Model
 				 ->delete($this->table);	
 	}
 	 
-	 
+	public function getAll() {
+		return $this->db->query("SELECT DISTINCT u.id_university, 
+												 u.name, 
+												 u.address, 
+												 u.country, 
+												 u.subscription, 
+												 u.checking_state, 
+												 u.comment, 
+												 m.mail, 
+												 p.phone
+									FROM ".$this->table." AS u 
+										INNER JOIN contacts AS c 
+										INNER JOIN phone AS p 
+										INNER JOIN mail AS m
+									ON u.id_university = c.id_university
+										AND c.idcontacts = p.id_contacts
+										AND c.idcontacts = m.id_contacts;");
+	}
 }

@@ -31,6 +31,8 @@
 			    		</tr>
 		    		</thead>
 		    		<tbody>
+		    			<?php echo $allUniv; ?>
+		    		<!--
 						<tr class="success" >
 							<td><input type='checkbox' id="chk1" onclick="selectedUniv('University 1', '1')"></td>
 							<td>1</td>
@@ -83,7 +85,7 @@
 			    			<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
 			    		</tr>";
 									}
-									?>
+									?>-->
 		    		</tbody>
 		    	</table>
 		    	<div class="btn-group">
