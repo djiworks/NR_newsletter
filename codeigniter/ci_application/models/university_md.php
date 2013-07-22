@@ -15,6 +15,14 @@ class University_md extends CI_Model
 				 ->update($this->table);
 	}
 	 
+	 public function addCommentOnUniversity($id, $comment){
+		 return $this->db->query("
+		 			UPDATE ".$this->table."
+		 			SET comment = CONCAT(comment,  '".$comment."')
+					WHERE ".$this->table.".id_university = " .$id
+					);
+	 }
+	 
 	 public function get($id){
 		return $this->db->where("id_university",$id)
 						->get($this->table);
