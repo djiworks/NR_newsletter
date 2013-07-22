@@ -59,7 +59,7 @@ class University_md extends CI_Model
 												 u.checking_state, 
 												 u.comment, 
 												 m.mail, 
-												 p.phone
+												 p.number
 									FROM ".$this->table." AS u 
 										INNER JOIN contact AS c 
 										INNER JOIN phone AS p 
