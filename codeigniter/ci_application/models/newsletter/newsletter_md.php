@@ -38,6 +38,13 @@ class Newsletter_md extends CI_Model
 	}
 	 
 	public function getAll() {
-
+		return $this->db->query("
+			SELECT n.id_newsletter,
+				   n.name,
+				   n.description,
+				   n.creation_date,
+				   n.checking_state,
+				   n.cover
+				FROM ".$this->table." AS n;");
 	}
 }

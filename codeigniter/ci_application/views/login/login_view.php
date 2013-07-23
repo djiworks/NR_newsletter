@@ -5,7 +5,7 @@
 				<?php echo validation_errors(); ?>
 		</div>
 		<?php endif; ?>
-		<?php echo form_open('verifylogin'); ?>
+		<?php echo form_open('login/verifylogin'); ?>
 		<form>
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<input type="text" class="input-block-level" placeholder="Username" id="username" name="username"> 

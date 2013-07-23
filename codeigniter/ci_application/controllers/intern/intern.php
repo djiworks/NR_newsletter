@@ -123,8 +123,6 @@ class Intern extends CI_Controller
 		$fetched = $ci->intern_md->getAll();
 		
 		$result = "";		
-		$i = 1;
-		
 		$id_person = -1;
 		
 		foreach($fetched->result() as $ligne)

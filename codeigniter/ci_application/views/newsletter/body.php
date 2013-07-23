@@ -18,7 +18,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="success">
+				<?php echo $allNews; ?>
+				<!--<tr class="success">
 					<td><img class="media-object" src="/assets/images/ban.png" /></td>
 					<td>1</td>
 					<td>News 1</td>
@@ -57,7 +58,7 @@
 			    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
 			    		</tr>";
 									}
-									?>
+									?>-->
 		    		</tbody>
 		</table>
 	</div>
