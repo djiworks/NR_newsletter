@@ -4,6 +4,8 @@ class University_md extends CI_Model
 {
 	private $table = "university";
 	private $table2 = "contact";
+	private $table3 = "phone";
+	private $table4 = "mail";
 	
 	public function update($id, $name, $address, $country, $subscription, $checking_state){
 		 
@@ -80,7 +82,13 @@ class University_md extends CI_Model
 							0 as mail, 
 							0 as number
 				FROM ".$this->table." AS u 
-				WHERE u.id_university NOT IN (SELECT DISTINCT id_university
-												  FROM ".$this->table2.");");
+				WHERE u.id_university NOT IN (SELECT DISTINCT u.id_university
+												  FROM ".$this->table." AS u 
+												  	  INNER JOIN ".$this->table2." AS c 
+													  INNER JOIN ".$this->table3." AS p 
+													  INNER JOIN ".$this->table4." AS m
+												  ON u.id_university = c.id_university
+													  AND c.id_contact = p.id_contact
+													  AND c.id_contact = m.id_contact);");
 	}
 }

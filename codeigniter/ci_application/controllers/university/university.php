@@ -55,7 +55,7 @@ class University extends CI_Controller
 			switch($ligne->checking_state) {
 				case 0:
 					$classUniv = "";
-					$state = "Approved";
+					$state = "First newsletter sent";
 					break;
 				case 1:
 					$classUniv = "success";

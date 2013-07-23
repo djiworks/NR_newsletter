@@ -164,10 +164,8 @@
 					</div>
 				</div>
 				
-				<div class="divider"></div>
-				
 				<div class="modal-header">
-					<h4 id="addUniversityLabel">Add an contact link to the university</h4>
+					<h4 id="addUniversityLabel">Add a contact for this university</h4>
 				</div>
 				
 				<div class="control-group">
