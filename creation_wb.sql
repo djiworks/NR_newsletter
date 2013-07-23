@@ -22,7 +22,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`university` (
   PRIMARY KEY (`id_university`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -43,7 +43,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`contact` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -64,7 +64,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`mail` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 7
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -86,7 +86,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`newsletter` (
   PRIMARY KEY (`id_newsletter`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -105,7 +105,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`person` (
   PRIMARY KEY (`id_person`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -127,7 +127,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`phone` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 11
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -153,7 +153,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`recommended_by` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -167,7 +167,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`role` (
   PRIMARY KEY (`id_role`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -193,7 +193,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletter_person` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -219,7 +219,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`sent_newsletter_university` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -248,7 +248,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`user` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8;
 
 USE `mydb` ;
 
