@@ -111,4 +111,80 @@ class Intern extends CI_Controller
 			$this->work_until = $data->work_until;
 		}
 	}
+	
+	public function getAllInterns()
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->model('intern_md');
+		$this->load->database();
+		$fetched = $ci->intern_md->getAll();
+		
+		$result = "";		
+		$i = 1;
+		
+		foreach($fetched->result() as $ligne)
+		{
+			//Switching the state number to the real values
+			switch($ligne->checking_state) {
+				case 0:
+					$classUniv = "";
+					$state = "Approved";
+					break;
+				case 1:
+					$classUniv = "success";
+					$state = "Approved";
+					break;
+				case 2:
+					$classUniv = "warning";
+					$state = "Waiting";
+					break;
+				case 3:
+					$classUniv = "error";
+					$state = "Wrong";
+					break;
+			}
+			
+			$subcription = ($ligne->subscription == 1) ? "Yes" : "No";
+		
+			if(!($ligne->mail)||!($ligne->number))
+			{
+				
+				$result = $result."
+				<tr class='".$classUniv."'>
+					<td>
+					NA
+					</td>
+					<td>".$ligne->id_university."</td>
+					<td>".$ligne->name."</td>
+					<td>".$ligne->address."</td>
+					<td>No information</td>
+					<td>No information</td>
+					<td>".$ligne->country."</td>
+					<td>".$subcription."</td>
+					<td>".$state."</td>
+					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+				</tr>";
+			}
+			else
+			{
+				$result = $result."
+				<tr class='".$classUniv."'>
+					<td>
+						<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
+					</td>
+					<td>".$ligne->id_university."</td>
+					<td>".$ligne->name."</td>
+					<td>".$ligne->address."</td>
+					<td>".$ligne->number."</td>
+					<td>".$ligne->mail."</td>
+					<td>".$ligne->country."</td>
+					<td>".$subcription."</td>
+					<td>".$state."</td>
+					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+				</tr>";
+			}
+		}
+		
+		return $result;
+	}
 }

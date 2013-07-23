@@ -143,20 +143,6 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputEmail">Email</label>
-					<div class="controls">
-						<input type="text" id="inputEmail" placeholder="Email">
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label" for="inputPhone">Phone</label>
-					<div class="controls">
-						<input type="text" id="inputPhone" placeholder="Phone">
-					</div>
-				</div>
-
-				<div class="control-group">
 					<label class="control-label" for="inputCountry">Country</label>
 					<div class="controls">
 						<input type="text" id="inputCountry" placeholder="Country">
@@ -175,6 +161,40 @@
 								<i class="icon-plus icon-white"></i>
 							</button>
 						</div>
+					</div>
+				</div>
+				
+				<div class="divider"></div>
+				
+				<div class="modal-header">
+					<h4 id="addUniversityLabel">Add an contact link to the university</h4>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="inputNameContact">Contact name</label>
+					<div class="controls">
+						<input type="text" id="inputNameContact" placeholder="Contact name">
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="inputInfoContact">Additionnal Information</label>
+					<div class="controls">
+						<textarea rows="3" placeholder="Additionnal Information"></textarea>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">Email</label>
+					<div class="controls">
+						<input type="text" id="inputEmail" placeholder="Email">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputPhone">Phone</label>
+					<div class="controls">
+						<input type="text" id="inputPhone" placeholder="Phone">
 					</div>
 				</div>
 

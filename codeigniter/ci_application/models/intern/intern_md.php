@@ -3,6 +3,9 @@
 class Intern_md extends CI_Model
 {
 	private $table = "intern";
+	private $table2 = "person";
+	private $table3 = "recommended_by";
+	private $table4 = "university";
 	
 	public function update($id, $first_name, $last_name, $country, $phone, $mail){
 		 
@@ -43,6 +46,23 @@ class Intern_md extends CI_Model
 		$this->db->where('id_intern', $id_intern)
 				 ->delete($this->table);	
 	}
-	 
-	 
+	
+	public function getAll() {
+		return $this->db->query("
+			SELECT p.id_person, 
+			p.first_name, 
+			p.last_name, 
+			p.phone, 
+			p.mail, 
+			p.worked_until, 
+			r.id_person, 
+			r.id_university, 
+			u.id_university, 
+			u.name
+				FROM ".$this->table2." AS p
+					LEFT OUTER JOIN ".$this->table3." AS r 
+						ON p.id_person = r.id_person
+					LEFT OUTER JOIN ".$this->table4." AS u 
+						ON r.id_university = u.id_university");
+	}	 
 }

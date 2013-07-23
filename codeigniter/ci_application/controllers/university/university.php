@@ -73,21 +73,43 @@ class University extends CI_Controller
 			
 			$subcription = ($ligne->subscription == 1) ? "Yes" : "No";
 		
-			$result = $result."
-			<tr class='".$classUniv."'>
-				<td>
-					<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
-				</td>
-				<td>".$ligne->id_university."</td>
-				<td>".$ligne->name."</td>
-				<td>".$ligne->address."</td>
-				<td>".$ligne->number."</td>
-				<td>".$ligne->mail."</td>
-				<td>".$ligne->country."</td>
-				<td>".$subcription."</td>
-				<td>".$state."</td>
-				<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-			</tr>";
+			if(!($ligne->mail)||!($ligne->number))
+			{
+				
+				$result = $result."
+				<tr class='".$classUniv."'>
+					<td>
+					NA
+					</td>
+					<td>".$ligne->id_university."</td>
+					<td>".$ligne->name."</td>
+					<td>".$ligne->address."</td>
+					<td>No information</td>
+					<td>No information</td>
+					<td>".$ligne->country."</td>
+					<td>".$subcription."</td>
+					<td>".$state."</td>
+					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+				</tr>";
+			}
+			else
+			{
+				$result = $result."
+				<tr class='".$classUniv."'>
+					<td>
+						<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
+					</td>
+					<td>".$ligne->id_university."</td>
+					<td>".$ligne->name."</td>
+					<td>".$ligne->address."</td>
+					<td>".$ligne->number."</td>
+					<td>".$ligne->mail."</td>
+					<td>".$ligne->country."</td>
+					<td>".$subcription."</td>
+					<td>".$state."</td>
+					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+				</tr>";
+			}
 		}
 		
 		return $result;

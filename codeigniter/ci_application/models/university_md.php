@@ -3,6 +3,7 @@
 class University_md extends CI_Model
 {
 	private $table = "university";
+	private $table2 = "contact";
 	
 	public function update($id, $name, $address, $country, $subscription, $checking_state){
 		 
@@ -51,21 +52,35 @@ class University_md extends CI_Model
 	}
 	 
 	public function getAll() {
-		return $this->db->query("SELECT DISTINCT u.id_university, 
-												 u.name, 
-												 u.address, 
-												 u.country, 
-												 u.subscription, 
-												 u.checking_state, 
-												 u.comment, 
-												 m.mail, 
-												 p.number
-									FROM ".$this->table." AS u 
-										INNER JOIN contact AS c 
-										INNER JOIN phone AS p 
-										INNER JOIN mail AS m
-									ON u.id_university = c.id_university
-										AND c.id_contact = p.id_contact
-										AND c.id_contact = m.id_contact;");
+		return $this->db->query("
+			SELECT DISTINCT u.id_university, 
+							u.name, 
+							u.address, 
+							u.country, 
+							u.subscription, 
+							u.checking_state, 
+							u.comment, 
+							m.mail, 
+							p.number
+			FROM ".$this->table." AS u 
+				INNER JOIN contact AS c 
+				INNER JOIN phone AS p 
+				INNER JOIN mail AS m
+			ON u.id_university = c.id_university
+				AND c.id_contact = p.id_contact
+				AND c.id_contact = m.id_contact
+			UNION
+			SELECT DISTINCT u.id_university, 
+							u.name, 
+							u.address, 
+							u.country, 
+							u.subscription, 
+							u.checking_state, 
+							u.comment, 
+							0 as mail, 
+							0 as number
+				FROM ".$this->table." AS u 
+				WHERE u.id_university NOT IN (SELECT DISTINCT id_university
+												  FROM ".$this->table2.");");
 	}
 }
