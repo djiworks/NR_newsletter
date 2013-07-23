@@ -1,8 +1,8 @@
 INSERT INTO `university` (`id_university`, `name`, `address`, `country`, `subscription`, `checking_state`, `comment`) VALUES
 (1, 'ESIROI', 'La reunion', 'France', NULL, 0, NULL),
-(2, 'Université de Paris III', 'Paris', 'France', NULL, 0, NULL),
-(3, 'Université de Bordeaux II', 'Bordeaux', 'France', NULL, 0, NULL),
-(4, 'Universidad de Cristobal', 'Madrid', 'Spain', NULL, 0, NULL),
+(2, 'Université de Paris III', 'Paris', 'France', NULL, 1, NULL),
+(3, 'Université de Bordeaux II', 'Bordeaux', 'France', NULL, 2, NULL),
+(4, 'Universidad de Cristobal', 'Madrid', 'Spain', NULL, 3, NULL),
 (5, 'Universidad de PortoPaga', 'Millan', 'Italy', NULL, 0, NULL);
 
 INSERT INTO `role` (`id_role`, `name`) VALUES

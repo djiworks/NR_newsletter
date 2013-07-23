@@ -165,7 +165,7 @@ class University extends CI_Controller
 
 	public function addUniversity(){
 		$ci = new CI_CONTROLLER();
-		$this->load->model('university_md');
+		$this->load->model('university/university_md');
 		$this->load->database();
 
 		$name = $ci->uri->segment(4);
@@ -179,7 +179,7 @@ class University extends CI_Controller
 
 	public function addCommentOnUniversity(){
 		$ci = new CI_CONTROLLER();
-		$this->load->model('university_md');
+		$this->load->model('university/university_md');
 		$this->load->database();
 
 		$id = $ci->uri->segment(4);
