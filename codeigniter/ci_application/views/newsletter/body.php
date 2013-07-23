@@ -1,7 +1,7 @@
 	<div class="container">
 		<div class="btn-group">
 			<button class="btn btn-small btn btn-info" type="button"
-				onclick="window.location.href = 'mail.php';">
+				onclick="window.location.href = '/index.php/newsletter/newsletter/mail';">
 				<i class="icon-plus"></i> Add a Newsletter
 			</button>
 		</div>
@@ -19,28 +19,28 @@
 			</thead>
 			<tbody>
 				<tr class="success">
-					<td><img class="media-object" src="./img/ban.png" /></td>
+					<td><img class="media-object" src="/assets/images/ban.png" /></td>
 					<td>1</td>
 					<td>News 1</td>
-					<td>Description of INternship UK first try</td>
+					<td>Description of Internship UK first try</td>
 					<td>07/07/2013</td>
 					<td>Approved</td>
 					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
 				</tr>
 				<tr class="error">
-					<td><img class="media-object" src="./img/ban.png" /></td>
+					<td><img class="media-object" src="/assets/images/ban.png" /></td>
 					<td>1</td>
 					<td>News 1</td>
-					<td>Description of INternship UK first try</td>
+					<td>Description of Internship UK first try</td>
 					<td>07/07/2013</td>
 					<td>Wrong</td>
 					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
 				</tr>
 				<tr class="warning">
-					<td><img class="media-object" src="./img/ban.png" /></td>
+					<td><img class="media-object" src="/assets/images/ban.png" /></td>
 					<td>1</td>
 					<td>News 1</td>
-					<td>Description of INternship UK first try</td>
+					<td>Description of Internship UK first try</td>
 					<td>07/07/2013</td>
 					<td>Waiting</td>
 					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
@@ -48,7 +48,7 @@
 			    		<?php
 									for($i = 4; $i <= 40; $i ++) {
 										echo "<tr>
-			    			<td><img class='media-object' data-src='holder/holder.js/80x100'/></td>
+			    			<td><img class='media-object' data-src='/assets/holder/holder.js/80x100'/></td>
 			    			<td>" . $i . "</td>
 			    			<td>News 1</td>
 			    			<td>Description of INternship UK first try</td>
@@ -72,7 +72,7 @@
 		<div class="modal-body">
 			<div class="media">
 				<a class="pull-left" href="#"> <img class="media-object"
-					data-src="holder/holder.js/150x200">
+					data-src="/assets/holder/holder.js/150x200">
 				</a>
 				<div class="media">Description: Description of INternship UK first
 					try File: /xsp/file/news/fichier.pdf Status: Waiting Receiver:

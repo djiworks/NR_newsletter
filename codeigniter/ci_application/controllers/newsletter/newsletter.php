@@ -32,6 +32,18 @@ class Newsletter extends CI_Controller
     {
 		$this->index();
     }
+       
+    public function mail()
+    {
+		//~ $data = array();
+		//~ $data['allUniv'] = $this->getAllNewsletters();
+		
+		$this->load->view('newsletter/head');
+		$this->load->view('newsletter/topmenu');
+		//~ $this->load->view('newsletter/body');
+		//~ $this->load->view('newsletter/body', $data);
+		$this->load->view('newsletter/footer');
+    }
     
 	public function getAllUniversities()
 	{
