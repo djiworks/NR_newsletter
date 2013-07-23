@@ -40,7 +40,7 @@ class Newsletter extends CI_Controller
 		
 		$this->load->view('newsletter/head');
 		$this->load->view('newsletter/topmenu');
-		//~ $this->load->view('newsletter/body');
+		$this->load->view('newsletter/mail');
 		//~ $this->load->view('newsletter/body', $data);
 		$this->load->view('newsletter/footer');
     }
