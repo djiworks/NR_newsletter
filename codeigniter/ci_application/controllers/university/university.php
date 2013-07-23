@@ -12,7 +12,7 @@ class University extends CI_Controller
 	
 	public function __construct($id = false){
 		parent::__construct(); 
-		$this->load->model('university_md');
+		$this->load->model('university/university_md');
 		$this->load->database();
 
 		if($id){
@@ -42,7 +42,7 @@ class University extends CI_Controller
 	public function getAllUniversities()
 	{
 		$ci = new CI_CONTROLLER();
-		$ci->load->model('university_md');
+		$ci->load->model('university/university_md');
 		$this->load->database();
 		$fetched = $ci->university_md->getAll();
 		

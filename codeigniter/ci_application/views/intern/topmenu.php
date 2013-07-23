@@ -6,18 +6,18 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="brand" href="../university/university/accueil">University Newsletter Management</a>
+			<a class="brand" href="/index.php/university/university/">University Newsletter Management</a>
 			<div class="nav-collapse collapse">
 				<p class="navbar-text pull-right">
 					Logged in as <a href="#" class="navbar-link">Username</a>
 				</p>
 				<ul class="nav">
-					<li><a href="../university/university/">University <span
+					<li><a href="/index.php/university/university">University <span
 							class="badge badge-important">1</span></a></li>
-					<li class="active"><a href="accueil">Interns</a></li>
-					<li><a href="newsletter.php">Newsletter <span
+					<li class="active"><a href="/index.php/intern/intern">Interns</a></li>
+					<li><a href="/index.php/newsletter/newsletter">Newsletter <span
 							class="badge badge-important">2</span></a></li>
-					<li><a href="guidelines.php"><i
+					<li><a href="/index.php/guidelines/guidelines"><i
 							class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
 				</ul>
 			</div>
