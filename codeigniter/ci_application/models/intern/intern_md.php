@@ -50,19 +50,20 @@ class Intern_md extends CI_Model
 	public function getAll() {
 		return $this->db->query("
 			SELECT p.id_person, 
-			p.first_name, 
-			p.last_name, 
-			p.phone, 
-			p.mail, 
-			p.worked_until, 
-			r.id_person, 
-			r.id_university, 
-			u.id_university, 
-			u.name
+				   p.first_name, 
+				   p.last_name, 
+				   p.country, 
+				   p.phone, 
+				   p.mail, 
+				   p.worked_until, 
+				   r.id_person, 
+				   r.id_university, 
+				   r.is_student, 
+				   u.id_university, 
+				   u.name
 				FROM ".$this->table2." AS p
-					LEFT OUTER JOIN ".$this->table3." AS r 
-						ON p.id_person = r.id_person
-					LEFT OUTER JOIN ".$this->table4." AS u 
-						ON r.id_university = u.id_university");
+					LEFT OUTER JOIN ".$this->table3." AS r ON p.id_person = r.id_person
+					LEFT OUTER JOIN ".$this->table4." AS u ON r.id_university = u.id_university
+				ORDER BY p.id_person, r.is_student DESC;");
 	}	 
 }

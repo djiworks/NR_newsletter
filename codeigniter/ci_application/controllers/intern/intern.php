@@ -24,9 +24,12 @@ class Intern extends CI_Controller
 
     public function index()
     {
+		$data = array();
+		$data['allInterns'] = $this->getAllInterns();
+		
 		$this->load->view('intern/head');
 		$this->load->view('intern/topmenu');
-		$this->load->view('intern/body');
+		$this->load->view('intern/body', $data);
 		$this->load->view('intern/footer');
     }
     
@@ -115,73 +118,38 @@ class Intern extends CI_Controller
 	public function getAllInterns()
 	{
 		$ci = new CI_CONTROLLER();
-		$ci->load->model('intern_md');
+		$ci->load->model('intern/intern_md');
 		$this->load->database();
 		$fetched = $ci->intern_md->getAll();
 		
 		$result = "";		
 		$i = 1;
 		
+		$id_person = -1;
+		
 		foreach($fetched->result() as $ligne)
 		{
-			//Switching the state number to the real values
-			switch($ligne->checking_state) {
-				case 0:
-					$classUniv = "";
-					$state = "Approved";
-					break;
-				case 1:
-					$classUniv = "success";
-					$state = "Approved";
-					break;
-				case 2:
-					$classUniv = "warning";
-					$state = "Waiting";
-					break;
-				case 3:
-					$classUniv = "error";
-					$state = "Wrong";
-					break;
-			}
-			
-			$subcription = ($ligne->subscription == 1) ? "Yes" : "No";
-		
-			if(!($ligne->mail)||!($ligne->number))
-			{
+			if($id_person != $ligne->id_person) {
+				$result = $result."
+				<tr>
+					<td>".$ligne->id_person."</td>
+					<td>".$ligne->first_name." ".$ligne->last_name."</td>
+					<td>".$ligne->phone."</td>
+					<td>".$ligne->mail."</td>";
+					
+				if($ligne->is_student) {
+					$result = $result."<td>".$ligne->name."</td>";
+				} else {
+					$result = $result."<td></td>";
+				}
 				
 				$result = $result."
-				<tr class='".$classUniv."'>
-					<td>
-					NA
-					</td>
-					<td>".$ligne->id_university."</td>
-					<td>".$ligne->name."</td>
-					<td>".$ligne->address."</td>
-					<td>No information</td>
-					<td>No information</td>
 					<td>".$ligne->country."</td>
-					<td>".$subcription."</td>
-					<td>".$state."</td>
-					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+					<td>".$ligne->worked_until."</td>
+					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
 				</tr>";
-			}
-			else
-			{
-				$result = $result."
-				<tr class='".$classUniv."'>
-					<td>
-						<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
-					</td>
-					<td>".$ligne->id_university."</td>
-					<td>".$ligne->name."</td>
-					<td>".$ligne->address."</td>
-					<td>".$ligne->number."</td>
-					<td>".$ligne->mail."</td>
-					<td>".$ligne->country."</td>
-					<td>".$subcription."</td>
-					<td>".$state."</td>
-					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-				</tr>";
+				
+				$id_person = $ligne->id_person;
 			}
 		}
 		

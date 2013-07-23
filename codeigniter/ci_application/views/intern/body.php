@@ -10,29 +10,30 @@
 				<tr>
 					<th>#</th>
 					<th>Name</th>
-					<th>Address</th>
 					<th>Phone</th>
 					<th>Mail</th>
 					<th>University</th>
 					<th>Country</th>
+					<th>Work until</th>
 					<th>View Details</th>
 				</tr>
 			</thead>
 			<tbody>
-		    		<?php
-								for($i = 1; $i <= 50; $i ++) {
-									echo "<tr>
-		    			<td>" . $i . "</td>
-		    			<td>Intern " . $i . "</td>
-		    			<td>3 Littlestone Road, New Romney, England</td>
-		    			<td>0000 000 000</td>
-		    			<td>example@mail.com</td>
-		    			<td>University 1</td>
-		    			<td>France</td>
-		    			<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
-		    		</tr>";
-								}
-								?>
+				<?php echo $allInterns; ?>
+		    		<!--<?php
+						for($i = 1; $i <= 50; $i ++) {
+							echo "<tr>
+									  <td>" . $i . "</td>
+									  <td>Intern " . $i . "</td>
+									  <td>3 Littlestone Road, New Romney, England</td>
+									  <td>0000 000 000</td>
+									  <td>example@mail.com</td>
+									  <td>University 1</td>
+									  <td>France</td>
+									  <td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+								  </tr>";
+						}
+								?>-->
 	    		</tbody>
 		</table>
 	</div>
