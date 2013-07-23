@@ -1,7 +1,7 @@
 <div class="container">
-	<h1>Guideline</h1>
+	<h1>Guidelines</h1>
 	<p>
-		Here you are all guideline regarding how to manager your universities. Please keep you inform about update and follow these instructions.
+		Here you are all guidelines regarding how to manager your universities. Please keep you inform about update and follow these instructions.
 	</p>
 	<ul class="nav nav-tabs">
 	    <li class="active"><a href="#script" data-toggle="tab">Script</a></li>
