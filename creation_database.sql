@@ -355,3 +355,7 @@ ALTER TABLE `sent_newsletter_university`
 ALTER TABLE `user`
   ADD CONSTRAINT `fk_users_person1` FOREIGN KEY (`id_person`) REFERENCES `person` (`id_person`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_users_role1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+ALTER TABLE `user` ADD UNIQUE (
+`login`
+)
