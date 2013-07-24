@@ -2,10 +2,12 @@
 
 class University_md extends CI_Model
 {
-	private $table = "university";
+	private $table  = "university";
 	private $table2 = "contact";
 	private $table3 = "phone";
 	private $table4 = "mail";
+	private $table5 = "recommended_by";
+	private $table6 = "person";
 	
 	public function update($id, $name, $address, $country, $subscription, $checking_state){
 		 
@@ -54,41 +56,80 @@ class University_md extends CI_Model
 	}
 	 
 	public function getAll() {
-		return $this->db->query("
-			SELECT DISTINCT u.id_university, 
-							u.name, 
-							u.address, 
-							u.country, 
-							u.subscription, 
-							u.checking_state, 
-							u.comment, 
-							m.mail, 
-							p.number
-			FROM ".$this->table." AS u 
-				INNER JOIN contact AS c 
-				INNER JOIN phone AS p 
-				INNER JOIN mail AS m
-			ON u.id_university = c.id_university
-				AND c.id_contact = p.id_contact
-				AND c.id_contact = m.id_contact
-			UNION
-			SELECT DISTINCT u.id_university, 
-							u.name, 
-							u.address, 
-							u.country, 
-							u.subscription, 
-							u.checking_state, 
-							u.comment, 
-							0 as mail, 
-							0 as number
+		/*return $this->db->query("
+			SELECT u.id_university, 
+				   u.name, 
+				   u.address, 
+				   u.country, 
+				   u.subscription, 
+				   u.checking_state, 
+				   u.comment, 
+				   c.id_contact, 
+				   m.mail, 
+				   p.number, 
+				   r.id_person, 
+				   r.is_student, 
+				   pe.first_name, 
+				   pe.last_name, 
+				   pe.country, 
+				   pe.worked_until
 				FROM ".$this->table." AS u 
-				WHERE u.id_university NOT IN (SELECT DISTINCT u.id_university
-												  FROM ".$this->table." AS u 
-												  	  INNER JOIN ".$this->table2." AS c 
-													  INNER JOIN ".$this->table3." AS p 
-													  INNER JOIN ".$this->table4." AS m
-												  ON u.id_university = c.id_university
-													  AND c.id_contact = p.id_contact
-													  AND c.id_contact = m.id_contact);");
+					LEFT OUTER JOIN ".$this->table2." AS c ON u.id_university = c.id_university
+					LEFT OUTER JOIN ".$this->table3." AS p ON c.id_contact = p.id_contact
+					LEFT OUTER JOIN ".$this->table4." AS m ON c.id_contact = m.id_contact
+					LEFT OUTER JOIN ".$this->table5." AS r ON u.id_university = r.id_university
+					LEFT OUTER JOIN ".$this->table6." AS pe ON r.id_person = pe.id_person
+				ORDER BY u.id_university ASC;");*/
+				
+				return $this->db->query("
+					SELECT u.id_university, u.name, u.address, u.country, u.subscription, u.checking_state, u.comment, m.mail, p.number
+						FROM ".$this->table." AS u 
+							INNER JOIN ".$this->table2." AS c 
+							INNER JOIN ".$this->table3." AS p 
+							INNER JOIN ".$this->table4." AS m
+						ON u.id_university = c.id_university
+							AND c.id_contact = p.id_contact
+							AND c.id_contact = m.id_contact
+						UNION
+							SELECT u.id_university, u.name, u.address, u.country, u.subscription, u.checking_state, u.comment, 0 as mail, 0 as number
+								FROM ".$this->table." AS u 
+								WHERE u.id_university NOT IN (SELECT DISTINCT u.id_university
+																  FROM university AS u 
+																	  INNER JOIN ".$this->table2." AS c 
+																	  INNER JOIN ".$this->table3." AS p 
+																	  INNER JOIN ".$this->table4." AS m
+																  ON u.id_university = c.id_university
+																	  AND c.id_contact = p.id_contact
+																	  AND c.id_contact = m.id_contact);");
 	}
+	
+	public function getAllUniv_Contact() {
+		return $this->db->query("
+			SELECT u.id_university, 
+				   c.id_contact,
+				   c.information, 
+				   m.mail, 
+				   p.number,
+				   p.type
+				FROM ".$this->table." AS u 
+					LEFT OUTER JOIN ".$this->table2." AS c ON u.id_university = c.id_university
+					LEFT OUTER JOIN ".$this->table3." AS p ON c.id_contact = p.id_contact
+					LEFT OUTER JOIN ".$this->table4." AS m ON c.id_contact = m.id_contact
+				ORDER BY u.id_university ASC;");
+	} 
+	
+		public function getAllUniv_Interns() {
+		return $this->db->query("
+			SELECT u.id_university, 
+				   r.id_person, 
+				   r.is_student, 
+				   p.first_name, 
+				   p.last_name, 
+				   p.country, 
+				   p.worked_until
+				FROM ".$this->table." AS u 
+					LEFT OUTER JOIN ".$this->table5." AS r ON u.id_university = r.id_university
+					LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
+				ORDER BY u.id_university ASC;");
+	} 
 }

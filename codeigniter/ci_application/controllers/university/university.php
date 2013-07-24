@@ -44,74 +44,164 @@ class University extends CI_Controller
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('university/university_md');
 		$this->load->database();
-		$fetched = $ci->university_md->getAll();
 		
-		$result = "";		
-		$i = 1;
+		/***************************************************************
+		 * 				  Preparing the table of interns			   *
+		 ***************************************************************/ 
+		$fetched_intern = $ci->university_md->getAllUniv_Interns();
+		$displayInterns = array();
+		$id_univ = "";
 		
-		foreach($fetched->result() as $ligne)
-		{
-			//Switching the state number to the real values
-			switch($ligne->checking_state) {
+		foreach($fetched_intern->result() as $line) {
+			$id_univ = $line->id_university;
+			
+			if(!isset($displayInterns[$id_univ])) {
+				$displayInterns[$id_univ] = "";
+			}
+			
+			switch($line->is_student) {
 				case 0:
-					$classUniv = "";
-					$state = "First newsletter sent";
+					$student = "No";
 					break;
 				case 1:
-					$classUniv = "success";
-					$state = "Approved";
+					$student = "Yes";
 					break;
-				case 2:
-					$classUniv = "warning";
-					$state = "Waiting";
-					break;
-				case 3:
-					$classUniv = "error";
-					$state = "Wrong";
+				default:
+					$student = "N/A";
 					break;
 			}
 			
-			$subcription = ($ligne->subscription == 1) ? "Yes" : "No";
+			$displayInterns[$id_univ] = $displayInterns[$id_univ].
+				"<tr>
+					<td>".$line->id_person."</td>
+					<td>".$student."</td>
+					<td>".$line->first_name." ".$line->last_name."</td>
+					<td>".$line->worked_until."</td>
+				</tr>";
+		}
+
+/*
+echo '$displayInterns[1] = '.$displayInterns["1"].'<br />';
+echo '$displayInterns[2] = '.$displayInterns["2"].'<br />';
+echo '$displayInterns[3] = '.$displayInterns["3"].'<br />';
+echo '$displayInterns[4] = '.$displayInterns["4"].'<br />';
+echo '$displayInterns[5] = '.$displayInterns["5"].'<br />';
+echo '$displayInterns[6] = '.$displayInterns["6"].'<br />';
+*/
 		
-			if(!($ligne->mail)||!($ligne->number))
-			{
-				
-				$result = $result."
-				<tr class='".$classUniv."'>
-					<td>
-					NA
-					</td>
-					<td>".$ligne->id_university."</td>
-					<td>".$ligne->name."</td>
-					<td>".$ligne->address."</td>
-					<td>No information</td>
-					<td>No information</td>
-					<td>".$ligne->country."</td>
-					<td>".$subcription."</td>
-					<td>".$state."</td>
-					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
-				</tr>";
+		/***************************************************************
+		 * 				  Preparing the table of contacts			   *
+		 ***************************************************************/
+		$fetched_Contact = $ci->university_md->getAllUniv_Contact();
+		$displayContact = array();
+		$id_univ = "";
+		$i = 1;
+		
+		foreach($fetched_Contact->result() as $line) {
+			$id_univ = $line->id_university;
+			
+			if(!isset($displayContact[$id_univ])) {
+				$displayContact[$id_univ] = "";
 			}
-			else
-			{
-				$result = $result."
-				<tr class='".$classUniv."'>
-					<td>
-						<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$ligne->name."\", \"".$ligne->id_university."\", \"chk".$i."\")'>
-					</td>
-					<td>".$ligne->id_university."</td>
-					<td>".$ligne->name."</td>
-					<td>".$ligne->address."</td>
-					<td>".$ligne->number."</td>
-					<td>".$ligne->mail."</td>
-					<td>".$ligne->country."</td>
-					<td>".$subcription."</td>
-					<td>".$state."</td>
-					<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+			
+			$displayContact[$id_univ] = $displayContact[$id_univ] . 
+				"<tr>
+					<td>".$line->id_contact."</td>
+					<td>".$line->information."</td>
+					<td>".$line->mail."</td>
+					<td>".$line->number."</td>
 				</tr>";
-			}
 		}
 		
+		
+		/***************************************************************
+		 * 				Preparing the table of universities  		   *
+		 ***************************************************************/
+		$fetched_univ = $ci->university_md->getAll();
+		$result = "";
+		$id_univ = "";
+		
+		foreach($fetched_univ->result() as $line) {
+			if($id_univ != $line->id_university) {
+				$id_univ = $line->id_university;
+				
+				//Switching the state number to the real values
+				switch($line->checking_state) {
+					case 0:
+						$classUniv = "";
+						$state = "First newsletter sent";
+						break;
+					case 1:
+						$classUniv = "success";
+						$state = "Approved";
+						break;
+					case 2:
+						$classUniv = "warning";
+						$state = "Waiting";
+						break;
+					case 3:
+						$classUniv = "error";
+						$state = "Wrong";
+						break;
+					default:
+						$classUniv = "N/A";
+						$state = "N/A";
+						break;
+				}
+				
+				$subcription = ($line->subscription == 1) ? "Yes" : "No";
+				
+				$result = $result."
+					<tr>
+						<tr class='".$classUniv."' id='princLine".$i."'>
+							<td>
+								<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$line->name."\", \"".$line->id_university."\", \"chk".$i."\")'>
+							</td>
+							<td>".$line->id_university."</td>
+							<td>".$line->name."</td>
+							<td>".$line->address."</td>
+							<td>".$line->country."</td>
+							<td>".$subcription."</td>
+							<td>".$state."</td>
+							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+						</tr>
+						<tr class='".$classUniv."' id='secLine".$i."'>
+							<td colspan='3'>
+								<table>
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Student</th>
+											<th>Name</th>
+											<th>Worked until</th>
+										</tr>
+									</thead>
+									<tbody>
+										".$displayInterns[$line->id_university]."
+									</tbody>
+								</table>
+							</td>
+							<td colspan='3'>
+								<table>
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Information</th>
+											<th>Mail</th>
+											<th>Phone</th>
+										</tr>
+									</thead>
+									<tbody>
+										".$displayContact[$line->id_university]."
+									</tbody>
+								</table>
+							</td>
+							<td><button>Modify</button></td>
+							<td><button>Delete</button></td>
+						</tr>
+					</tr>";
+			}
+		}
 		return $result;
 	}
     
