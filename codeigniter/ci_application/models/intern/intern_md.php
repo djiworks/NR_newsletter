@@ -2,10 +2,9 @@
 
 class Intern_md extends CI_Model
 {
-	private $table = "intern";
-	private $table2 = "person";
-	private $table3 = "recommended_by";
-	private $table4 = "university";
+	private $table = "person";
+	private $table2 = "recommended_by";
+	private $table3 = "university";
 	
 	public function update($id, $first_name, $last_name, $country, $phone, $mail){
 		 
@@ -47,6 +46,13 @@ class Intern_md extends CI_Model
 				 ->delete($this->table);	
 	}
 	
+	public function getAllNames() {
+		return $this->db->select("first_name")
+						->select("last_name")
+						->get($this->table);
+	}
+		
+	
 	public function getAll() {
 		return $this->db->query("
 			SELECT p.id_person, 
@@ -61,9 +67,9 @@ class Intern_md extends CI_Model
 				   r.is_student, 
 				   u.id_university, 
 				   u.name
-				FROM ".$this->table2." AS p
-					LEFT OUTER JOIN ".$this->table3." AS r ON p.id_person = r.id_person
-					LEFT OUTER JOIN ".$this->table4." AS u ON r.id_university = u.id_university
+				FROM ".$this->table." AS p
+					LEFT OUTER JOIN ".$this->table2." AS r ON p.id_person = r.id_person
+					LEFT OUTER JOIN ".$this->table3." AS u ON r.id_university = u.id_university
 				ORDER BY p.id_person, r.is_student DESC;");
 	}	 
 }
