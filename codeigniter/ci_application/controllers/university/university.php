@@ -122,6 +122,7 @@ echo '$displayInterns[6] = '.$displayInterns["6"].'<br />';
 		$fetched_univ = $ci->university_md->getAll();
 		$result = "";
 		$id_univ = "";
+		$i = 1;
 		
 		foreach($fetched_univ->result() as $line) {
 			if($id_univ != $line->id_university) {
@@ -202,6 +203,8 @@ echo '$displayInterns[6] = '.$displayInterns["6"].'<br />';
 							<td><button>Delete</button></td>
 						</tr>
 					</tr>";
+					
+				$i++;
 			}
 		}
 		return $result;
