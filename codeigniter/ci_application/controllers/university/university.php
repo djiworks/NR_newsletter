@@ -228,6 +228,7 @@ class University extends CI_Controller
     {
 		$data = array();
 		$data['allUniv'] = $this->getAllUniversities();
+		$data['allNames'] = Intern::getAllNames();
 		$data['address'] = $address;
 		$data['inputInfoContact'] = $inputInfoContact;
 		
