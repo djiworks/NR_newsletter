@@ -7,11 +7,10 @@
 					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
 				</div>
-				<form class="form-search pull-right">
+				<form method="post" action="#" class="form-search pull-right">
 					<i class="icon-search"></i>
 					<div class="input-append">
-						<input type="text" class="input-medium search-query"
-							placeholder="Search ...">
+						<input type="text" id="inputSearchUniv" class="input-medium search-query" placeholder="Search ...">
 						<button type="submit" class="btn">Search</button>
 					</div>
 				</form>
@@ -22,8 +21,6 @@
 				    		<th>#</th>
 				    		<th><a><i class="icon-chevron-down"></i> Name</a></th>
 				    		<th>Address</th>
-				    		<th>Phone</th>
-				    		<th>Mail</th>
 				    		<th><a><i class="icon-chevron-down"></i> Country</a></th>
 				    		<th><a><i class="icon-chevron-up"></i> Subcription</a></th>
 				    		<th><a><i class="icon-chevron-down"></i> Checking State</a></th>
