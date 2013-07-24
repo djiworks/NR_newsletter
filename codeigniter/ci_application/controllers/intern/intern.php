@@ -153,4 +153,31 @@ class Intern extends CI_Controller
 		
 		return $result;
 	}
+	
+		public static function getAllNames()
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->model('intern/intern_md');
+		$ci->load->database();
+		$fetched = $ci->intern_md->getAllNames();
+		
+		$result = "'[";		
+		$first = true;
+		
+		foreach($fetched->result() as $ligne)
+		{
+			if ($first)
+			{
+				$first = false;
+				$result = $result.'"'.$ligne->first_name." ".$ligne->last_name.'"';
+
+			}
+			else
+			{
+				$result = $result.',"'.$ligne->first_name." ".$ligne->last_name.'"';
+			}
+		}
+		$result = $result."]'";
+		return $result;
+	}
 }
