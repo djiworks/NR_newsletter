@@ -106,15 +106,11 @@
 				<div class="control-group">
 					<label class="control-label" for="inputCountry">Country</label>
 					<div class="controls">
-						<div class="input-append">
-							<input class="span2" type="text" id="inputIntern"
-								placeholder="Intern" data-provide="typeahead" data-items="4"
-								data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'
-								autocomplete="off">
-							<button class="btn btn-success" type="button">
-								<i class="icon-plus icon-white"></i>
-							</button>
-						</div>
+							<input class="span2" type="text" id="inputCountry" name="inputCountry"
+								placeholder="Country" data-provide="typeahead" data-items="4"
+								data-source= <?php echo $allCountries; ?>
+								autocomplete="off" value="<?php echo set_value('inputCountry'); ?>"/>
+							<?php echo form_error('inputCountry'); ?>
 					</div>
 				</div>
 

@@ -40,6 +40,7 @@
 		    </div>
 		</div>
 	</div>
+
 	<!-- Modals -->
 
 	<div id="viewdetail" class="modal hide fade" tabindex="-1"
@@ -82,18 +83,18 @@
 				<div class="control-group">
 					<label class="control-label" for="inputAddress">Address</label>
 					<div class="controls">
-						<textarea rows="3" name="Adress" placeholder="Address" >
-		    			<?php if(isset($address))
-								{echo $address ;} ?>
-						</textarea>
+						<textarea rows="3" name="Adress" placeholder="Address" ><?php if(isset($address)){echo $address ;} ?></textarea>
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="inputCountry">Country</label>
 					<div class="controls">
-						<input type="text" id="inputCountry" name="inputCountry" placeholder="Country" value="<?php echo set_value('inputCountry'); ?>"/>
-						<?php echo form_error('inputCountry'); ?>
+							<input class="span2" type="text" id="inputCountry" name="inputCountry"
+								placeholder="Country" data-provide="typeahead" data-items="4"
+								data-source= <?php echo $allCountries; ?>
+								autocomplete="off" value="<?php echo set_value('inputCountry'); ?>"/>
+							<?php echo form_error('inputCountry'); ?>
 					</div>
 				</div>
 
@@ -128,12 +129,7 @@
 				<div class="control-group">
 					<label class="control-label" for="inputInfoContact">Additional Information</label>
 					<div class="controls">
-						<textarea rows="3" name="inputInfoContact" placeholder="Additional Information">
-						<?php if(isset($inputInfoContact))
-								{
-									echo $inputInfoContact ;
-								} ?>
-						</textarea>
+						<textarea rows="3" name="inputInfoContact" placeholder="Additional Information"><?php if(isset($inputInfoContact)){echo $inputInfoContact ;} ?></textarea>
 					</div>
 				</div>
 				
@@ -209,3 +205,29 @@
 		</div>
 	</div>
 
+	<div id="success" class="modal hide fade">
+	<div class="modal-header">
+	<h4>Success</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	</div>
+	<div class="modal-body">
+	<p>University added with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
+	</div>
+	</div>
+	
+	
+	<div id="failure" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" data-toggle='modal' data-target='#addUniversity' aria-hidden="true">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failed to add university. Please fill in all the fields.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUniversity'>Close</button>	
+	</div>
+	</div>
