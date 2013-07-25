@@ -86,7 +86,8 @@
 						arrayInput[i].checked = true;
 						var tmpString = arrayInput[i].getAttribute('onclick');
 						var arrayString = tmpString.split('"');
-						addUniv(arrayString[1], arrayString[3]);
+						
+						ddUniv(arrayString[1], arrayString[3], arrayString[5]);
 					}
 				}
 			}
