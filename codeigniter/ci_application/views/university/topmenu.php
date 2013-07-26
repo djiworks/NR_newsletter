@@ -9,7 +9,8 @@
 			<a class="brand" href="/index.php/university/university">University Newsletter Management</a>
 			<div class="nav-collapse collapse">
 				<p class="navbar-text pull-right">
-					Logged in as <a href="#" class="navbar-link">Username</a>
+					Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
+					<a href="<?php echo site_url('login/login/logout'); ?>" class="btn btn-mini btn-danger"><i class="icon-off icon-white"></i> Logout</a>
 				</p>
 				<ul class="nav">
 					<li class="active"><a href="/index.php/university/university">University <span

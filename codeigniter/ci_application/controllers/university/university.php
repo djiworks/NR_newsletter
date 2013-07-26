@@ -20,15 +20,26 @@ class University extends CI_Controller {
 		}
 	}
 	public function index() {
-		$data = array ();
-		$data ['allUniv'] = $this->getAllUniversities ();
-		$data ['allNames'] = Intern::getAllNames ();
 		
-		$this->load->view ( 'university/head' );
-		$this->load->view ( 'university/topmenu' );
-		$this->load->view ( 'university/leftmenu' );
-		$this->load->view ( 'university/body', $data );
-		$this->load->view ( 'university/footer' );
+		if($this->session->userdata('logged_in'))
+		{
+			$data = array ();
+			$data ['allUniv'] = $this->getAllUniversities ();
+			$data ['allNames'] = Intern::getAllNames ();
+			$session_data = $this->session->userdata('logged_in');
+			$sess['username'] = $session_data['username'];
+			$this->load->view ( 'university/head' );
+			$this->load->view ( 'university/topmenu', $sess );
+			$this->load->view ( 'university/leftmenu' );
+			$this->load->view ( 'university/body', $data );
+			$this->load->view ( 'university/footer' );
+		}
+		else
+		{
+			//If no session, redirect to login page
+			redirect('login/login', 'refresh');
+		}
+		
 	}
 	public function accueil() {
 		$this->index ();
