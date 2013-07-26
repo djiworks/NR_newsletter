@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="ci_application/config"/>
+	<buildpathentry kind="src" path="ci_application/controllers"/>
+	<buildpathentry kind="src" path="ci_application/errors"/>
+	<buildpathentry kind="src" path="ci_application/models/intern"/>
+	<buildpathentry kind="src" path="ci_application/models/newsletter"/>
+	<buildpathentry kind="src" path="ci_application/models/university"/>
+	<buildpathentry kind="src" path="ci_application/models/user"/>
+	<buildpathentry kind="src" path="ci_application/views"/>
+	<buildpathentry kind="src" path="ci_system/core"/>
+	<buildpathentry kind="src" path="ci_system/database"/>
+	<buildpathentry kind="src" path="ci_system/helpers"/>
+	<buildpathentry kind="src" path="ci_system/language/english"/>
+	<buildpathentry kind="src" path="ci_system/libraries"/>
+	<buildpathentry kind="src" path="www"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>
