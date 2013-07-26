@@ -33,9 +33,9 @@ if($this->session->userdata('logged_in'))
 		}
 	
 		$this->load->view ( 'university/head' );
-$session_data = $this->session->userdata('logged_in');
-			$sess['username'] = $session_data['username'];
-$this->load->view ( 'university/topmenu', $sess );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'university/topmenu', $sess );
 		$this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );
@@ -317,7 +317,9 @@ $this->load->view ( 'university/topmenu', $sess );
 		$data ['is_success'] = "false";
 		
 		$this->load->view ( 'university/head' );
-		$this->load->view ( 'university/topmenu' );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'university/topmenu', $sess );
 		$this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );

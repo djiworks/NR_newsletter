@@ -35,7 +35,9 @@ class Intern extends CI_Controller
 		}
 
 		$this->load->view('intern/head');
-		$this->load->view('intern/topmenu');
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'intern/topmenu', $sess );
 		$this->load->view('intern/body', $data);
 		$this->load->view('intern/footer');
     }
@@ -201,7 +203,7 @@ class Intern extends CI_Controller
 		$this->form_validation->set_rules ( 'Country', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'WorkedUntil', '"Worked until"', 'trim|required|encode_php_tags|xss_clean' );
 		
-		if ($this->form_validation->run ()) {
+		if ($this->form_validation->run()) {
 			// If the form is valid
 			$first_name = $this->input->post ( 'FirstName' );
 			$last_name = $this->input->post ( 'LastName' );
@@ -215,7 +217,7 @@ class Intern extends CI_Controller
 			$this->index (true);
 		} else {
 			// If the form is not valid or empty
-			$this->formCompletion ();
+			$this->formCompletion();
 		}
 	}
 	
@@ -226,8 +228,9 @@ class Intern extends CI_Controller
 		$data ['is_success'] = "false";
 		
 		$this->load->view ( 'intern/head' );
-		$this->load->view ( 'intern/topmenu' );
-		$this->load->view ( 'intern/body', $data );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'university/topmenu', $sess );		$this->load->view ( 'intern/body', $data );
 		$this->load->view ( 'intern/footer' );
 	}
 }
