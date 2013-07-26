@@ -303,8 +303,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id_user`, `login`, `password`, `id_person`, `id_role`) VALUES
-(1, 'djothi', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 1, 1),
-(2, 'bazire', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 2, 5);
+(1, 'djothi', '1f8ba151eefa6cc2bdae49f7874deae7a459d97a', 1, 1),
+(2, 'bazire', '1f8ba151eefa6cc2bdae49f7874deae7a459d97a', 2, 5);
 
 --
 -- Contraintes pour les tables exportées
