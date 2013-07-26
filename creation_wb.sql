@@ -237,7 +237,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`user` (
   CONSTRAINT `fk_users_role1`
     FOREIGN KEY (`id_role` )
     REFERENCES `marketing_univ`.`role` (`id_role` )
-    ON DELETE SET NULL
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 3

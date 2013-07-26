@@ -23,9 +23,9 @@ INSERT INTO `person` (`id_person`, `first_name`, `last_name`, `phone`, `mail`, `
 (3, 'Alexis', 'Je sais pas', NULL, NULL, 'Spain', NULL),
 (4, 'Natazsa', 'I dont know', NULL, NULL, 'Greece', '2013-10-31 11:18:10');
 
-INSERT INTO `user` (`id_user`, `login`, `password`, `id_person`, `id_role`) VALUES
-(1, 'djothi', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 1, 1),
-(2, 'bazire', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 2, 5);
+INSERT INTO `user` (`id_user`, `login`, `password`, `id_role`) VALUES
+(1, 'djothi', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 1),
+(2, 'bazire', '2786f93d7b6fdbefa3b485bb2848cdb98665ab21', 5);
 
 INSERT INTO `contact` (`id_contact`, `information`, `id_university`) VALUES
 (1, 'International Partnership Manager', 1),
