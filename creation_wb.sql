@@ -18,7 +18,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`university` (
   `country` VARCHAR(45) NULL DEFAULT NULL ,
   `subscription` TINYINT(1) NULL DEFAULT NULL ,
   `checking_state` INT(11) NOT NULL DEFAULT '0' COMMENT '0 = no checked, 1= OK, 2= no OK' ,
-  `comment` LONGTEXT NULL DEFAULT NULL ,
+  `comment` LONGTEXT NOT NULL ,
   PRIMARY KEY (`id_university`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
@@ -82,7 +82,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`newsletter` (
   `cover` VARCHAR(100) NOT NULL ,
   `checking_state` INT(11) NOT NULL COMMENT '0= writing, 1 = Designing, 2= HTML, 3= sent' ,
   `content` LONGTEXT NOT NULL ,
-  `comment` LONGTEXT NULL DEFAULT NULL ,
+  `comment` LONGTEXT NOT NULL ,
   PRIMARY KEY (`id_newsletter`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
@@ -231,24 +231,18 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`user` (
   `id_user` INT(11) NOT NULL AUTO_INCREMENT ,
   `login` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(45) NOT NULL ,
-  `id_person` INT(11) NULL ,
   `id_role` INT(11) NOT NULL ,
   PRIMARY KEY (`id_user`) ,
   INDEX `fk_users_role1_idx` (`id_role` ASC) ,
-  INDEX `fk_user_person1_idx` (`id_person` ASC) ,
   CONSTRAINT `fk_users_role1`
     FOREIGN KEY (`id_role` )
     REFERENCES `marketing_univ`.`role` (`id_role` )
-    ON DELETE NO ACTION
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_person1`
-    FOREIGN KEY (`id_person` )
-    REFERENCES `marketing_univ`.`person` (`id_person` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
+
 
 DROP TABLE IF EXISTS `marketing_univ`.`ci_sessions` ;
 
@@ -262,12 +256,8 @@ CREATE TABLE IF NOT EXISTS  `marketing_univ`.`ci_sessions` (
 	KEY `last_activity_idx` (`last_activity`)
 );
 
-
 USE `marketing_univ` ;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
