@@ -24,11 +24,15 @@ class Intern extends CI_Controller
 		}
 	}
 
-    public function index()
+    public function index($is_success = false)
     {
 		$data = array();
 		$data['allInterns'] = $this->getAllInterns();
 		$data ['allCountries'] = University::getAllCountries();
+
+		if($is_success){
+			$data ['is_success'] = "true";
+		}
 
 		$this->load->view('intern/head');
 		$this->load->view('intern/topmenu');
@@ -184,49 +188,46 @@ class Intern extends CI_Controller
 		return $result;
 	}
 	
-		public function verificationAddUniversity() {
+		public function verificationAddIntern() {
 		// loading of the library
 		$this->load->library ( 'form_validation' );
-		$this->load->model ( 'university/university_md' );
+		$this->load->model ( 'intern/intern_md' );
 		$this->load->database ();
 		
-		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'FirstName', '"First Name"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'LastName', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Phone', '"Phone"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Mail', '"Mail"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Country', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'WorkedUntil', '"Worked until"', 'trim|required|encode_php_tags|xss_clean' );
 		
 		if ($this->form_validation->run ()) {
 			// If the form is valid
-			$name = $this->input->post ( 'UniversityName' );
-			$address = $this->input->post ( 'Adress' );
-			$country = $this->input->post ( 'inputCountry' );
-			$subscription = 0;
-			$checking_state = 2;
+			$first_name = $this->input->post ( 'FirstName' );
+			$last_name = $this->input->post ( 'LastName' );
+			$phone = $this->input->post ( 'Phone' );
+			$mail = $this->input->post ( 'Mail' );
+			$country = $this->input->post ( 'Country' );
+			$worked_until = $this->input->post ( 'WorkedUntil' );
 			
-			$result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
+			$result = $this->intern_md->create($first_name, $last_name, $country, $phone, $mail, $worked_until);
 
 			$this->index (true);
 		} else {
 			// If the form is not valid or empty
-			$address = $this->input->post ( 'Adress' );
-			$inputInfoContact = $this->input->post ( 'inputInfoContact' );
-			$this->formCompletion ( $address, $inputInfoContact );
+			$this->formCompletion ();
 		}
 	}
 	
-		public function formCompletion($address, $inputInfoContact) {
+		public function formCompletion() {
 		$data = array ();
-		$data ['allUniv'] = $this->getAllUniversities ();
-		$data ['allNames'] = Intern::getAllNames ();
 		$data ['allCountries'] = University::getAllCountries();
-		$data ['address'] = $address;
-		$data ['inputInfoContact'] = $inputInfoContact;
+		$data['allInterns'] = $this->getAllInterns();
 		$data ['is_success'] = "false";
 		
-		$this->load->view ( 'university/head' );
-		$this->load->view ( 'university/topmenu' );
-		$this->load->view ( 'university/leftmenu' );
-		$this->load->view ( 'university/body', $data );
-		$this->load->view ( 'university/footer' );
+		$this->load->view ( 'intern/head' );
+		$this->load->view ( 'intern/topmenu' );
+		$this->load->view ( 'intern/body', $data );
+		$this->load->view ( 'intern/footer' );
 	}
 }

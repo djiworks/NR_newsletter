@@ -20,20 +20,6 @@
 			</thead>
 			<tbody>
 				<?php echo $allInterns; ?>
-		    		<!--<?php
-						for($i = 1; $i <= 50; $i ++) {
-							echo "<tr>
-									  <td>" . $i . "</td>
-									  <td>Intern " . $i . "</td>
-									  <td>3 Littlestone Road, New Romney, England</td>
-									  <td>0000 000 000</td>
-									  <td>example@mail.com</td>
-									  <td>University 1</td>
-									  <td>France</td>
-									  <td><a href='#myModal' data-toggle='modal'>Click here</a></td>
-								  </tr>";
-						}
-								?>-->
 	    		</tbody>
 		</table>
 	</div>
@@ -67,50 +53,55 @@
 			<h3 id="addInternLabel">Add an Intern</h3>
 		</div>
 		<div class="modal-body">
-			<form class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="inputLogin">Login</label>
-					<div class="controls">
-						<input type="text" id="Login" placeholder="Login">
-					</div>
-				</div>
-
+			<form method="post" action="/index.php/intern/intern/verificationAddIntern" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="inputName">First name</label>
 					<div class="controls">
-						<input type="text" id="firstName" placeholder="First name">
+						<input type="text" id="firstName" name="firstName" placeholder="First name" value="<?php echo set_value('firstName'); ?>"/>
+							<?php echo form_error('firstName'); ?> 
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="inputName">Last name</label>
 					<div class="controls">
-						<input type="text" id="Name" placeholder="Last name">
+						<input type="text" id="LastName" name="LastName" placeholder="Last name" value="<?php echo set_value('LastName'); ?>"/>
+							<?php echo form_error('LastName'); ?> 
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="inputEmail">Email</label>
 					<div class="controls">
-						<input type="text" id="inputEmail" placeholder="Email">
+						<input type="text" id="Email" name="Email" placeholder="Email" value="<?php echo set_value('Email'); ?>"/>
+							<?php echo form_error('Email'); ?> 
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="inputPhone">Phone</label>
 					<div class="controls">
-						<input type="text" id="inputPhone" placeholder="Phone">
+						<input type="text" id="Phone" name="Phone" placeholder="Phone" value="<?php echo set_value('Phone'); ?>"/>
+							<?php echo form_error('Phone'); ?> 
 					</div>
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputCountry">Country</label>
+					<label class="control-label" for="Country">Country</label>
 					<div class="controls">
-							<input class="span2" type="text" id="inputCountry" name="inputCountry"
+							<input class="span2" type="text" id="Country" name="Country"
 								placeholder="Country" data-provide="typeahead" data-items="4"
 								data-source= <?php echo $allCountries; ?>
-								autocomplete="off" value="<?php echo set_value('inputCountry'); ?>"/>
-							<?php echo form_error('inputCountry'); ?>
+								autocomplete="off" value="<?php echo set_value('Country'); ?>"/>
+							<?php echo form_error('Country'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="WorkedUntil">Worked until</label>
+					<div class="controls">
+						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014/05/21" value="<?php echo set_value('WorkedUntil'); ?>"/>
+							<?php echo form_error('WorkedUntil'); ?>
 					</div>
 				</div>
 
@@ -124,4 +115,31 @@
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
+	</div>
+
+	<div id="success" class="modal hide fade">
+	<div class="modal-header">
+	<h4>Success</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	</div>
+	<div class="modal-body">
+	<p>Intern added with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	</div>
+	</div>
+	
+	
+	<div id="failure" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" data-toggle='modal' data-target='#addIntern' aria-hidden="true">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failed to add intern. Please fill in all the fields.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addIntern'>Close</button>	
+	</div>
 	</div>
