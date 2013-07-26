@@ -1,4 +1,6 @@
 <?php
+include_once (APPPATH . "controllers/university/university.php");
+
  
 class Intern extends CI_Controller
 {
@@ -26,7 +28,8 @@ class Intern extends CI_Controller
     {
 		$data = array();
 		$data['allInterns'] = $this->getAllInterns();
-		
+		$data ['allCountries'] = University::getAllCountries();
+
 		$this->load->view('intern/head');
 		$this->load->view('intern/topmenu');
 		$this->load->view('intern/body', $data);
