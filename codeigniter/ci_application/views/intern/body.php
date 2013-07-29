@@ -57,8 +57,8 @@
 				<div class="control-group">
 					<label class="control-label" for="inputName">First name</label>
 					<div class="controls">
-						<input type="text" id="firstName" name="firstName" placeholder="First name" value="<?php echo set_value('firstName'); ?>"/>
-							<?php echo form_error('firstName'); ?> 
+						<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="<?php echo set_value('FirstName'); ?>"/>
+							<?php echo form_error('FirstName'); ?> 
 					</div>
 				</div>
 
@@ -73,8 +73,8 @@
 				<div class="control-group">
 					<label class="control-label" for="inputEmail">Email</label>
 					<div class="controls">
-						<input type="text" id="Email" name="Email" placeholder="Email" value="<?php echo set_value('Email'); ?>"/>
-							<?php echo form_error('Email'); ?> 
+						<input type="text" id="Mail" name="Mail" placeholder="Mail" value="<?php echo set_value('Mail'); ?>"/>
+							<?php echo form_error('Mail'); ?> 
 					</div>
 				</div>
 
@@ -100,7 +100,7 @@
 				<div class="control-group">
 					<label class="control-label" for="WorkedUntil">Worked until</label>
 					<div class="controls">
-						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014/05/21" value="<?php echo set_value('WorkedUntil'); ?>"/>
+						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014-05-21" value="<?php echo set_value('WorkedUntil'); ?>"/>
 							<?php echo form_error('WorkedUntil'); ?>
 					</div>
 				</div>

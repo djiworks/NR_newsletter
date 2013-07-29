@@ -197,7 +197,7 @@ class Intern extends CI_Controller
 		$this->load->database ();
 		
 		$this->form_validation->set_rules ( 'FirstName', '"First Name"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'LastName', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'LastName', '"LastName"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Phone', '"Phone"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Mail', '"Mail"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Country', '"Country"', 'trim|required|encode_php_tags|xss_clean' );

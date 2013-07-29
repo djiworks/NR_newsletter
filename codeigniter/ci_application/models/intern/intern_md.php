@@ -23,13 +23,13 @@ class Intern_md extends CI_Model
 						->get($this->table);
 	 }
 	 
-	 public function create($first_name, $last_name, $country, $phone, $mail, $work_until){
+	 public function create($first_name, $last_name, $country, $phone, $mail, $worked_until){
 		$this->db->set("first_name",$first_name)
 				 ->set("last_name",$last_name)
 				 ->set("country",$country)
 				 ->set("phone",$phone)
 				 ->set("mail",$mail)
-				 ->set("work_until",$work_until)
+				 ->set("worked_until",$worked_until)
 		 		 ->insert($this->table);  
 	 }
 	 

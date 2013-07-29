@@ -21,7 +21,7 @@ class University extends CI_Controller {
 		}
 	}
 	public function index($is_success = false) {
-if($this->session->userdata('logged_in'))
+	if($this->session->userdata('logged_in'))
 		{
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();

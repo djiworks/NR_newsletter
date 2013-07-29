@@ -78,7 +78,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`newsletter` (
   `name` VARCHAR(45) NOT NULL ,
   `description` VARCHAR(255) NULL DEFAULT NULL ,
   `path` VARCHAR(100) NULL DEFAULT NULL ,
-  `creation_date` DATETIME NOT NULL ,
+  `creation_date` DATE NOT NULL ,
   `cover` VARCHAR(100) NOT NULL ,
   `checking_state` INT(11) NOT NULL COMMENT '0= writing, 1 = Designing, 2= HTML, 3= sent' ,
   `content` LONGTEXT NOT NULL ,
@@ -101,7 +101,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`person` (
   `phone` VARCHAR(45) NULL DEFAULT NULL ,
   `mail` VARCHAR(45) NULL DEFAULT NULL ,
   `country` VARCHAR(45) NULL DEFAULT NULL ,
-  `worked_until` DATETIME NULL DEFAULT NULL ,
+  `worked_until` DATE NULL DEFAULT NULL ,
   PRIMARY KEY (`id_person`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 5
