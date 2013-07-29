@@ -5,7 +5,7 @@ class VerifyLogin extends CI_Controller {
  function __construct()
  {
    parent::__construct();
-   $this->load->model('user/user','',TRUE);
+   $this->load->model('user/user_md','',TRUE);
  }
 
  function index()
@@ -18,7 +18,7 @@ class VerifyLogin extends CI_Controller {
 
    if($this->form_validation->run() == FALSE)
    {
-     	//Field validation failed.&nbsp; User redirected to login page
+     	//Field validation failed, User redirected to login page
 	    $this->load->view('login/head');
 		$this->load->view('login/login_view');
 		$this->load->view('login/footer');
@@ -33,11 +33,11 @@ class VerifyLogin extends CI_Controller {
 
  function check_database($password)
  {
-   //Field validation succeeded.&nbsp; Validate against database
+   //Field validation succeeded, Validate against database
    $username = $this->input->post('username');
 
    //query the database
-   $result = $this->user->login($username, $password);
+   $result = $this->user_md->login($username, $password);
 
    if($result)
    {
