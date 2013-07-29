@@ -11,18 +11,19 @@ class University extends CI_Controller {
 	private $comment;
 	public function __construct($id = false) {
 		parent::__construct ();
+		$this->load->helper('login');
 		$this->load->model ( 'university/university_md' );
 		$this->load->database ();
 		
 		if ($id) {
-			
 			$this->id = $id;
 			$this->initialiseValue ();
 		}
 	}
 	public function index($is_success = false) {
-	if($this->session->userdata('logged_in'))
-		{
+
+			isLoggedIn($this);
+			
 			$data = array ();
 			$data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allNames'] = Intern::getAllNames ();
@@ -35,16 +36,12 @@ class University extends CI_Controller {
 			$this->load->view ( 'university/head' );
 			$session_data = $this->session->userdata('logged_in');
 			$sess['username'] = $session_data['username'];
-			$this->load->view ( 'university/topmenu', $sess );
+			
+			loadTopMenuForRole($this, 'university', 1 , $sess) ;
+
 			$this->load->view ( 'university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
 			$this->load->view ( 'university/footer' );
-		}
-		else
-		{
-			//If no session, redirect to login page
-			redirect('login/login', 'refresh');
-		}
 
 	}
 	public function accueil() {
