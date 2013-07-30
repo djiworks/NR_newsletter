@@ -92,3 +92,15 @@
 				}
 			}
 		}
+		
+		function confirmationAdding(is_success){
+			if(!is_success)
+			{
+				$('#failure').modal('show');
+			}
+			else
+			{
+				$('#success').modal('show');
+			}
+		}
+		

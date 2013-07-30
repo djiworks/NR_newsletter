@@ -12,8 +12,9 @@ class Guidelines extends CI_Controller
 		//~ $session_data = $this->session->userdata('logged_in');
 		//~ $data['username'] = $session_data['username'];
 		$this->load->view('guidelines/head');
-		$this->load->view('guidelines/topmenu');
-		//~ $this->load->view('menu',$data);
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'guidelines/topmenu', $sess );		//~ $this->load->view('menu',$data);
 		$this->load->view('guidelines/guidelines');
 		$this->load->view('guidelines/footer');
 	}

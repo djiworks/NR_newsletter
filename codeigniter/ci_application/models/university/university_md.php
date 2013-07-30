@@ -54,6 +54,16 @@ class University_md extends CI_Model
 		$this->db->where('id_university', $id_university)
 				 ->delete($this->table);	
 	}
+	
+	public function getAllCountries() {
+		 return $this->db->query("
+					SELECT DISTINCT country
+					FROM ".$this->table."
+					UNION DISTINCT
+					SELECT DISTINCT country
+					FROM ".$this->table6."
+					");
+	}
 	 
 	public function getAll() {
 		/*return $this->db->query("

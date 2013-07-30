@@ -1,5 +1,6 @@
 <?php
-include_once (APPPATH."controllers/intern/intern.php");
+include_once (APPPATH . "controllers/intern/intern.php");
+
 class University extends CI_Controller {
 	private $id;
 	private $name;
@@ -19,21 +20,35 @@ class University extends CI_Controller {
 			$this->initialiseValue ();
 		}
 	}
-	public function index() {
-		$data = array ();
-		$data ['allUniv'] = $this->getAllUniversities ();
-		$data ['allNames'] = Intern::getAllNames ();
+	public function index($is_success = false) {
+		if($this->session->userdata('logged_in')) {
+			$data = array ();
+			$data ['allUniv'] = $this->getAllUniversities ();
+			$data ['allNames'] = Intern::getAllNames ();
+			$data ['allCountries'] = $this->getAllCountries();
+
+			if($is_success){
+				$data ['is_success'] = "true";
+			}
 		
-		$this->load->view ( 'university/head' );
-		$this->load->view ( 'university/topmenu' );
-		$this->load->view ( 'university/leftmenu' );
-		$this->load->view ( 'university/body', $data );
-		//$this->load->view ( 'university/test' );
-		$this->load->view ( 'university/footer' );
+			$this->load->view ( 'university/head' );
+			$session_data = $this->session->userdata('logged_in');
+			$sess['username'] = $session_data['username'];
+			$this->load->view ( 'university/topmenu', $sess );
+			$this->load->view ( 'university/leftmenu' );
+			$this->load->view ( 'university/body', $data );
+			$this->load->view ( 'university/footer' );
+
+		} else {
+			//If no session, redirect to login page
+			redirect('login/login', 'refresh');
+		}
 	}
+	
 	public function accueil() {
 		$this->index ();
 	}
+	
 	public function getAllUniversities() {
 		$ci = new CI_CONTROLLER ();
 		$ci->load->model('university/university_md');
@@ -252,8 +267,8 @@ class University extends CI_Controller {
 		$this->load->model ( 'university/university_md' );
 		$this->load->database ();
 		
-		$id = $ci->uri->segment ( 4 );
-		$comment = $ci->uri->segment ( 5 );
+		$id = $this->input->post ( 'id' );
+		$comment = $this->input->post ( 'comment' );
 		
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
@@ -276,10 +291,10 @@ class University extends CI_Controller {
 		$this->load->model ( 'university/university_md' );
 		$this->load->database ();
 		
-		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|alpha_dash|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|alpha_dash|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|alpha_dash|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|required|alpha_dash|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|required|encode_php_tags|xss_clean' );
 		
 		if ($this->form_validation->run ()) {
 			// If the form is valid
@@ -290,26 +305,58 @@ class University extends CI_Controller {
 			$checking_state = 2;
 			
 			$result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
-			
-			$this->index ();
+
+			$this->index (true);
 		} else {
-			// Le formulaire est invalide ou vide
+			// If the form is not valid or empty
 			$address = $this->input->post ( 'Adress' );
 			$inputInfoContact = $this->input->post ( 'inputInfoContact' );
 			$this->formCompletion ( $address, $inputInfoContact );
 		}
 	}
+	
 	public function formCompletion($address, $inputInfoContact) {
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
+		$data ['allCountries'] = University::getAllCountries();
 		$data ['address'] = $address;
 		$data ['inputInfoContact'] = $inputInfoContact;
+		$data ['is_success'] = "false";
 		
 		$this->load->view ( 'university/head' );
-		$this->load->view ( 'university/topmenu' );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'university/topmenu', $sess );
 		$this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );
+	}
+	
+	public static function getAllCountries()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->model('university/university_md');
+		$ci->load->database();
+		$fetched = $ci->university_md->getAllCountries();
+		
+		$result = "'[";		
+		$first = true;
+		
+		foreach($fetched->result() as $ligne)
+		{
+			if ($first)
+			{
+				$first = false;
+				$result = $result.'"'.$ligne->country.'"';
+
+			}
+			else
+			{
+				$result = $result.',"'.$ligne->country.'"';
+			}
+		}
+		$result = $result."]'";
+		return $result;
 	}
 }

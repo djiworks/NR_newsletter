@@ -1,4 +1,6 @@
 <?php
+include_once (APPPATH . "controllers/university/university.php");
+
  
 class Intern extends CI_Controller
 {
@@ -22,13 +24,20 @@ class Intern extends CI_Controller
 		}
 	}
 
-    public function index()
+    public function index($is_success = false)
     {
 		$data = array();
 		$data['allInterns'] = $this->getAllInterns();
-		
+		$data ['allCountries'] = University::getAllCountries();
+
+		if($is_success){
+			$data ['is_success'] = "true";
+		}
+
 		$this->load->view('intern/head');
-		$this->load->view('intern/topmenu');
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'intern/topmenu', $sess );
 		$this->load->view('intern/body', $data);
 		$this->load->view('intern/footer');
     }
@@ -179,5 +188,49 @@ class Intern extends CI_Controller
 		}
 		$result = $result."]'";
 		return $result;
+	}
+	
+		public function verificationAddIntern() {
+		// loading of the library
+		$this->load->library ( 'form_validation' );
+		$this->load->model ( 'intern/intern_md' );
+		$this->load->database ();
+		
+		$this->form_validation->set_rules ( 'FirstName', '"First Name"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'LastName', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Phone', '"Phone"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Mail', '"Mail"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Country', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'WorkedUntil', '"Worked until"', 'trim|required|encode_php_tags|xss_clean' );
+		
+		if ($this->form_validation->run()) {
+			// If the form is valid
+			$first_name = $this->input->post ( 'FirstName' );
+			$last_name = $this->input->post ( 'LastName' );
+			$phone = $this->input->post ( 'Phone' );
+			$mail = $this->input->post ( 'Mail' );
+			$country = $this->input->post ( 'Country' );
+			$worked_until = $this->input->post ( 'WorkedUntil' );
+			
+			$result = $this->intern_md->create($first_name, $last_name, $country, $phone, $mail, $worked_until);
+
+			$this->index (true);
+		} else {
+			// If the form is not valid or empty
+			$this->formCompletion();
+		}
+	}
+	
+		public function formCompletion() {
+		$data = array ();
+		$data ['allCountries'] = University::getAllCountries();
+		$data['allInterns'] = $this->getAllInterns();
+		$data ['is_success'] = "false";
+		
+		$this->load->view ( 'intern/head' );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'university/topmenu', $sess );		$this->load->view ( 'intern/body', $data );
+		$this->load->view ( 'intern/footer' );
 	}
 }

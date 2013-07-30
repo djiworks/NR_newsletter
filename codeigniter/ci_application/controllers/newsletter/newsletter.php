@@ -22,7 +22,9 @@ class Newsletter extends CI_Controller
 		$data['allNews'] = $this->getAllNewsletters();
 		
 		$this->load->view('newsletter/head');
-		$this->load->view('newsletter/topmenu');
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
+		$this->load->view ( 'newsletter/topmenu', $sess );
 		$this->load->view('newsletter/body', $data);
 		$this->load->view('newsletter/footer');
     }
