@@ -51,6 +51,7 @@ class Admin extends CI_Controller {
 	 	$this->load->model ( '/user/user_md' );
 	 	
 		$fetched_users = $this->user_md->getAllUsers();
+		$fetched_roles = $this->user_md->getAllRoles();
 		$result = "";
 		$id_user = "";
 		$i = 1;
@@ -58,25 +59,24 @@ class Admin extends CI_Controller {
 		foreach ( $fetched_users->result () as $line ) {				
 
 				$result = $result . '
-					<tr>
-						<tr>
+							<tr>
 							<td>' . $line->id_user . '</td>
 							<td>' . $line->login . '</td>
-							<td>' . $line->name . '</td>		
-							
+							<td>
 							<li class="dropdown">
 								<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
-								Dropdown 
+								 '. $line->name .' 
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
-								<li role="presentation"> … </li>
-								<li role="presentation"> … </li>
-								<li role="presentation"> … </li>
-								<li class="divider" role="presentation"></li>
-								<li role="presentation"> … </li>
+									<li role="presentation"> … </li>
+									<li role="presentation"> … </li>
+									<li role="presentation"> … </li>
+									<li class="divider" role="presentation"></li>
+									<li role="presentation"> … </li>
 								</ul>
-							</li>		
+							</li>
+							</td>		
 						
 						</tr>';
 				

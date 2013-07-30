@@ -6,6 +6,6 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<!-- Bootstrap -->
 	<link rel="stylesheet" type="text/css" media="screen" href="/assets/bootstrap/css/bootstrap.min.css" /> 
-	<link rel="stylesheet" type="text/css" media="screen" href="/assets/css/university.css" /> 
+	<link rel="stylesheet" type="text/css" media="screen" href="/assets/css/admin.css" /> 
 </head>
 <body>

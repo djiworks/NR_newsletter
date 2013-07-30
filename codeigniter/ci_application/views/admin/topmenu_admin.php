@@ -18,8 +18,8 @@
 					<li><a href="/index.php/intern/intern">Interns</a></li>
 					<li><a href="/index.php/newsletter/newsletter">Newsletter <span
 							class="badge badge-important">2</span></a></li>
-					<li><a href="/index.php/guidelines/guidelines"><i
-							class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
+					<li><a href="/index.php/guidelines/guidelines">
+						<i class="icon-question-sign icon-white"></i>&nbsp;Guidelines</a></li>
 					<li class="divider-vertical"></li>
 					<li class="active"><a href="/index.php/admin/admin">Administration</a></li>
 				</ul>
