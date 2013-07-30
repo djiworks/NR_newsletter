@@ -54,5 +54,14 @@ Class User_md extends CI_Model
 			FROM ".$this->table2." as r
 		");
 	 }
+	 
+	 function updateRole($id_user, $id_role)
+	 {
+		return $this->db->query("
+			UPDATE ".$this->table."
+			SET id_role = ".$id_role."
+			WHERE id_user = ".$id_user.";
+		");  
+	 }
 }
 ?>

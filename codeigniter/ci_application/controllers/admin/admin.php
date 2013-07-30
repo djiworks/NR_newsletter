@@ -32,6 +32,23 @@ class Admin extends CI_Controller {
 		$this->index ();
 	}
 	
+	public function updateRole()
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+		$ci->load->helper('url');		
+
+		isLoggedIn($ci);
+		
+		$ci->load->model('/user/user_md');
+		$ci->load->database();
+		$id_user = $ci->uri->segment(4);
+		$id_role = $ci->uri->segment(5);
+		
+		$ci->user_md->updateRole($id_user, $id_role);		
+		redirect('admin/admin', 'refresh');
+	}
+	
 	public function getAllUsers()
 	{
 		isLoggedIn($this);
@@ -45,12 +62,6 @@ class Admin extends CI_Controller {
 		 
  	 	$this->load->model ( '/user/user_md' );
 		$fetched_roles = $this->user_md->getAllRoles();
-		$roles = "";
- 
- 		foreach ( $fetched_roles->result () as $line ) {				
-				$roles = $roles . '<li role="presentation">'. $line->id_role .' - '. $line->name .'</li>';
-		}
-		
 		
 		/**
 		 * *************************************************************
@@ -75,7 +86,14 @@ class Admin extends CI_Controller {
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
-									'.$roles.'
+									';
+				foreach ( $fetched_roles->result () as $line_bis ) {				
+						$result = $result . '<li role="presentation">
+						<a href="admin/updateRole/'.$line->id_user.'/'.$line_bis->id_role.'" tabindex="-1" role="menuitem">
+					'. $line_bis->id_role .' - '. $line_bis->name .'</a></li>';
+				}
+									
+				$result = $result . '
 								</ul>
 							</li>
 							</td>		
