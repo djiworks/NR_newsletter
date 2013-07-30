@@ -1,10 +1,13 @@
 <?php
 Class User_md extends CI_Model
 {
-	 function login($username, $password)
-	 {
+	private $table  = "user";
+	private $table2  = "role";
+
+	function login($username, $password)
+	{
 		  $query = $this -> db -> select('id_user, login, password, id_role')
-		  					   -> from('user')
+		  					   -> from($this->table)
 		  					   -> where('login', $username)
 		   					   -> get();
 		   					   
@@ -33,6 +36,15 @@ Class User_md extends CI_Model
 		  	}
 		  }
 		  $query->free_result();
+	 }
+	 
+	 function getAllUsers()
+	 {
+		return $this->db->query("
+			SELECT u.id_user, u.login, u.password, r.name
+			FROM ".$this->table."  AS u INNER JOIN ".$this->table2." as r
+			ON u.id_role = r.id_role
+		");
 	 }
 }
 ?>

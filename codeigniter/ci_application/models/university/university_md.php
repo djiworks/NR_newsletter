@@ -66,31 +66,6 @@ class University_md extends CI_Model
 	}
 	 
 	public function getAll() {
-		/*return $this->db->query("
-			SELECT u.id_university, 
-				   u.name, 
-				   u.address, 
-				   u.country, 
-				   u.subscription, 
-				   u.checking_state, 
-				   u.comment, 
-				   c.id_contact, 
-				   m.mail, 
-				   p.number, 
-				   r.id_person, 
-				   r.is_student, 
-				   pe.first_name, 
-				   pe.last_name, 
-				   pe.country, 
-				   pe.worked_until
-				FROM ".$this->table." AS u 
-					LEFT OUTER JOIN ".$this->table2." AS c ON u.id_university = c.id_university
-					LEFT OUTER JOIN ".$this->table3." AS p ON c.id_contact = p.id_contact
-					LEFT OUTER JOIN ".$this->table4." AS m ON c.id_contact = m.id_contact
-					LEFT OUTER JOIN ".$this->table5." AS r ON u.id_university = r.id_university
-					LEFT OUTER JOIN ".$this->table6." AS pe ON r.id_person = pe.id_person
-				ORDER BY u.id_university ASC;");*/
-				
 				return $this->db->query("
 					SELECT u.id_university, u.name, u.address, u.country, u.subscription, u.checking_state, u.comment, m.mail, p.number
 						FROM ".$this->table." AS u 

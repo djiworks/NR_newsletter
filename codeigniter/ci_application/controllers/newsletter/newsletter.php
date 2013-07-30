@@ -6,6 +6,8 @@ class Newsletter extends CI_Controller
 	
 	public function __construct($id = false){
 		parent::__construct(); 
+		$this->load->helper('login');
+
 		$this->load->model('newsletter/newsletter_md');
 		$this->load->database();
 
@@ -24,7 +26,7 @@ class Newsletter extends CI_Controller
 		$this->load->view('newsletter/head');
 		$session_data = $this->session->userdata('logged_in');
 		$sess['username'] = $session_data['username'];
-		$this->load->view ( 'newsletter/topmenu', $sess );
+		loadTopMenu($this, 'newsletter', $sess);
 		$this->load->view('newsletter/body', $data);
 		$this->load->view('newsletter/footer');
     }
@@ -37,7 +39,7 @@ class Newsletter extends CI_Controller
     public function mail()
     {
 		$this->load->view('newsletter/head');
-		$this->load->view('newsletter/topmenu');
+		loadTopMenu($this, 'newsletter', $sess);	
 		$this->load->view('newsletter/mail');
 		$this->load->view('newsletter/footer');
     }

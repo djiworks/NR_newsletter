@@ -20,8 +20,8 @@ class University extends CI_Controller {
 			$this->initialiseValue ();
 		}
 	}
+	
 	public function index($is_success = false) {
-
 			isLoggedIn($this);
 			
 			$data = array ();
@@ -37,7 +37,7 @@ class University extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			$sess['username'] = $session_data['username'];
 			
-			loadTopMenuForRole($this, 'university', 1 , $sess) ;
+			loadTopMenu($this, 'university', $sess) ;
 
 			$this->load->view ( 'university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
@@ -45,9 +45,14 @@ class University extends CI_Controller {
 
 	}
 	public function accueil() {
+		isLoggedIn($this);
+
 		$this->index ();
 	}
 	public function getAllUniversities() {
+		isLoggedIn($this);
+
+		
 		$ci = new CI_CONTROLLER ();
 		$ci->load->model ( 'university/university_md' );
 		$this->load->database ();
@@ -213,7 +218,10 @@ class University extends CI_Controller {
 		}
 		return $result;
 	}
+	
 	public function get() {
+		isLoggedIn($this);
+
 		$ci = new CI_CONTROLLER ();
 		$id = $ci->uri->segment ( 4 );
 		
@@ -230,27 +238,43 @@ class University extends CI_Controller {
 		) ) );
 	}
 	public function getId() {
+		isLoggedIn($this);
+
 		return $this->id;
 	}
 	public function getName() {
+		isLoggedIn($this);
+		
 		return $this->name;
 	}
 	public function getAdress() {
+		isLoggedIn($this);
+		
 		return $this->address;
 	}
 	public function getCountry() {
+		isLoggedIn($this);
+		
 		return $this->country;
 	}
 	public function getSubscription() {
+		isLoggedIn($this);
+		
 		return $this->subscription;
 	}
 	public function getCheckingState() {
+		isLoggedIn($this);
+		
 		return $this->checking_state;
 	}
 	public function getComment() {
+		isLoggedIn($this);
+		
 		return $this->comment;
 	}
 	public function addCommentOnUniversity() {
+		isLoggedIn($this);
+		
 		$ci = new CI_CONTROLLER ();
 		$this->load->model ( 'university/university_md' );
 		$this->load->database ();
@@ -261,6 +285,7 @@ class University extends CI_Controller {
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
 	public function initialiseValue() {
+		isLoggedIn($this);
 		$result = $this->university_md->get ( $this->id );
 		
 		if ($result->num_rows ()) {
@@ -274,6 +299,8 @@ class University extends CI_Controller {
 		}
 	}
 	public function verificationAddUniversity() {
+		isLoggedIn($this);
+		
 		// loading of the library
 		$this->load->library ( 'form_validation' );
 		$this->load->model ( 'university/university_md' );
@@ -304,6 +331,8 @@ class University extends CI_Controller {
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
+		isLoggedIn($this);
+		
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
@@ -315,7 +344,9 @@ class University extends CI_Controller {
 		$this->load->view ( 'university/head' );
 		$session_data = $this->session->userdata('logged_in');
 		$sess['username'] = $session_data['username'];
-		$this->load->view ( 'university/topmenu', $sess );
+		
+		loadTopMenu($this, 'university', $sess) ;
+		
 		$this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );
@@ -324,6 +355,10 @@ class University extends CI_Controller {
 	public static function getAllCountries()
 	{	
 		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedIn($ci);
+		
 		$ci->load->model('university/university_md');
 		$ci->load->database();
 		$fetched = $ci->university_md->getAllCountries();
