@@ -8,21 +8,21 @@ class Admin extends CI_Controller {
 		$this->load->database ();
 	}
 	
-	public function index($is_success = false) {
-			isLoggedIn($this);
-			isAdmin($this);
+	public function index() {
+		isLoggedIn($this);
+		isAdmin($this);
 
-			$data = array ();
-			$data ['allUsers'] = $this->getAllUsers();
+		$data = array ();
+		$data ['allUsers'] = $this->getAllUsers();
+	
+		$this->load->view ( 'admin/head' );
+		$session_data = $this->session->userdata('logged_in');
+		$sess['username'] = $session_data['username'];
 		
-			$this->load->view ( 'admin/head' );
-			$session_data = $this->session->userdata('logged_in');
-			$sess['username'] = $session_data['username'];
-			
-			loadTopMenu($this, 'admin', $sess) ;
+		loadTopMenu($this, 'admin', $sess) ;
 
-			$this->load->view ( 'admin/body', $data );
-			$this->load->view ( 'admin/footer' );
+		$this->load->view ( 'admin/body', $data );
+		$this->load->view ( 'admin/footer' );
 	}
 
 	public function accueil() {
@@ -34,6 +34,12 @@ class Admin extends CI_Controller {
 	
 	public function updateRole()
 	{
+		isLoggedIn($this);
+		isAdmin($this);
+		
+		$session_data = $this->session->userdata('logged_in');
+		$id_user_session = $session_data['id'];
+		
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 		$ci->load->helper('url');		
@@ -45,8 +51,11 @@ class Admin extends CI_Controller {
 		$id_user = $ci->uri->segment(4);
 		$id_role = $ci->uri->segment(5);
 		
-		$ci->user_md->updateRole($id_user, $id_role);		
-		redirect('admin/admin', 'refresh');
+		if($id_user_session != $id_user)
+		{
+			$ci->user_md->updateRole($id_user, $id_role);		
+			redirect('admin/admin', 'refresh');
+		}
 	}
 	
 	public function getAllUsers()
@@ -60,49 +69,98 @@ class Admin extends CI_Controller {
 		 * *************************************************************
 		 */
 		 
- 	 	$this->load->model ( '/user/user_md' );
-		$fetched_roles = $this->user_md->getAllRoles();
-		
+
 		/**
 		 * *************************************************************
 		 * Preparing the table of users *
 		 * *************************************************************
 		 */	 	
+		$this->load->model ( '/user/user_md' );
+		$fetched_roles = $this->user_md->getAllRoles();
 		$fetched_users = $this->user_md->getAllUsers();
 		$result = "";
-		$id_user = "";
-		$i = 1;
+		
+		$session_data = $this->session->userdata('logged_in');
+		$id_user = $session_data['id'];
 		
 		foreach ( $fetched_users->result () as $line ) {				
-
-				$result = $result . '
-							<tr>
-							<td>' . $line->id_user . '</td>
-							<td>' . $line->login . '</td>
-							<td>
-							<li class="dropdown">
-								<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
-								 '. $line->id_role .' - '. $line->name .' 
-									<b class="caret"></b>
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
-									';
-				foreach ( $fetched_roles->result () as $line_bis ) {				
-						$result = $result . '<li role="presentation">
-						<a href="admin/updateRole/'.$line->id_user.'/'.$line_bis->id_role.'" tabindex="-1" role="menuitem">
-					'. $line_bis->id_role .' - '. $line_bis->name .'</a></li>';
+			if($id_user != $line->id_user)
+				{
+					$result = $result . '
+								<tr>
+								<td>' . $line->id_user . '</td>
+								<td>' . $line->login . '</td>
+								<td>
+								<li class="dropdown">
+									<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+									 '. $line->id_role .' - '. $line->name .' 
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+										';
+					foreach ( $fetched_roles->result () as $line_bis ) {				
+							$result = $result . '<li role="presentation">
+							<a href="admin/updateRole/'.$line->id_user.'/'.$line_bis->id_role.'" tabindex="-1" role="menuitem">
+						'. $line_bis->id_role .' - '. $line_bis->name .'</a></li>';
+					}
+										
+					$result = $result . '
+									</ul>
+								</li>
+								</td>		
+							
+							</tr>';
 				}
-									
-				$result = $result . '
-								</ul>
-							</li>
-							</td>		
-						
-						</tr>';
-				
-				$i ++;
+				else
+				{
+					$result = $result . '
+								<tr>
+								<td>' . $line->id_user . '</td>
+								<td>' . $line->login . '</td>
+								<td>
+								<li>
+									 '. $line->id_role .' - '. $line->name .' 
+								</li>
+								</td>		
+							
+							</tr>';
+				}
 		}
 		return $result;
 	}
+	
+		public function verificationAddUser() {
+		isLoggedIn($this);
+		isAdmin($this);
+		
+		// loading of the library
+		$this->load->library ( 'form_validation' );
+		$this->load->model ( 'user/user_md' );
+		
+		$this->form_validation->set_rules ( 'Login', '"Login"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'Password', '"Password"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'ConfirmPassword', '"ConfirmPassword"', 'trim|required|encode_php_tags|xss_clean' );
+		
+		if ($this->form_validation->run ()) {
+			// If the form is valid
+			$login = $this->input->post ( 'Login' );
+			$password = $this->input->post ( 'Password' );
+			$confirm_password = $this->input->post ( 'ConfirmPassword' );
+			$role = $this->input->post ( 'Role' );
+			
+			if($password == $confirm_password)
+			{
+				$result = $this->user_md->create ( $login, $password, $role);
+				$this->index (true);
+			}
+			else
+			{
+				$this->index (false);
+			}
+		} else {
+			// If the form is not valid or empty
+			$this->index (false);
+		}
+	}
+	
 }
-//~ <li class="divider" role="presentation"></li>
