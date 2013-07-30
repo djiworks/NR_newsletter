@@ -42,19 +42,20 @@ class University extends CI_Controller {
 			$this->load->view ( 'university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
 			$this->load->view ( 'university/footer' );
-
 	}
+	
 	public function accueil() {
 		isLoggedIn($this);
 
 		$this->index ();
 	}
+	
 	public function getAllUniversities() {
 		isLoggedIn($this);
 
 		
 		$ci = new CI_CONTROLLER ();
-		$ci->load->model ( 'university/university_md' );
+		$ci->load->model('university/university_md');
 		$this->load->database ();
 		
 		/**
@@ -85,17 +86,14 @@ class University extends CI_Controller {
 					break;
 			}
 			
-			$displayInterns [$id_univ] = $displayInterns [$id_univ] . "<tr>
-					<td>" . $line->id_person . "</td>
-					<td>" . $student . "</td>
-					<td>" . $line->first_name . " " . $line->last_name . "</td>
-					<td>" . $line->worked_until . "</td>
+			$displayInterns [$id_univ] = $displayInterns [$id_univ]."
+				<tr>
+					<td class='classTabInternNumber'>".$line->id_person."</td>
+					<td class='classTabInternStudent'>".$student."</td>
+					<td class='classTabInternName'>".$line->first_name." ".$line->last_name."</td>
+					<td class='classTabInternWorked'>".$line->worked_until."</td>
 				</tr>";
 		}
-		
-		/*
-		 * echo '$displayInterns[1] = '.$displayInterns["1"].'<br />'; echo '$displayInterns[2] = '.$displayInterns["2"].'<br />'; echo '$displayInterns[3] = '.$displayInterns["3"].'<br />'; echo '$displayInterns[4] = '.$displayInterns["4"].'<br />'; echo '$displayInterns[5] = '.$displayInterns["5"].'<br />'; echo '$displayInterns[6] = '.$displayInterns["6"].'<br />';
-		 */
 		
 		/**
 		 * *************************************************************
@@ -114,11 +112,12 @@ class University extends CI_Controller {
 				$displayContact [$id_univ] = "";
 			}
 			
-			$displayContact [$id_univ] = $displayContact [$id_univ] . "<tr>
-					<td>" . $line->id_contact . "</td>
-					<td>" . $line->information . "</td>
-					<td>" . $line->mail . "</td>
-					<td>" . $line->number . "</td>
+			$displayContact [$id_univ] = $displayContact [$id_univ]."
+				<tr>
+					<td class='classTabContactNumber'>".$line->id_contact."</td>
+					<td class='classTabContactInfo'>".$line->information."</td>
+					<td class='classTabContactMail'>".$line->mail."</td>
+					<td class='classTabContactPhone'>".$line->number."</td>
 				</tr>";
 		}
 		
@@ -139,19 +138,19 @@ class University extends CI_Controller {
 				// Switching the state number to the real values
 				switch ($line->checking_state) {
 					case 0 :
-						$classUniv = "";
+						$classUniv = "classNormal";
 						$state = "First newsletter sent";
 						break;
 					case 1 :
-						$classUniv = "success";
+						$classUniv = "classSuccess";
 						$state = "Approved";
 						break;
 					case 2 :
-						$classUniv = "warning";
+						$classUniv = "classWarning";
 						$state = "Waiting";
 						break;
 					case 3 :
-						$classUniv = "error";
+						$classUniv = "classError";
 						$state = "Wrong";
 						break;
 					default :
@@ -162,57 +161,69 @@ class University extends CI_Controller {
 				
 				$subcription = ($line->subscription == 1) ? "Yes" : "No";
 				
-				$result = $result . "
-					<tr>
-						<tr>
-							<td>
-								<input type='checkbox' id='chk" . $i . "' onclick='selectedUniv(\"" . $line->name . "\", \"" . $line->id_university . "\", \"chk" . $i . "\")'>
-							</td>
-							<td>" . $line->id_university . "</td>
-							<td>" . $line->name . "</td>
-							<td>" . $line->address . "</td>
-							<td>" . $line->country . "</td>
-							<td>" . $subcription . "</td>
-							<td>" . $state . "</td>
-							<td><a href='#viewdetail' data-toggle='modal'>Click here</a></td>
+				$result = $result."
+					<div class='accordion-group'>
+						<div class='accordion-heading'>
+							<ul class='nav wrapTab ".$classUniv."'>
+								<li class='classToSend'>
+									<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$line->name."\", \"".$line->id_university."\", \"chk".$i."\")'>
+								</li>
+								<li class='classNumber'>".$line->id_university."</li>
+								<li class='className'>".$line->name."</li>
+								<li class='classAddress'>".$line->address."</li>
+								<li class='classCountry'>".$line->country."</li>
+								<li class='classSubscription'>".$subcription."</li>
+								<li class='classChkState'>".$state."</li>
+								<li class='classDetails'>
+									<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>Click here</a>
+								</li>
+							</ul>
+						</div>
 						
-						</tr>
-
-						<tr class='" . $classUniv . "' id='secLine" . $i . "'>
-							<td colspan='3'>
-								<table>
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Student</th>
-											<th>Name</th>
-											<th>Worked until</th>
-										</tr>
-									</thead>
-									<tbody>
-										" . $displayInterns [$line->id_university] . "
-									</tbody>
-								</table>
-							</td>
-							<td colspan='3'>
-								<table>
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Information</th>
-											<th>Mail</th>
-											<th>Phone</th>
-										</tr>
-									</thead>
-									<tbody>
-										" . $displayContact [$line->id_university] . "
-									</tbody>
-								</table>
-							</td>
-							<td><button>Modify</button></td>
-							<td><button>Delete</button></td>
-					</tr>";
-				
+						<br />
+						
+						<div id='collapse".$i."' class='accordion-body collapse'>
+							<div class='accordion-inner ".$classUniv."'>
+								<div class='accordion-body collapse in'>
+									<ul class='nav wrapTab'>
+										<li class='classTabIntern'>
+											<table class='classTabInternIn'>
+												<thead>
+													<tr>
+														<th class='classTabInternNumber'>#</th>
+														<th class='classTabInternStudent'>Student</th>
+														<th class='classTabInternName'>Name</th>
+														<th class='classTabInternWorked'>Worked until</th>
+													</tr>
+												</thead>
+												<tbody>
+													".$displayInterns[$line->id_university]."
+												</tbody>
+											</table>
+										</li>
+										<li class='classTabContact'>
+											<table class='classTabContactIn'>
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Information</th>
+														<th>Mail</th>
+														<th>Phone</th>
+													</tr>
+												</thead>
+												<tbody>
+													".$displayContact[$line->id_university]."
+												</tbody>
+											</table>
+										</li>
+										<li class='classBtnModify'><button>Modify</button></li>
+										<li class='classBtnDelete'><button>Delete</button></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>";
+		
 				$i ++;
 			}
 		}

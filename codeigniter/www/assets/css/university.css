@@ -16,3 +16,143 @@ body {
 	max-height: 270px;
 	overflow: auto;
 }
+
+/* class table display university */
+.wrapTabColName {
+	height: auto;
+	width: 100%;
+	text-align: center;
+	color:#08c;
+}
+
+.wrapTab {
+	height: auto;
+	width: 100%;
+	text-align: center;
+}
+
+.classToSend {
+	width: 5%;
+}
+
+.classNumber {
+	width: 3%;
+}
+
+.className {
+	width: 13%;
+}
+
+.classAddress {
+	width: 30%;
+}
+
+.classCountry {
+	width: 13%;
+}
+
+.classSubscription {
+	width: 13%;
+}
+
+.classChkState {
+	width: 14%;
+}
+
+.classDetails {
+	width: 7%;
+}
+
+.classTabIntern {
+	width: 40%;
+}
+
+.classTabContact {
+	width: 40%;
+}
+
+.classBtnModify {
+	width: 7%;
+}
+
+.classBtnDelete {
+	width: 7%;
+}
+
+/* Class inside table intern */
+.classTabInternNumber {
+	width: 5%;
+}
+
+.classTabInternStudent {
+	width: 10%;
+}
+
+.classTabInternName {
+	width: 35%;
+}
+
+.classTabInternWorked {
+	width: 35%;
+}
+
+/* Class inside table contact */
+.classTabContactNumber {
+	width: 4%;
+}
+
+.classTabContactInfo {
+	width: 40%;
+}
+
+.classTabContactMail {
+	width: 40%;
+}
+
+.classTabContactPhone {
+	width: 15%;
+}
+
+/* Class to fulfill div with colors*/
+.classNormal:hover, .classNormal:focus {
+	background-color: #f5f5f5;
+}
+
+.classSuccess {
+	background-color:#dff0d8;
+	/*border-radius: 6px;*/
+}
+
+.classSuccess:hover, .classSuccess:focus {
+	background-color:#d0e9c6;
+}
+
+
+.classError {
+	background-color:#f2dede;
+	/*border-radius: 6px;*/
+}
+
+.classError:hover, .classError:focus {
+	background-color:#ebcccc;
+}
+
+
+.classWarning {
+	background-color:#fcf8e3;
+	/*border-radius: 6px;*/
+}
+
+.classWarning:hover, .classWarning:focus {
+	background-color:#faf2cc;
+}
+
+
+.classInfo {
+	background-color:#d9edf7;
+	/*border-radius: 6px;*/
+}
+
+.classInfo:hover, .classInfo:focus {
+	background-color:#c4e3f3;
+}
