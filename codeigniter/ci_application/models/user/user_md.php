@@ -41,9 +41,17 @@ Class User_md extends CI_Model
 	 function getAllUsers()
 	 {
 		return $this->db->query("
-			SELECT u.id_user, u.login, u.password, r.name
+			SELECT u.id_user, u.login, u.password, r.id_role , r.name
 			FROM ".$this->table."  AS u INNER JOIN ".$this->table2." as r
 			ON u.id_role = r.id_role
+		");
+	 }
+	 
+	 function getAllRoles()
+	 {
+		return $this->db->query("
+			SELECT r.id_role, r.name
+			FROM ".$this->table2." as r
 		");
 	 }
 }

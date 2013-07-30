@@ -5,7 +5,6 @@ class Admin extends CI_Controller {
 	public function __construct() {
 		parent::__construct ();
 		$this->load->helper('login');
-		//~ $this->load->model ( 'admin/admin_md' );
 		$this->load->database ();
 	}
 	
@@ -14,12 +13,7 @@ class Admin extends CI_Controller {
 			isAdmin($this);
 
 			$data = array ();
-			//~ $data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allUsers'] = $this->getAllUsers();
-
-			//~ if($is_success){
-				//~ $data ['is_success'] = "true";
-			//~ }
 		
 			$this->load->view ( 'admin/head' );
 			$session_data = $this->session->userdata('logged_in');
@@ -45,13 +39,25 @@ class Admin extends CI_Controller {
 
 		/**
 		 * *************************************************************
-		 * Preparing the table of users *
+		 * Preparing the list of roles *
 		 * *************************************************************
 		 */
-	 	$this->load->model ( '/user/user_md' );
-	 	
-		$fetched_users = $this->user_md->getAllUsers();
+		 
+ 	 	$this->load->model ( '/user/user_md' );
 		$fetched_roles = $this->user_md->getAllRoles();
+		$roles = "";
+ 
+ 		foreach ( $fetched_roles->result () as $line ) {				
+				$roles = $roles . '<li role="presentation">'. $line->id_role .' - '. $line->name .'</li>';
+		}
+		
+		
+		/**
+		 * *************************************************************
+		 * Preparing the table of users *
+		 * *************************************************************
+		 */	 	
+		$fetched_users = $this->user_md->getAllUsers();
 		$result = "";
 		$id_user = "";
 		$i = 1;
@@ -65,15 +71,11 @@ class Admin extends CI_Controller {
 							<td>
 							<li class="dropdown">
 								<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
-								 '. $line->name .' 
+								 '. $line->id_role .' - '. $line->name .' 
 									<b class="caret"></b>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
-									<li role="presentation"> … </li>
-									<li role="presentation"> … </li>
-									<li role="presentation"> … </li>
-									<li class="divider" role="presentation"></li>
-									<li role="presentation"> … </li>
+									'.$roles.'
 								</ul>
 							</li>
 							</td>		
@@ -85,3 +87,4 @@ class Admin extends CI_Controller {
 		return $result;
 	}
 }
+//~ <li class="divider" role="presentation"></li>
