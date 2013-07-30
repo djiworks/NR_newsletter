@@ -14,23 +14,31 @@
 						<button type="submit" class="btn">Search</button>
 					</div>
 				</form>
-	    		<table class="table table-hover" id="displayUnivList">
-		    		<thead>
-			    		<tr>
-			    			<th>To Send</th>
-				    		<th>#</th>
-				    		<th><a><i class="icon-chevron-down"></i> Name</a></th>
-				    		<th>Address</th>
-				    		<th><a><i class="icon-chevron-down"></i> Country</a></th>
-				    		<th><a><i class="icon-chevron-up"></i> Subcription</a></th>
-				    		<th><a><i class="icon-chevron-down"></i> Checking State</a></th>
-				    		<th>View Details</th>
-			    		</tr>
-		    		</thead>
-		    		<tbody>
-		    			<?php echo $allUniv; ?>
-		    		</tbody>
-		    	</table>
+				
+				<div class="accordion" id="accordion">
+					<div class="navbar navbar-inverse">
+						<div class="container-fluid">
+							<div class="nav-collapse collapse">
+								<ul class="nav wrapTabColName">
+									<li class="classToSend">To Send</li>
+									<li class="classNumber">#</li>
+									<li class="className"><a><i class="icon-chevron-down"></i> Name</a></li>
+									<li class="classAddress">Address</li>
+									<li class="classCountry"><a><i class="icon-chevron-down"></i> Country</a></li>
+									<li class="classSubscription"><a><i class="icon-chevron-up"></i> Subcription</a></li>
+									<li class="classChkState"><a><i class="icon-chevron-down"></i> Checking State</a></li>
+									<li class="classDetails">View Details</li>
+									<li class="divider"></li>
+								</ul>
+							
+								<br />
+										
+								<?php echo $allUniv; ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 		    	<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUniversity'>
 						<i class="icon-plus"></i> Add an University
