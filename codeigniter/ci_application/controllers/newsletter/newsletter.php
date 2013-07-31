@@ -12,7 +12,6 @@ class Newsletter extends CI_Controller
 		$this->load->database();
 
 		if($id){
-					
 			$this->id = $id;
 			$this->initialiseValue();	
 		}
@@ -25,8 +24,7 @@ class Newsletter extends CI_Controller
 		
 		$this->load->view('newsletter/head');
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'newsletter', $sess);
+		loadTopMenu($this, 'newsletter', $session_data);
 		$this->load->view('newsletter/body', $data);
 		$this->load->view('newsletter/footer');
     }
@@ -39,7 +37,8 @@ class Newsletter extends CI_Controller
     public function mail()
     {
 		$this->load->view('newsletter/head');
-		loadTopMenu($this, 'newsletter', $sess);	
+		$session_data = $this->session->userdata('logged_in');
+		loadTopMenu($this, 'newsletter', $session_data);	
 		$this->load->view('newsletter/mail');
 		$this->load->view('newsletter/footer');
     }

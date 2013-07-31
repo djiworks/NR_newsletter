@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
 		$this->load->database ();
 	}
 	
-	public function index($is_success = false) {
+	public function index($is_success = NULL) {
 		isLoggedIn($this);
 		isAdmin($this);
 
@@ -16,15 +16,21 @@ class Admin extends CI_Controller {
 		$data ['allUsers'] = $this->getAllUsers();
 		$data ['roleList'] = $this->getRoleList();
 
-		if($is_success){
-			$data ['is_success'] = "true";
+		if(isset($is_success)){
+			if($is_success)
+			{
+				$data ['is_success'] = "true";
+			}
+			else
+			{
+				$data ['is_success'] = "false";
+			}
 		}
 	
 		$this->load->view ( 'admin/head' );
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
 		
-		loadTopMenu($this, 'admin', $sess) ;
+		loadTopMenu($this, 'admin', $session_data) ;
 
 		$this->load->view ( 'admin/body', $data );
 		$this->load->view ( 'admin/footer' );
@@ -105,8 +111,12 @@ class Admin extends CI_Controller {
 					$result = $result . '
 									</ul>
 								</li>
-								</td>		
-							
+								</td>
+								<td>		
+								<button class="btn btn-small" type="button" data-toggle=\'modal\' data-target=\'#modifyPassword\'>Change Password</button>
+								<button class="btn btn-small" type="button" data-toggle=\'modal\' data-target=\'#confirmDeletion\'>Delete</button>
+								</td>
+											
 							</tr>';
 				}
 				else
@@ -120,6 +130,8 @@ class Admin extends CI_Controller {
 									 '. $line->id_role .' - '. $line->name .' 
 								</li>
 								</td>		
+								<td></td>		
+
 							
 							</tr>';
 				}
@@ -142,8 +154,8 @@ class Admin extends CI_Controller {
 		if ($this->form_validation->run ()) {
 			// If the form is valid
 			$login = $this->input->post ( 'Login' );
-			$password = $this->input->post ( 'Password' );
-			$confirm_password = $this->input->post ( 'ConfirmPassword' );
+			$password = crypt($this->input->post ( 'Password' ));
+			$confirm_password = crypt($this->input->post ( 'ConfirmPassword' ),$password);
 			$role = $this->input->post ( 'Role' );
 			
 			if($password == $confirm_password)

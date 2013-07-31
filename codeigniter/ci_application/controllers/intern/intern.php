@@ -40,8 +40,8 @@ class Intern extends CI_Controller
 
 		$this->load->view('intern/head');
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'intern', $sess);
+		//~ $sess['username'] = $session_data['username'];
+		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view('intern/body', $data);
 		$this->load->view('intern/footer');
     }
@@ -263,8 +263,8 @@ class Intern extends CI_Controller
 		
 		$this->load->view ( 'intern/head' );
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'intern', $sess);
+		//~ $sess['username'] = $session_data['username'];
+		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view ( 'intern/body', $data );
 		$this->load->view ( 'intern/footer' );
 	}

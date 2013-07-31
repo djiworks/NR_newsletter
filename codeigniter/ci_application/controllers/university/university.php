@@ -35,9 +35,9 @@ class University extends CI_Controller {
 		
 			$this->load->view ( 'university/head' );
 			$session_data = $this->session->userdata('logged_in');
-			$sess['username'] = $session_data['username'];
+			//~ $sess['username'] = $session_data['username'];
 			
-			loadTopMenu($this, 'university', $sess) ;
+			loadTopMenu($this, 'university', $session_data) ;
 
 			$this->load->view ( 'university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
@@ -354,9 +354,9 @@ class University extends CI_Controller {
 		
 		$this->load->view ( 'university/head' );
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
+		//~ $sess['username'] = $session_data['username'];
 		
-		loadTopMenu($this, 'university', $sess) ;
+		loadTopMenu($this, 'university', $session_data) ;
 		
 		$this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/body', $data );
