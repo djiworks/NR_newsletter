@@ -7,21 +7,28 @@ function isLoggedIn($object) {
 	}
 }
 
+
 function isAdmin($object) {
-	if(!$object->session->userdata('logged_in') || ($object->session->userdata('logged_in')['role'] != 1))
+	if(!$object->session->userdata('logged_in'))
 	{
-		redirect('admin/error', 'refresh');
+		$tmp = $object->session->userdata('logged_in');
+		
+		if($tmp['role'] != 1) {
+			redirect('admin/error', 'refresh');
+		}
 	}
 }
 
 function loadTopMenu($object, $path, $sess) {
-	if($object->session->userdata('logged_in')['role'] == 1)
-		{
-			$object->load->view ( $path.'/topmenu_admin', $sess );
-		}
-		else
-		{
-			$object->load->view ( $path.'/topmenu', $sess );
-		}
+	$tmp = $object->session->userdata('logged_in');
+	
+	if($tmp['role'] == 1)
+	{
+		$object->load->view ( $path.'/topmenu_admin', $sess );
+	}
+	else
+	{
+		$object->load->view ( $path.'/topmenu', $sess );
+	}
 }
 
