@@ -8,12 +8,17 @@ class Admin extends CI_Controller {
 		$this->load->database ();
 	}
 	
-	public function index() {
+	public function index($is_success = false) {
 		isLoggedIn($this);
 		isAdmin($this);
 
 		$data = array ();
 		$data ['allUsers'] = $this->getAllUsers();
+		$data ['roleList'] = $this->getRoleList();
+
+		if($is_success){
+			$data ['is_success'] = "true";
+		}
 	
 		$this->load->view ( 'admin/head' );
 		$session_data = $this->session->userdata('logged_in');
@@ -62,14 +67,7 @@ class Admin extends CI_Controller {
 	{
 		isLoggedIn($this);
 		isAdmin($this);
-
-		/**
-		 * *************************************************************
-		 * Preparing the list of roles *
-		 * *************************************************************
-		 */
-		 
-
+		
 		/**
 		 * *************************************************************
 		 * Preparing the table of users *
@@ -163,4 +161,19 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function getRoleList()
+	{
+		isLoggedIn($this);
+		isAdmin($this);
+
+		$this->load->model ( '/user/user_md' );
+		$fetched_roles = $this->user_md->getAllRoles();
+		$result = "";
+				
+		foreach ( $fetched_roles->result () as $line_bis ) {				
+				$result = $result . '<option>'.$line_bis->id_role.' - '. $line_bis->name .'</option>';
+		}
+
+		return $result;
+	}
 }

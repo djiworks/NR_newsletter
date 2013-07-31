@@ -1,7 +1,7 @@
 		<script src="http://code.jquery.com/jquery.js"></script>
 		<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<!--
-		<script src="/assets/javascript/university.js"></script>
+
+		<script src="/assets/javascript/admin.js"></script>
 		
 			<?php if(isset($is_success))
 			{echo "
@@ -9,6 +9,5 @@
 				confirmationAdding(".$is_success.");
 				</script>"; 
 			}?>
--->
 	</body>
 </html>

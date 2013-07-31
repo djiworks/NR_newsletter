@@ -32,7 +32,7 @@
 			<h3 id="addUserLabel">Add an User</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/university/university/verification/addUser" class="form-horizontal">
+			<form method="post" action="/index.php/admin/admin/verificationaddUser" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="Login">Login</label>
 					<div class="controls">
@@ -60,12 +60,8 @@
 				<div class="control-group">
 					<label class="control-label" for="Role">Role</label>
 					<div class="controls">
-						<select id="Role" name="Role" value="<?php echo set_value('Role'); ?>" >
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<select id="Role" name="Role" value="<?php echo set_value('Role'); ?>" >							
+							<?php echo $roleList; ?>
 						</select>						
 						<?php echo form_error('Role'); ?>
 					</div>
@@ -81,4 +77,31 @@
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
+	</div>
+	
+	<div id="success" class="modal hide fade">
+	<div class="modal-header">
+	<h4>Success</h4>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	</div>
+	<div class="modal-body">
+	<p>User added with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	</div>
+	</div>
+	
+	
+	<div id="failure" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" data-toggle='modal' data-target='#addUser' aria-hidden="true">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failed to add user. Please fill in all the fields.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUser'>Close</button>	
+	</div>
 	</div>

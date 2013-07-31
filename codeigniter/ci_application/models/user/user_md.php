@@ -1,8 +1,16 @@
 <?php
 Class User_md extends CI_Model
 {
-	private $table  = "user";
-	private $table2  = "role";
+	private $table = 'user';
+	private $table2 = 'role';
+
+	function create($login, $password, $role)
+	{
+		$this -> db -> set('login', $login)
+					-> set('password', $password)
+					-> set('id_role', $role)
+					-> insert('user');
+	}
 
 	function login($username, $password)
 	{
