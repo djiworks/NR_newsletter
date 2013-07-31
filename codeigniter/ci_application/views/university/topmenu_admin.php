@@ -8,10 +8,18 @@
 			</button>
 			<a class="brand" href="/index.php/university/university">University Newsletter Management</a>
 			<div class="nav-collapse collapse">
-				<p class="navbar-text pull-right">
-					Logged in as <a href="#" class="navbar-link"><?php echo $username; ?></a>
-					<a href="<?php echo site_url('login/login/logout'); ?>" class="btn btn-mini btn-danger"><i class="icon-off icon-white"></i> Logout</a>
-				</p>
+				<ul class="nav navbar-nav pull-right">
+					<li class="navbar-text">Logged as</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#"><strong><?php echo $username; ?></strong>
+						 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+						    <li><a href="#"><i class="icon-lock"></i> Change password</a></li>
+						    <li class="divider"></li>
+						    <li><a href="#"><i class="icon-off"></i> Log out</a></li>
+					  </ul>
+					</li>
+			</ul>
 				<ul class="nav">
 					<li class="active"><a href="/index.php/university/university">University <span
 							class="badge badge-important">1</span></a></li>
