@@ -140,25 +140,31 @@ class University extends CI_Controller {
 					case 0 :
 						$classUniv = "classNormal";
 						$state = "First newsletter sent";
+						$input = "<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$line->name."\", \"".$line->id_university."\", \"chk".$i."\")'>";
 						break;
 					case 1 :
 						$classUniv = "classSuccess";
 						$state = "Approved";
+						$input = "<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$line->name."\", \"".$line->id_university."\", \"chk".$i."\")'>";
 						break;
 					case 2 :
 						$classUniv = "classWarning";
 						$state = "Waiting";
+						$input = "NA";
 						break;
 					case 3 :
 						$classUniv = "classError";
 						$state = "Wrong";
+						$input = "NA";
 						break;
 					default :
 						$classUniv = "N/A";
 						$state = "N/A";
+						$input = "N/A";
 						break;
 				}
 				
+				//Changing the value of subscription
 				$subcription = ($line->subscription == 1) ? "Yes" : "No";
 				
 				$result = $result."
@@ -166,7 +172,7 @@ class University extends CI_Controller {
 						<div class='accordion-heading'>
 							<ul class='nav wrapTab ".$classUniv."'>
 								<li class='classToSend'>
-									<input type='checkbox' id='chk".$i."' onclick='selectedUniv(\"".$line->name."\", \"".$line->id_university."\", \"chk".$i."\")'>
+									".$input."
 								</li>
 								<li class='classNumber'>".$line->id_university."</li>
 								<li class='className'>".$line->name."</li>

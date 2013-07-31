@@ -1,14 +1,33 @@
 /* Listeners */
-/*
-var element = document.getElementById('inputSearchUniv');
-var search;
- 
-element.addEventListener('keypress', function(e) {
-	search = element.innerText;
-	
-	alert("element.innerText = "+document.getElementById('inputSearchUniv').textContent);
-}, false);
-*/
+//~ var element = document.getElementById('inputSearchUniv');
+ //~ 
+//~ element.addEventListener('keyup', function(e) {
+	//~ //alert("element = "+element.value);
+	//~ 
+	//~ var stuff = document.getElementsByTagName("li");
+	//~ 
+	//~ //alert(stuff.length);
+	//~ //alert("stuff[56].innerHTML = "+stuff[56].innerHTML);
+	//~ 
+	//~ for (var i = 1 ; i <= stuff.length ; i++) {
+		//~ if((stuff[i].className == "className")) {
+			//~ //alert("stuff["+i+"].className = "+stuff[i].className);
+			//~ alert("stuff["+i+"].innerHTML = "+stuff[i].innerHTML);
+			//~ alert("element.value = "+element.value);
+			//~ 
+			//~ var test = element.value.test.stuff[i].innerHTML;
+			//~ 
+			//~ alert("test = "+test);
+			//~ 
+			//~ if(stuff[i].innerHTML.test.element.value) {
+				//~ stuff[i].style.background = "red";
+			//~ }
+		//~ }
+	//~ }
+	//~ 
+	//~ //alert("i = "+i);
+//~ }, false);
+
 /* Functions */
 
 function selectedUniv (univName, univId, chkName) {

@@ -50,7 +50,7 @@
 	</div>
 
 	<!-- Modals -->
-
+<!-- 
 	<div id="viewdetail" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -70,6 +70,7 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+-->
 
 	<div id="addUniversity" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -115,45 +116,85 @@
 								data-source= <?php echo $allNames; ?>
 								autocomplete="off" value="<?php echo set_value('inputIntern'); ?>"/>
 							<?php echo form_error('inputIntern'); ?>
-							<button class="btn btn-success" type="button">
+							<button class="btn btn-success" type="button" data-target='#addIntern'>
 								<i class="icon-plus icon-white"></i>
 							</button>
 						</div>
 					</div>
 				</div>
-				
-				<div class="modal-header">
-					<h4 id="addUniversityLabel">Add a contact for this university</h4>
-				</div>
-				
+
 				<div class="control-group">
-					<label class="control-label" for="inputNameContact">Contact name</label>
 					<div class="controls">
-						<input type="text" id="inputNameContact" name="inputNameContact" placeholder="Contact name" value="<?php echo set_value('inputNameContact'); ?>"/>
-							<?php echo form_error('inputNameContact'); ?>
+						<button type="submit" class="btn">Submit</button>
 					</div>
 				</div>
 				
+				<input type="hidden" name="internLinked" id="internLinked"/>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+	
+	<!-- Modal add intern -->
+	<div id="addIntern" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">x</button>
+			<h3 id="addInternLabel">Add an Intern</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/index.php/intern/intern/verificationAddIntern" class="form-horizontal">
 				<div class="control-group">
-					<label class="control-label" for="inputInfoContact">Additional Information</label>
+					<label class="control-label" for="inputName">First name</label>
 					<div class="controls">
-						<textarea rows="3" name="inputInfoContact" placeholder="Additional Information"><?php if(isset($inputInfoContact)){echo $inputInfoContact ;} ?></textarea>
+						<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="<?php echo set_value('FirstName'); ?>"/>
+							<?php echo form_error('FirstName'); ?> 
 					</div>
 				</div>
-				
+
+				<div class="control-group">
+					<label class="control-label" for="inputName">Last name</label>
+					<div class="controls">
+						<input type="text" id="LastName" name="LastName" placeholder="Last name" value="<?php echo set_value('LastName'); ?>"/>
+							<?php echo form_error('LastName'); ?> 
+					</div>
+				</div>
+
 				<div class="control-group">
 					<label class="control-label" for="inputEmail">Email</label>
 					<div class="controls">
-						<input type="text" id="inputEmail" name="inputEmail" placeholder="Email" value="<?php echo set_value('inputEmail'); ?>"/>
-							<?php echo form_error('inputEmail'); ?>
+						<input type="text" id="Mail" name="Mail" placeholder="Mail" value="<?php echo set_value('Mail'); ?>"/>
+							<?php echo form_error('Mail'); ?> 
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="inputPhone">Phone</label>
 					<div class="controls">
-						<input type="text" id="inputPhone" name="inputPhone" placeholder="Phone" value="<?php echo set_value('inputPhone'); ?>"/>
-							<?php echo form_error('inputPhone'); ?>
+						<input type="text" id="Phone" name="Phone" placeholder="Phone" value="<?php echo set_value('Phone'); ?>"/>
+							<?php echo form_error('Phone'); ?> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Country">Country</label>
+					<div class="controls">
+							<input class="span2" type="text" id="Country" name="Country"
+								placeholder="Country" data-provide="typeahead" data-items="4"
+								data-source= <?php echo $allCountries; ?>
+								autocomplete="off" value="<?php echo set_value('Country'); ?>"/>
+							<?php echo form_error('Country'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="WorkedUntil">Worked until</label>
+					<div class="controls">
+						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014-05-21" value="<?php echo set_value('WorkedUntil'); ?>"/>
+							<?php echo form_error('WorkedUntil'); ?>
 					</div>
 				</div>
 
@@ -168,7 +209,7 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
-
+	
 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
