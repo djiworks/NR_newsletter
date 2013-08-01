@@ -90,16 +90,14 @@
 				<div class="control-group">
 					<label class="control-label" for="Password">New Password</label>
 					<div class="controls">
-						<input type="text" id="Password" name="Password" placeholder="Password" value="<?php echo set_value('Password'); ?>" />
-						<?php echo form_error('Password'); ?>
+						<input type="password" id="Password" name="Password" placeholder="Password" />
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="ConfirmPassword">Confirm New Password</label>
 					<div class="controls">
-						<input type="text" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" value="<?php echo set_value('ConfirmPassword'); ?>" />
-						<?php echo form_error('ConfirmPassword'); ?>
+						<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
 					</div>
 				</div>
 
@@ -117,6 +115,10 @@
 	
 	<div id="confirmDeletion" class="modal hide fade">
 	<div class="modal-header">
+
+	<form method="post" id="deleteUserForm" action="/index.php/admin/admin/deleteUser" class="form-horizontal">
+
+	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
 	<h4>Confirm deletion</h4>
 	</div>
@@ -124,8 +126,11 @@
 	<p>Are you sure you want to delete that user ?</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin/deleteUser';">Yes</button>
+	<button type="submit" class="btn">Yes</button>
+
+	</form>
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Cancel</button>
+
 	</div>
 	</div>
 	
@@ -163,6 +168,19 @@
 	</div>
 	<div class="modal-body">
 	<p>Password modified with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	</div>
+	</div>
+	
+	<div id="success_deletion" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>User deleted with success.</p>
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>

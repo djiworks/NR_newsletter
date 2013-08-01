@@ -107,7 +107,7 @@ class Admin extends CI_Controller {
 								</td>
 								<td>		
 								<button class="btn btn-small" type="button" onclick =\'modifyPassword('.$line->id_user.')\'>Change Password</button>
-								<button class="btn btn-small" type="button" data-toggle=\'modal\' data-target=\'#confirmDeletion\'>Delete</button>
+								<button class="btn btn-small" type="button" onclick =\'deleteUser('.$line->id_user.')\'>Delete</button>
 								</td>
 											
 							</tr>';
@@ -130,6 +130,20 @@ class Admin extends CI_Controller {
 				}
 		}
 		return $result;
+	}
+	
+	public function deleteUser()
+	{
+		isLoggedIn($this);
+		isAdmin($this);
+
+		$this->load->model ( 'user/user_md' );
+		
+		$id = $this->input->post ( 'confirmDeletionId' );
+
+		$this->user_md->deleteUser($id);
+		
+		$this->index(4);
 	}
 	
 	public function modifyPassword()

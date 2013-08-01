@@ -12,6 +12,12 @@ Class User_md extends CI_Model
 					-> insert('user');
 	}
 	
+	function deleteUser($id)
+	{
+		$this -> db -> where('id_user', $id)
+					-> delete('user');
+	}
+	
 	function updatePassword($id, $password)
 	{
 		$this -> db -> set('password', $password)
