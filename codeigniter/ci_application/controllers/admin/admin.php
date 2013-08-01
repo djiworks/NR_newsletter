@@ -17,16 +17,9 @@ class Admin extends CI_Controller {
 		$data ['roleList'] = $this->getRoleList();
 
 		if(isset($is_success)){
-			if($is_success)
-			{
-				$data ['is_success'] = "true";
-			}
-			else
-			{
-				$data ['is_success'] = "false";
-			}
+			$data ['is_success'] = $is_success;
 		}
-	
+
 		$this->load->view ( 'admin/head' );
 		$session_data = $this->session->userdata('logged_in');
 		
@@ -157,13 +150,21 @@ class Admin extends CI_Controller {
 			$id = $this->input->post ( 'id' );
 			$password = $this->input->post ( 'Password' );
 			$confirmPassword = $this->input->post ( 'ConfirmPassword' );
+						
+			if($password == $confirmPassword)
+			{
+				$this->user_md->updatePassword ( $id, crypt($password) );
 			
-			echo $id.''.$password.''.$password;
-			
-			
-			//~ $this->university_md->updatePassword ( $id, $password );
-
-			//~ $this->index (true);
+				$this->index (2);
+			}
+			else
+			{	
+				$this->index (3);
+			}
+		}
+		else
+		{
+			$this->index (3);
 		}
 	}
 	
@@ -189,15 +190,15 @@ class Admin extends CI_Controller {
 			if($password == $confirm_password)
 			{
 				$result = $this->user_md->create ( $login, $password, $role);
-				$this->index (true);
+				$this->index (0);
 			}
 			else
 			{
-				$this->index (false);
+				$this->index (1);
 			}
 		} else {
 			// If the form is not valid or empty
-			$this->index (false);
+			$this->index (1);
 		}
 	}
 	

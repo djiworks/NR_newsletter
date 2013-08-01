@@ -85,7 +85,7 @@
 			<h3 id="modifyPasswordLabel">Change Password</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/admin/admin/modifyPassword" class="form-horizontal">
+			<form method="post" id="modifyPasswordForm" action="/index.php/admin/admin/modifyPassword" class="form-horizontal">
 				<input type="hidden"  name="id"  value="">
 				<div class="control-group">
 					<label class="control-label" for="Password">New Password</label>
@@ -153,5 +153,32 @@
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUser'>Close</button>	
+	</div>
+	</div>
+	
+	<div id="success_pwd" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>Password modified with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	</div>
+	</div>
+	
+	
+	<div id="failure_pwd" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';" aria-hidden="true">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failed to modify password. Please try again.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>	
 	</div>
 	</div>
