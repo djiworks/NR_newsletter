@@ -44,14 +44,14 @@
 				<div class="control-group">
 					<label class="control-label" for="Password">Password</label>
 					<div class="controls">
-						<input type="text" id="Password" name="Password" placeholder="Password" />
+						<input type="password" id="Password" name="Password" placeholder="Password" />
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="ConfirmPassword">Confirm Password</label>
 					<div class="controls">
-						<input type="text" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password"/>
+						<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password"/>
 					</div>
 				</div>
 				

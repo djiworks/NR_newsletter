@@ -168,6 +168,29 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+	
+	<div id="modifyUniversity" class="modal hide fade" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">x</button>
+			<h3 id="modifyUniversityLabel">Add an University</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/index.php/university/university/modifyUniversity" class="form-horizontal">
+				TODO reprendre addUniversity nouvelle version
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
 
 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1"
@@ -237,5 +260,39 @@
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUniversity'>Close</button>	
+	</div>
+	</div>
+	
+	<div id="success_deletion" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>University deleted with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
+	</div>
+	</div>
+
+	<div id="confirmDeletion" class="modal hide fade">
+	<div class="modal-header">
+
+	<form method="post" id="deleteUserForm" action="/index.php/university/university/deleteUniversity" class="form-horizontal">
+
+	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	<h4>Confirm deletion</h4>
+	</div>
+	<div class="modal-body">
+	<p>Are you sure you want to delete that university ?</p>
+	</div>
+	<div class="modal-footer">
+	<button type="submit" class="btn">Yes</button>
+
+	</form>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Cancel</button>
+
 	</div>
 	</div>

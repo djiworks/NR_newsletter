@@ -107,13 +107,27 @@ function selectAll() {
 }
 
 function confirmationAdding(is_success){
-	if(!is_success)
+	if(is_success == 1)
 	{
 		$('#failure').modal('show');
 	}
-	else
+	else if(is_success == 0)
 	{
 		$('#success').modal('show');
 	}
+	else if(is_success == 2)
+	{
+		$('#success_deletion').modal('show');
+	}
+}
+
+function deleteUniversity(id){						
+	document.getElementById('confirmDeletionId').value = id ;
+	$('#confirmDeletion').modal('show');
+}
+		
+function modifyUniversity(id){						
+	//~ document.getElementById('modifyId').value = id ;
+	$('#modifyUniversity').modal('show');
 }
 		
