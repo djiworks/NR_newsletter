@@ -86,7 +86,7 @@
 		</div>
 		<div class="modal-body">
 			<form method="post" action="/index.php/admin/admin/modifyPassword" class="form-horizontal">
-				
+				<input type="hidden"  name="id"  value="">
 				<div class="control-group">
 					<label class="control-label" for="Password">New Password</label>
 					<div class="controls">

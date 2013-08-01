@@ -11,6 +11,13 @@ Class User_md extends CI_Model
 					-> set('id_role', $role)
 					-> insert('user');
 	}
+	
+	function updatePassword($id, $password)
+	{
+		$this -> db -> set('password', $password)
+					-> where('id_user', $id) 
+					-> update('user');
+	}
 
 	function login($username, $password)
 	{

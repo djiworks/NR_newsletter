@@ -113,7 +113,7 @@ class Admin extends CI_Controller {
 								</li>
 								</td>
 								<td>		
-								<button class="btn btn-small" type="button" data-toggle=\'modal\' data-target=\'#modifyPassword\'>Change Password</button>
+								<button class="btn btn-small" type="button" onclick =\'modifyPassword('.$line->id_user.')\'>Change Password</button>
 								<button class="btn btn-small" type="button" data-toggle=\'modal\' data-target=\'#confirmDeletion\'>Delete</button>
 								</td>
 											
@@ -139,7 +139,35 @@ class Admin extends CI_Controller {
 		return $result;
 	}
 	
-		public function verificationAddUser() {
+	public function modifyPassword()
+	{
+		isLoggedIn($this);
+		isAdmin($this);
+
+		// loading of the library
+		$this->load->library ( 'form_validation' );
+		$this->load->model ( 'user/user_md' );
+		
+		$this->form_validation->set_rules ( 'Password', '"Password"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'ConfirmPassword', '"Confirm Password"', 'trim|required|encode_php_tags|xss_clean' );
+
+		
+		if ($this->form_validation->run ()) {
+			// If the form is valid
+			$id = $this->input->post ( 'id' );
+			$password = $this->input->post ( 'Password' );
+			$confirmPassword = $this->input->post ( 'ConfirmPassword' );
+			
+			echo $id.''.$password.''.$password;
+			
+			
+			//~ $this->university_md->updatePassword ( $id, $password );
+
+			//~ $this->index (true);
+		}
+	}
+	
+	public function verificationAddUser() {
 		isLoggedIn($this);
 		isAdmin($this);
 		
