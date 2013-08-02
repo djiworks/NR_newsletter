@@ -9,20 +9,27 @@ Class User_md extends CI_Model
 		$this -> db -> set('login', $login)
 					-> set('password', $password)
 					-> set('id_role', $role)
-					-> insert('user');
+					-> insert($this->table);
+	}
+	
+	function getPassword($id)
+	{
+		return $this -> db -> select('password')
+					-> where('id_user', $id)
+					-> get($this->table);
 	}
 	
 	function deleteUser($id)
 	{
 		$this -> db -> where('id_user', $id)
-					-> delete('user');
+					-> delete($this->table);
 	}
 	
 	function updatePassword($id, $password)
 	{
 		$this -> db -> set('password', $password)
 					-> where('id_user', $id) 
-					-> update('user');
+					-> update($this->table);
 	}
 
 	function login($username, $password)
