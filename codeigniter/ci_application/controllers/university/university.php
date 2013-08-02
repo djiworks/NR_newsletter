@@ -22,7 +22,7 @@ class University extends CI_Controller {
 	}
 	
 	public function index($is_success = NULL) {
-			isLoggedIn($this);
+			isLoggedInRedirect($this);
 			
 			$data = array ();
 			$data ['allUniv'] = $this->getAllUniversities ();
@@ -44,13 +44,13 @@ class University extends CI_Controller {
 	}
 	
 	public function accueil() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$this->index ();
 	}
 	
 	public function getAllUniversities() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		
 		$ci = new CI_CONTROLLER ();
@@ -231,7 +231,7 @@ class University extends CI_Controller {
 	
 	public function deleteUniversity()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		$this->load->model ( 'user/user_md' );
@@ -245,7 +245,7 @@ class University extends CI_Controller {
 	
 	
 	public function get() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$ci = new CI_CONTROLLER ();
 		$id = $ci->uri->segment ( 4 );
@@ -263,42 +263,42 @@ class University extends CI_Controller {
 		) ) );
 	}
 	public function getId() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->id;
 	}
 	public function getName() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->name;
 	}
 	public function getAdress() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->address;
 	}
 	public function getCountry() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->country;
 	}
 	public function getSubscription() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->subscription;
 	}
 	public function getCheckingState() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->checking_state;
 	}
 	public function getComment() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		return $this->comment;
 	}
 	public function addCommentOnUniversity() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		$ci = new CI_CONTROLLER ();
 		$this->load->model ( 'university/university_md' );
@@ -310,7 +310,7 @@ class University extends CI_Controller {
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
 	public function initialiseValue() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		$result = $this->university_md->get ( $this->id );
 		
 		if ($result->num_rows ()) {
@@ -325,7 +325,7 @@ class University extends CI_Controller {
 	}
 	
 	public function verificationAddUniversity() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		// loading of the library
 		$this->load->library ( 'form_validation' );
@@ -358,13 +358,13 @@ class University extends CI_Controller {
 	
 	
 	public function modifyUniversity() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		echo 'TODO faire le controller modifyUniversity (reprendre addUniversity nouvelle version ?)';
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
@@ -389,7 +389,7 @@ class University extends CI_Controller {
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
-		isLoggedIn($ci);
+		isLoggedInRedirect($ci);
 		
 		$ci->load->model('university/university_md');
 		$ci->load->database();

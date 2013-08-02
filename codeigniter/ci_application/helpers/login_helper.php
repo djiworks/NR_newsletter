@@ -1,6 +1,6 @@
 <?php
 
-function isLoggedIn($object) {
+function isLoggedInRedirect($object) {
 	if(!$object->session->userdata('logged_in'))
 	{
 		$tmp = $object->session->userdata('logged_in');

@@ -4,10 +4,15 @@ class Login extends CI_Controller {
 	 function __construct()
 	 {
 	   parent::__construct();
+		$this->load->helper('login');
 	 }
 	 
 	 function index()
 	 {
+		if($this->session->userdata('logged_in'))
+		{
+			redirect('university/university', 'refresh');
+		}
 	 	$this->load->view('login/head');
 	   	$this->load->view('login/login_view');
 	   	$this->load->view('login/footer');

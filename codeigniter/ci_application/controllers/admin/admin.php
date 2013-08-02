@@ -9,7 +9,7 @@ class Admin extends CI_Controller {
 	}
 	
 	public function index($is_success = NULL) {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		$data = array ();
@@ -30,7 +30,7 @@ class Admin extends CI_Controller {
 	}
 
 	public function accueil() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		$this->index ();
@@ -38,7 +38,7 @@ class Admin extends CI_Controller {
 	
 	public function updateRole()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 		
 		$session_data = $this->session->userdata('logged_in');
@@ -48,7 +48,7 @@ class Admin extends CI_Controller {
 		$ci->load->helper('login');
 		$ci->load->helper('url');		
 
-		isLoggedIn($ci);
+		isLoggedInRedirect($ci);
 		
 		$ci->load->model('/user/user_md');
 		$ci->load->database();
@@ -64,7 +64,7 @@ class Admin extends CI_Controller {
 	
 	public function getAllUsers()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 		
 		/**
@@ -134,7 +134,7 @@ class Admin extends CI_Controller {
 	
 	public function deleteUser()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		$this->load->model ( 'user/user_md' );
@@ -148,7 +148,7 @@ class Admin extends CI_Controller {
 	
 	public function modifyPassword()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		// loading of the library
@@ -183,7 +183,7 @@ class Admin extends CI_Controller {
 	}
 	
 	public function verificationAddUser() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 		
 		// loading of the library
@@ -218,7 +218,7 @@ class Admin extends CI_Controller {
 	
 	public function getRoleList()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		isAdmin($this);
 
 		$this->load->model ( '/user/user_md' );
