@@ -14,9 +14,9 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#"><strong><?php echo $username; ?></strong>
 						 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-						    <li><a href="#"><i class="icon-lock"></i> Change password</a></li>
+						    <li><a href="/index.php/admin/changepassword"><i class="icon-lock"></i> Change password</a></li>
 						    <li class="divider"></li>
-						    <li><a href="#"><i class="icon-off"></i> Log out</a></li>
+						    <li><a href="/index.php/login/login/logout"><i class="icon-off"></i> Log out</a></li>
 					  </ul>
 					</li>
 			</ul>

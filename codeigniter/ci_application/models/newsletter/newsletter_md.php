@@ -33,8 +33,10 @@ class Newsletter_md extends CI_Model
 			");
 	 }
 	 
-	public function delete($id_newsletter){			 
-
+	function delete($id)
+	{
+		$this -> db -> where('id_user', $id)
+					-> delete($this->table);
 	}
 	 
 	public function getAll() {

@@ -28,7 +28,7 @@ class Intern extends CI_Controller
 
     public function index($is_success = false)
     {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$data = array();
 		$data['allInterns'] = $this->getAllInterns();
@@ -40,22 +40,22 @@ class Intern extends CI_Controller
 
 		$this->load->view('intern/head');
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'intern', $sess);
+		//~ $sess['username'] = $session_data['username'];
+		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view('intern/body', $data);
 		$this->load->view('intern/footer');
     }
     
     public function accueil()
     {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$this->index();
     }
     
     public function get()
     {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$ci = new CI_CONTROLLER();
 		$id = $ci->uri->segment(4);
@@ -76,47 +76,47 @@ class Intern extends CI_Controller
 	 }
 
 	public function getId() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->id;
 	}
 
 	public function getFirstName() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		return $this->first_name;
 	}
 
 	public function getLastName() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->last_name;
 	}
 
 	public function getCountry() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->country;
 	}
 
 	public function getPhone() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->phone;
 	}
 
 	public function getMail() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		return $this->mail;
 	}
 
 	public function getWorkUntil() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		return $this->work_until;
 	}
 
 	public function addIntern(){
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$ci = new CI_CONTROLLER();
 		$this->load->model('intern/intern_md');
@@ -133,7 +133,7 @@ class Intern extends CI_Controller
 	}
 
 	public function initialiseValue(){
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$result = $this->intern_md->get($this->id);
 
@@ -150,7 +150,7 @@ class Intern extends CI_Controller
 	
 	public function getAllInterns()
 	{
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('intern/intern_md');
@@ -194,7 +194,7 @@ class Intern extends CI_Controller
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
-		isLoggedIn($ci);
+		isLoggedInRedirect($ci);
 
 		$ci->load->model('intern/intern_md');
 		$ci->load->database();
@@ -221,7 +221,7 @@ class Intern extends CI_Controller
 	}
 	
 		public function verificationAddIntern() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 
 		// loading of the library
 		$this->load->library ( 'form_validation' );
@@ -254,7 +254,7 @@ class Intern extends CI_Controller
 	}
 	
 		public function formCompletion() {
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 			
 		$data = array ();
 		$data ['allCountries'] = University::getAllCountries();
@@ -263,8 +263,8 @@ class Intern extends CI_Controller
 		
 		$this->load->view ( 'intern/head' );
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'intern', $sess);
+		//~ $sess['username'] = $session_data['username'];
+		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view ( 'intern/body', $data );
 		$this->load->view ( 'intern/footer' );
 	}

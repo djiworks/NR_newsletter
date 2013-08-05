@@ -10,11 +10,11 @@ class Guidelines extends CI_Controller
 	public function index()
 	{
 		$this->load->helper('login');
-		isLoggedIn($this);
+		isLoggedInRedirect($this);
 		$this->load->view('guidelines/head');
 		$session_data = $this->session->userdata('logged_in');
-		$sess['username'] = $session_data['username'];
-		loadTopMenu($this, 'guidelines', $sess);
+		//~ $sess['username'] = $session_data['username'];
+		loadTopMenu($this, 'guidelines', $session_data);
 		$this->load->view('guidelines/guidelines');
 		$this->load->view('guidelines/footer');
 	}

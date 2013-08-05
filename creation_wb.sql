@@ -261,3 +261,11 @@ USE `marketing_univ` ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+INSERT INTO `role` (`id_role`, `name`) VALUES
+(1, 'Administrator'),
+(2, 'Manager'),
+(3, 'Agent'),
+(4, 'User'),
+(5, 'Not Confirmed');

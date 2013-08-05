@@ -1,12 +1,21 @@
 <?php
 
-function isLoggedIn($object) {
+function isLoggedInRedirect($object) {
 	if(!$object->session->userdata('logged_in'))
 	{
+		$tmp = $object->session->userdata('logged_in');
 		redirect('login/login', 'refresh');
+
+	}
+	else
+	{
+		$tmp = $object->session->userdata('logged_in');
+		if(!($tmp['role'] < 5))
+		{
+			redirect('login/login', 'refresh');
+		}
 	}
 }
-
 
 function isAdmin($object) {
 	if(!$object->session->userdata('logged_in'))
@@ -14,7 +23,7 @@ function isAdmin($object) {
 		$tmp = $object->session->userdata('logged_in');
 		
 		if($tmp['role'] != 1) {
-			redirect('admin/error', 'refresh');
+			redirect('university/university', 'refresh');
 		}
 	}
 }

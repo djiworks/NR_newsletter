@@ -39,7 +39,7 @@ class VerifyLogin extends CI_Controller {
    //query the database
    $result = $this->user_md->login($username, $password);
 
-   if($result)
+   if($result && $result['role']< 5)
    {
      $sess_array = array();
      $sess_array = array(
@@ -50,6 +50,11 @@ class VerifyLogin extends CI_Controller {
      
      $this->session->set_userdata('logged_in', $sess_array);
      return TRUE;
+   }
+   else if ($result)
+   {
+     $this->form_validation->set_message('check_database', 'Your account has not been confirmed yet');
+     return FALSE;
    }
    else
    {
