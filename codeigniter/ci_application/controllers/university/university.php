@@ -373,6 +373,7 @@ class University extends CI_Controller {
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
 		$data ['allCountries'] = University::getAllCountries();
+		$data ['newsletterList'] = Newsletter::getNewsletterList();
 		$data ['address'] = $address;
 		$data ['inputInfoContact'] = $inputInfoContact;
 		$data ['is_success'] = 1;
