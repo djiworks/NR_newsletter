@@ -1,5 +1,6 @@
 <?php
 include_once (APPPATH . "controllers/intern/intern.php");
+include_once (APPPATH . "controllers/newsletter/newsletter.php");
 
 class University extends CI_Controller {
 	private $id;
@@ -28,6 +29,7 @@ class University extends CI_Controller {
 			$data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allNames'] = Intern::getAllNames ();
 			$data ['allCountries'] = $this->getAllCountries();
+			$data ['newsletterList'] = Newsletter::getNewsletterList();
 
 			if(isset($is_success)){
 				$data ['is_success'] = $is_success;
@@ -297,6 +299,7 @@ class University extends CI_Controller {
 		
 		return $this->comment;
 	}
+	
 	public function addCommentOnUniversity() {
 		isLoggedInRedirect($this);
 		

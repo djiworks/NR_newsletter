@@ -202,11 +202,7 @@
 		</div>
 		<div class="modal-body">
 			<label>Select the newsletter to send:</label> <select>
-				<option>1 - Newsletter One</option>
-				<option>2 - Newsletter Two</option>
-				<option>3 - Newsletter Three</option>
-				<option>4 - Newsletter Four</option>
-				<option>5 - Newsletter Five</option>
+					<?php echo $newsletterList; ?>
 			</select>
 		</div>
 		<div class="modal-footer">
