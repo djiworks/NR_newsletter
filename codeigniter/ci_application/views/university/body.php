@@ -1,7 +1,7 @@
 			<div class="span10">
 				<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"
-						data-toggle='modal' data-target='#addUniversity'>
+						 onclick="window.location.href = '/index.php/university/university/addUniversity';">
 						<i class="icon-plus"></i> Add an University
 					</button>
 					<button class="btn btn-small" onclick="selectAll()">Check All</button>
@@ -40,7 +40,7 @@
 				</div>
 				
 		    	<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUniversity'>
+					<button class="btn btn-small btn btn-info" type="button"  onclick="window.location.href = '/index.php/university/university/addUniversity';">
 						<i class="icon-plus"></i> Add an University
 					</button>					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
@@ -71,104 +71,6 @@
 		</div>
 	</div>
 
-	<div id="addUniversity" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
-			<h3 id="addUniversityLabel">Add an University</h3>
-		</div>
-		<div class="modal-body">
-			<form method="post" action="/index.php/university/university/verificationAddUniversity" class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="inputName">University Name</label>
-					<div class="controls">
-						<input type="text" id="UniversityName" name="UniversityName" placeholder="University Name" value="<?php echo set_value('UniversityName'); ?>" />
-						<?php echo form_error('UniversityName'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label" for="inputAddress">Address</label>
-					<div class="controls">
-						<textarea rows="3" name="Adress" placeholder="Address" ><?php if(isset($address)){echo $address ;} ?></textarea>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label" for="inputCountry">Country</label>
-					<div class="controls">
-							<input class="span2" type="text" id="inputCountry" name="inputCountry"
-								placeholder="Country" data-provide="typeahead" data-items="4"
-								data-source= <?php echo $allCountries; ?>
-								autocomplete="off" value="<?php echo set_value('inputCountry'); ?>"/>
-							<?php echo form_error('inputCountry'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label" for="inputIntern">Intern</label>
-					<div class="controls">
-						<div class="input-append">
-							<input class="span2" type="text" id="inputIntern" name="inputIntern"
-								placeholder="Intern" data-provide="typeahead" data-items="4"
-								data-source= <?php echo $allNames; ?>
-								autocomplete="off" value="<?php echo set_value('inputIntern'); ?>"/>
-							<?php echo form_error('inputIntern'); ?>
-							<button class="btn btn-success" type="button">
-								<i class="icon-plus icon-white"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				
-				<div class="modal-header">
-					<h4 id="addUniversityLabel">Add a contact for this university</h4>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="inputNameContact">Contact name</label>
-					<div class="controls">
-						<input type="text" id="inputNameContact" name="inputNameContact" placeholder="Contact name" value="<?php echo set_value('inputNameContact'); ?>"/>
-							<?php echo form_error('inputNameContact'); ?>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="inputInfoContact">Additional Information</label>
-					<div class="controls">
-						<textarea rows="3" name="inputInfoContact" placeholder="Additional Information"><?php if(isset($inputInfoContact)){echo $inputInfoContact ;} ?></textarea>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="inputEmail">Email</label>
-					<div class="controls">
-						<input type="text" id="inputEmail" name="inputEmail" placeholder="Email" value="<?php echo set_value('inputEmail'); ?>"/>
-							<?php echo form_error('inputEmail'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label" for="inputPhone">Phone</label>
-					<div class="controls">
-						<input type="text" id="inputPhone" name="inputPhone" placeholder="Phone" value="<?php echo set_value('inputPhone'); ?>"/>
-							<?php echo form_error('inputPhone'); ?>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn">Submit</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		</div>
-	</div>
-	
 	<div id="modifyUniversity" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -250,20 +152,6 @@
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
-	</div>
-	</div>
-	
-	
-	<div id="failure" class="modal hide fade">
-	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" data-toggle='modal' data-target='#addUniversity' aria-hidden="true">&times;</button>
-	<h4>Failure</h4>
-	</div>
-	<div class="modal-body">
-	<p>Failed to add university. Please fill in all the fields.</p>
-	</div>
-	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUniversity'>Close</button>	
 	</div>
 	</div>
 	
