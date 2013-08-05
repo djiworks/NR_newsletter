@@ -200,15 +200,23 @@
 				aria-hidden="true">x</button>
 			<h3 id="myModalLabel">Prepare to send Newsletter</h3>
 		</div>
+		
+		<form method="post" id="sendNewsletter" action="/index.php/university/university/sendNewsletter" class="form-horizontal">
 		<div class="modal-body">
-			<label>Select the newsletter to send:</label> <select>
+
+			<label>Select the newsletter to send:</label>
+			 <select>
 					<?php echo $newsletterList; ?>
 			</select>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button type="submit" class="btn">Confirm</button>
+<!--
 			<button class="btn btn-info"
 				onclick="$('#sendingbox2').modal('show');$('#sendingbox').modal('hide')">Confirm</button>
+-->
+			</form>
 		</div>
 	</div>
 
