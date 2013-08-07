@@ -45,6 +45,29 @@ class University extends CI_Controller {
 			$this->load->view ( 'university/footer' );
 	}
 	
+	public function addUniversity($is_success = NULL) {
+			isLoggedInRedirect($this);
+			
+			$data = array ();
+			$data ['allUniv'] = $this->getAllUniversities ();
+			$data ['allNames'] = Intern::getAllNames ();
+			$data ['allCountries'] = $this->getAllCountries();
+			$data ['newsletterList'] = Newsletter::getNewsletterList();
+
+			if(isset($is_success)){
+				$data ['is_success'] = $is_success;
+			}
+		
+			$this->load->view ( 'university/head' );
+			$session_data = $this->session->userdata('logged_in');
+			
+			loadTopMenu($this, 'university', $session_data) ;
+
+			//~ $this->load->view ( 'university/leftmenu' );
+			$this->load->view ( 'university/addUniversity', $data );
+			$this->load->view ( 'university/footer' );
+	}
+	
 	public function accueil() {
 		isLoggedInRedirect($this);
 
@@ -389,8 +412,8 @@ class University extends CI_Controller {
 		
 		loadTopMenu($this, 'university', $session_data) ;
 		
-		$this->load->view ( 'university/leftmenu' );
-		$this->load->view ( 'university/body', $data );
+		//~ $this->load->view ( 'university/leftmenu' );
+		$this->load->view ( 'university/addUniversity', $data );
 		$this->load->view ( 'university/footer' );
 	}
 	
