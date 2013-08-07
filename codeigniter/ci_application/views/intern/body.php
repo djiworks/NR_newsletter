@@ -27,6 +27,21 @@
 
 
 	<!-- Modal -->
+	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="blabla" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">x</button>
+			<h3 id="myModalLabel">Intern Name</h3>
+		</div>
+		<div class="modal-body">
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+	
+	
 	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -141,5 +156,35 @@
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addIntern'>Close</button>	
+	</div>
+	</div>
+	
+	<div id="confirmDeletion" class="modal hide fade">
+	<div class="modal-header">
+	<form method="post" id="deleteUserForm" action="/index.php/intern/intern/deleteIntern" class="form-horizontal">
+	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<h4>Confirm deletion</h4>
+	</div>
+	<div class="modal-body">
+	<p>Are you sure you want to delete that intern ?</p>
+	</div>
+	<div class="modal-footer">
+	<button type="submit" class="btn">Yes</button>
+	</form>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Cancel</button>
+	</div>
+	</div>
+	
+	<div id="success_deletion" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>Intern deleted with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
 	</div>
 	</div>

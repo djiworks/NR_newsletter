@@ -19,6 +19,12 @@ Class User_md extends CI_Model
 					-> get($this->table);
 	}
 	
+	function getByLogin($login)
+	{
+		return $this -> db	-> where('login', $login)
+							-> get($this->table);
+	}
+	
 	function deleteUser($id)
 	{
 		$this -> db -> where('id_user', $id)

@@ -26,7 +26,7 @@ class Intern extends CI_Controller
 		}
 	}
 
-    public function index($is_success = false)
+    public function index($is_success = NULL)
     {
 		isLoggedInRedirect($this);
 
@@ -34,8 +34,8 @@ class Intern extends CI_Controller
 		$data['allInterns'] = $this->getAllInterns();
 		$data ['allCountries'] = University::getAllCountries();
 
-		if($is_success){
-			$data ['is_success'] = "true";
+		if(isset($is_success)){
+			$data ['is_success'] = $is_success;
 		}
 
 		$this->load->view('intern/head');
@@ -52,6 +52,17 @@ class Intern extends CI_Controller
 
 		$this->index();
     }
+    
+    public function deleteIntern()
+	{
+		isLoggedInRedirect($this);
+		
+		$id = $this->input->post ( 'confirmDeletionId' );
+
+		$this->intern_md->delete($id);
+		
+		$this->index(2);
+	}
     
     public function get()
     {
@@ -179,7 +190,7 @@ class Intern extends CI_Controller
 				$result = $result."
 					<td>".$ligne->country."</td>
 					<td>".$ligne->worked_until."</td>
-					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+					<td><button class=\"btn btn-small\" type=\"button\" onclick='viewDetails(".$ligne->id_person.")'>Click here</button></td>
 				</tr>";
 				
 				$id_person = $ligne->id_person;
@@ -220,6 +231,30 @@ class Intern extends CI_Controller
 		return $result;
 	}
 	
+	
+	public function viewDetails()
+	{
+		//~ $ci = new CI_CONTROLLER ();
+		$id = $this->uri->segment ( 4 );
+		//~ $ci->load->model('intern/intern_md');
+		$fetched = $this->intern_md->get($id);
+
+		$result = "";		
+		foreach ( $fetched->result () as $line ) {
+			$result = $result."
+						ID : ".$line->id_person."</br>
+						First name.".$line->first_name."
+						Last name :".$line->last_name."</br>
+						Phone number:".$line->phone."</br>
+						Mail :".$line->mail."</br>
+						Country :".$line->country."</br>
+						Worked until :".$line->worked_until."</br>
+						<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
+						<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
+				}
+		exit($result);
+	}
+	
 		public function verificationAddIntern() {
 		isLoggedInRedirect($this);
 
@@ -246,7 +281,7 @@ class Intern extends CI_Controller
 			
 			$result = $this->intern_md->create($first_name, $last_name, $country, $phone, $mail, $worked_until);
 
-			$this->index (true);
+			$this->index (0);
 		} else {
 			// If the form is not valid or empty
 			$this->formCompletion();
@@ -259,11 +294,10 @@ class Intern extends CI_Controller
 		$data = array ();
 		$data ['allCountries'] = University::getAllCountries();
 		$data['allInterns'] = $this->getAllInterns();
-		$data ['is_success'] = "false";
+		$data ['is_success'] = 1;
 		
 		$this->load->view ( 'intern/head' );
 		$session_data = $this->session->userdata('logged_in');
-		//~ $sess['username'] = $session_data['username'];
 		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view ( 'intern/body', $data );
 		$this->load->view ( 'intern/footer' );

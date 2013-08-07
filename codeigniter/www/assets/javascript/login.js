@@ -7,5 +7,9 @@
 			{
 				$('#success').modal('show');
 			}
+			else if(is_success == 2)
+			{
+				$('#failure_login').modal('show');
+			}
 		}
-		
+		 
