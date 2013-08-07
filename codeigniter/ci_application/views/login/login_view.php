@@ -86,3 +86,16 @@
 	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUser'>Close</button>	
 	</div>
 	</div>
+	
+	<div id="failure_login" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" data-toggle='modal' data-target='#addUser' aria-hidden="true">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failed to add user. This login is already registered.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" data-toggle='modal' data-target='#addUser'>Close</button>	
+	</div>
+	</div>

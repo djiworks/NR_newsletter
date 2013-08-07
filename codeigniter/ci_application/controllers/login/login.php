@@ -46,26 +46,33 @@ class Login extends CI_Controller {
 		
 		if ($this->form_validation->run ()) {
 			// If the form is valid
+
+			
 			$login = $this->input->post ( 'Login' );
 			$password = crypt($this->input->post ( 'Password' ));
 			$confirm_password = crypt($this->input->post ( 'ConfirmPassword' ),$password);
 			$role = 5;
 			
-			if($password == $confirm_password)
+			$result =  $this->user_md->getByLogin($login);
+			if($result->num_rows() == 0)
 			{
-				$result = $this->user_md->create ( $login, $password, $role);
-				//~ echo '0';
-				$this->index (0);
+				if($password == $confirm_password)
+				{
+					$result = $this->user_md->create ( $login, $password, $role);
+					$this->index (0);
+				}
+				else
+				{
+					$this->index (1);
+				}
 			}
 			else
 			{
-				//~ echo '1';
-				$this->index (1);
+				$this->index (2);
 			}
 		} else {
 			// If the form is not valid or empty
 			$this->index (1);
-			//~ echo '2';
 		}
 	}
 	 
