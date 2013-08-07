@@ -2,7 +2,7 @@
 				<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"
 						 onclick="window.location.href = '/index.php/university/university/addUniversity';">
-						<i class="icon-plus"></i> Add an University
+						<i class="icon-plus"></i> Add University
 					</button>
 					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
@@ -22,12 +22,12 @@
 								<ul class="nav wrapTabColName">
 									<li class="classToSend">To Send</li>
 									<li class="classNumber">#</li>
-									<li class="className"><a><i class="icon-chevron-down"></i> Name</a></li>
-									<li class="classAddress">Address</li>
-									<li class="classCountry"><a><i class="icon-chevron-down"></i> Country</a></li>
-									<li class="classSubscription"><a><i class="icon-chevron-up"></i> Subcription</a></li>
-									<li class="classChkState"><a><i class="icon-chevron-down"></i> Checking State</a></li>
-									<li class="classDetails">View Details</li>
+									<li class="className"><i class="icon-chevron-down"></i> Name</li>
+									<li class="classAddress"><i class="icon-chevron-down"></i>Address</li>
+									<li class="classCountry"><i class="icon-chevron-down"></i> Country</li>
+									<li class="classSubscription"><i class="icon-chevron-down"></i> Subcription</li>
+									<li class="classChkState"><i class="icon-chevron-down"></i> Checking State</li>
+									<li class="classDetails"></li>
 									<li class="divider"></li>
 								</ul>
 							
@@ -41,7 +41,7 @@
 				
 		    	<div class="btn-group">
 					<button class="btn btn-small btn btn-info" type="button"  onclick="window.location.href = '/index.php/university/university/addUniversity';">
-						<i class="icon-plus"></i> Add an University
+						<i class="icon-plus"></i> Add University
 					</button>					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
     			</div>
@@ -50,34 +50,13 @@
 	</div>
 
 	<!-- Modals -->
-<!-- 
-	<div id="viewdetail" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
-			<h3 id="myModalLabel">University Name</h3>
-		</div>
-		<div class="modal-body">
-			ID: 3<br /> Address: 3 Littlestone Road, New Romney, England<br />
-			Phone: 0000 000 000<br /> Mail: example@mail.com<br /> Country:
-			France<br /> Susbcription: Yes<br /> Checking State: Yes<br />
-			Interns: Interns1, Interns2, Interns3
-		</div>
-		<input class="btn" type="button" value="Modify"> <input class="btn"
-			type="button" value="Delete">
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		</div>
-	</div>
--->
 
 	<div id="modifyUniversity" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
-			<h3 id="modifyUniversityLabel">Add an University</h3>
+			<h3 id="modifyUniversityLabel">Add University</h3>
 		</div>
 		<div class="modal-body">
 			<form method="post" action="/index.php/university/university/modifyUniversity" class="form-horizontal">

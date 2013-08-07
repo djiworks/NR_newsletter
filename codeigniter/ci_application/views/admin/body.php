@@ -1,7 +1,7 @@
 <div class="span10">
 	<div class="btn-group">
 	<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUser'>
-	<i class="icon-plus"></i> Add an User
+	<i class="icon-plus"></i> Add User
 	</button>
 	</div>
 	<table class="table table-hover" id="displayUserList">
@@ -18,7 +18,7 @@
 	</table>
 	<div class="btn-group">
 	<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUser'>
-		<i class="icon-plus"></i> Add an User
+		<i class="icon-plus"></i> Add User
 	</button>
 	</div>
 </div>
@@ -29,7 +29,7 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
-			<h3 id="addUserLabel">Add an User</h3>
+			<h3 id="addUserLabel">Add User</h3>
 		</div>
 		<div class="modal-body">
 			<form method="post" action="/index.php/admin/admin/verificationAddUser" class="form-horizontal">

@@ -205,7 +205,7 @@ class University extends CI_Controller {
 								<li class='classSubscription'>".$subcription."</li>
 								<li class='classChkState'>".$state."</li>
 								<li class='classDetails'>
-									<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>Click here</a>
+									<button class='btn btn-small accordion-toggle' type='button' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</a>
 								</li>
 							</ul>
 						</div>
