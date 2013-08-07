@@ -168,6 +168,11 @@ function changeName(id) {
 	}
 }
 
+function delInternForm(id) {
+	var e = document.getElementById("groupIntern"+id);
+	e.parentNode.removeChild(e);
+}
+
 var funcAddInternToUniv = function addInternToUniv() {
 	nbIntern++;
 	
@@ -278,13 +283,6 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newElementDivcollapse.class = "accordion-body collapse";
 	
 	//Creation of the header for the accordion
-	/*
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4>Failure</h4>
-		</div>
-	*/
-	
 	var newElementLink = document.createElement('a');
 	newElementLink.id = "linkDisplayContact".concat(nbIntern);
 	newElementLink.class = "accordion-toggle";
@@ -295,10 +293,11 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newElementButton = document.createElement('button');
 	newElementButton.type = "button";
-	newElementButton.class = "close";
+	newElementButton.setAttribute("class", "close");
 	newElementButton.setAttribute("data-dismiss", "modal");
 	newElementButton.setAttribute("aria-hidden", "true");
 	newElementButton.innerHTML = "&times;";
+	newElementButton.setAttribute("onclick","delInternForm("+nbIntern+");");
 	
 	var newElementDivHead = document.createElement('div');
 	newElementDivHead.class = "accordion-heading";
@@ -308,8 +307,8 @@ var funcAddInternToUniv = function addInternToUniv() {
 		 
 	//Assembling the elements together
 	/* Head */
-	newElementDivModal.appendChild(newElementButton);
 	newElementDivModal.appendChild(newElementLink);
+	newElementDivModal.appendChild(newElementButton);
 	newElementDivHead.appendChild(newElementDivModal);
 	
 	/* inner */
@@ -324,6 +323,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	/* group */
 	var newElementDivGroup = document.createElement('div');
+	newElementDivGroup.id = "groupIntern".concat(nbIntern);
 	newElementDivGroup.class = "accordion-group wrapTab";
 	
 	newElementDivGroup.appendChild(newElementDivHead);
