@@ -53,6 +53,17 @@ class Intern extends CI_Controller
 		$this->index();
     }
     
+    public function deleteIntern()
+	{
+		isLoggedInRedirect($this);
+		
+		$id = $this->input->post ( 'confirmDeletionId' );
+
+		$this->intern_md->delete($id);
+		
+		$this->index(2);
+	}
+    
     public function get()
     {
 		isLoggedInRedirect($this);
@@ -221,11 +232,27 @@ class Intern extends CI_Controller
 	}
 	
 	
-	public static function viewDetails()
+	public function viewDetails()
 	{
-		$ci = new CI_CONTROLLER ();
-		$id = $ci->uri->segment ( 4 );
-		exit(  "</br>".$id."</br>");
+		//~ $ci = new CI_CONTROLLER ();
+		$id = $this->uri->segment ( 4 );
+		//~ $ci->load->model('intern/intern_md');
+		$fetched = $this->intern_md->get($id);
+
+		$result = "";		
+		foreach ( $fetched->result () as $line ) {
+			$result = $result."
+						ID : ".$line->id_person."</br>
+						First name.".$line->first_name."
+						Last name :".$line->last_name."</br>
+						Phone number:".$line->phone."</br>
+						Mail :".$line->mail."</br>
+						Country :".$line->country."</br>
+						Worked until :".$line->worked_until."</br>
+						<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
+						<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
+				}
+		exit($result);
 	}
 	
 		public function verificationAddIntern() {

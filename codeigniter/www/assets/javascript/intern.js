@@ -16,8 +16,8 @@ function confirmationAdding(is_success){
 $('#viewDetails').on('hidden', function() {
 	alert('debut listener');
 	//~ document.getElementById('viewDetails').setAttribute('data-remote', "");
-	$(this).removeData('modal');
-	alert('fin listener');
+	//~ $(this).removeData('modal');
+	//~ alert('fin listener');
 
 	//~ $('#viewDetails').removeData("modal");
 })
@@ -25,6 +25,17 @@ $('#viewDetails').on('hidden', function() {
 function viewDetails(id){
 	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/intern/intern/viewDetails/" + id);
-	alert(document.getElementById('viewDetails').getAttribute('data-remote'));
+	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	$('#viewDetails').modal('show');
+}
+
+function deleteIntern(id){						
+	document.getElementById('confirmDeletionId').value = id ;
+	$('#viewDetails').modal('hide');
+	$('#confirmDeletion').modal('show');
+}
+		
+function modifyIntern(id){						
+	//~ document.getElementById('modifyId').value = id ;
+	$('#modifyUniversity').modal('show');
 }

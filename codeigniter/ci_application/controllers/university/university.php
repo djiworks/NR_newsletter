@@ -257,9 +257,6 @@ class University extends CI_Controller {
 	public function deleteUniversity()
 	{
 		isLoggedInRedirect($this);
-		isAdmin($this);
-
-		$this->load->model ( 'user/user_md' );
 		
 		$id = $this->input->post ( 'confirmDeletionId' );
 

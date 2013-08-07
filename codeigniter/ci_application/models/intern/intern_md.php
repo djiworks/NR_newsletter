@@ -14,12 +14,12 @@ class Intern_md extends CI_Model
 				 ->set("phone",$phone)
 				 ->set("mail",$mail)
 				 ->set("work_until",$work_until)
-				 ->where("id_intern",$id)
+				 ->where("id_person",$id)
 				 ->update($this->table);
 	}
 	 
 	 public function get($id){
-		return $this->db->where("id_intern",$id)
+		return $this->db->where("id_person",$id)
 						->get($this->table);
 	 }
 	 
@@ -35,14 +35,14 @@ class Intern_md extends CI_Model
 	 
 	 public function getSearchedInterns($field, $value){
 		 return $this->db->query("
-					SELECT id_intern
+					SELECT id_person
 					FROM ".$this->table."
 					WHERE ".$this->table.".".$field." LIKE '%".$value."%'
 			");
 	 }
 	 
-	public function delete($id_intern){			 
-		$this->db->where('id_intern', $id_intern)
+	public function delete($id_person){			 
+		$this->db->where('id_person', $id_person)
 				 ->delete($this->table);	
 	}
 	
