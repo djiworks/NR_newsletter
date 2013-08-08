@@ -11,21 +11,14 @@ function confirmationAdding(is_success){
 	{
 		$('#success_deletion').modal('show');
 	}
+	else if(is_success == 3)
+	{
+		$('#success_modify').modal('show');
+	}
 }
 
-$('#viewDetails').on('hidden', function() {
-	alert('debut listener');
-	//~ document.getElementById('viewDetails').setAttribute('data-remote', "");
-	//~ $(this).removeData('modal');
-	//~ alert('fin listener');
-
-	//~ $('#viewDetails').removeData("modal");
-})
-
 function viewDetails(id){
-	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/intern/intern/viewDetails/" + id);
-	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	$('#viewDetails').modal('show');
 }
 
@@ -36,6 +29,18 @@ function deleteIntern(id){
 }
 		
 function modifyIntern(id){						
-	//~ document.getElementById('modifyId').value = id ;
-	$('#modifyUniversity').modal('show');
+	$('#viewDetails').modal('hide');
+	document.getElementById('modifyIntern').setAttribute('data-remote', "/index.php/intern/intern/formCompletionModify/" + id);
+	$('#modifyIntern').modal('show');
+	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = id;},1000);
 }
+
+//~ $('#modifyIntern').on('show', function() {
+	//~ alert(document.forms['modifyInternForm']);
+//~ })
+//~ 
+//~ $('#submitModify').on('click', function() {
+	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
+	//~ document.forms['modifyInternForm'].elements['modifyId'].value = document.getElementById('tmpId').value;
+	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
+//~ })

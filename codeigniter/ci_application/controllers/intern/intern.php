@@ -234,21 +234,19 @@ class Intern extends CI_Controller
 	
 	public function viewDetails()
 	{
-		//~ $ci = new CI_CONTROLLER ();
 		$id = $this->uri->segment ( 4 );
-		//~ $ci->load->model('intern/intern_md');
 		$fetched = $this->intern_md->get($id);
 
 		$result = "";		
 		foreach ( $fetched->result () as $line ) {
 			$result = $result."
 						ID : ".$line->id_person."</br>
-						First name.".$line->first_name."
-						Last name :".$line->last_name."</br>
-						Phone number:".$line->phone."</br>
-						Mail :".$line->mail."</br>
-						Country :".$line->country."</br>
-						Worked until :".$line->worked_until."</br>
+						First name: ".$line->first_name."</br>
+						Last name: ".$line->last_name."</br>
+						Phone number: ".$line->phone."</br>
+						Mail: ".$line->mail."</br>
+						Country: ".$line->country."</br>
+						Worked until: ".$line->worked_until."</br>
 						<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
 						<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
 				}
@@ -279,9 +277,19 @@ class Intern extends CI_Controller
 			$country = $this->input->post ( 'Country' );
 			$worked_until = $this->input->post ( 'WorkedUntil' );
 			
-			$result = $this->intern_md->create($first_name, $last_name, $country, $phone, $mail, $worked_until);
+			$only_modify = $this->uri->segment(4);
+			if(isset($only_modify) && $only_modify)
+			{
+				$id = $this->input->post ( 'modifyId' );
+				$result = $this->intern_md->update($id, $first_name, $last_name, $country, $phone, $mail, $worked_until);
+				$this->index (3);
+			}
+			else
+			{	
+				$result = $this->intern_md->create($first_name, $last_name, $country, $phone, $mail, $worked_until);
 
-			$this->index (0);
+				$this->index (0);
+			}
 		} else {
 			// If the form is not valid or empty
 			$this->formCompletion();
@@ -302,4 +310,78 @@ class Intern extends CI_Controller
 		$this->load->view ( 'intern/body', $data );
 		$this->load->view ( 'intern/footer' );
 	}
+	
+		public function formCompletionModify()
+		{
+			$result = "";
+			$id = $this->uri->segment ( 4 );
+			$fetched = $this->intern_md->get($id);
+
+			$result = "";		
+			foreach ( $fetched->result () as $line ) {
+				$result = $result.'
+				<form method="post" name="modifyInternForm" id="modifyInternForm" action="/index.php/intern/intern/verificationAddIntern/true" class="form-horizontal">
+				<input type="hidden"  name="modifyId" id="modifyId"  value=""/>
+
+				<div class="control-group">
+					<label class="control-label" for="inputName">First name</label>
+					<div class="controls">
+						<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="'.$line->first_name.'"/>
+							<?php echo form_error(\'FirstName\'); ?> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputName">Last name</label>
+					<div class="controls">
+						<input type="text" id="LastName" name="LastName" placeholder="Last name" value="'.$line->last_name.'"/>
+							<?php echo form_error(\'LastName\'); ?> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">Email</label>
+					<div class="controls">
+						<input type="text" id="Mail" name="Mail" placeholder="Mail" value="'.$line->mail.'"/>
+							<?php echo form_error(\'Mail\'); ?> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="inputPhone">Phone</label>
+					<div class="controls">
+						<input type="text" id="Phone" name="Phone" placeholder="Phone" value="'.$line->phone.'"/>
+							<?php echo form_error(\'Phone\'); ?> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="Country">Country</label>
+					<div class="controls">
+							<input class="span2" type="text" id="Country" name="Country"
+								placeholder="Country" data-provide="typeahead" data-items="4"
+								data-source= '.University::getAllCountries().'
+								autocomplete="off" value="'.$line->country.'" />
+							<?php echo form_error(\'Country\'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="WorkedUntil">Worked until</label>
+					<div class="controls">
+						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014-05-21" value="'.$line->worked_until.'"/>
+							<?php echo form_error(\'WorkedUntil\'); ?>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn">Submit</button>
+					</div>
+				</div>
+			</form>';
+				}
+			
+			exit($result);
+		}					
 }
