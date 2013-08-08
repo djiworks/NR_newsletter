@@ -1,6 +1,4 @@
 <div class="container">
-	<input type="hidden"  name="tmpId" id="tmpId"  value=""/>
-
 		<button class="btn btn-small btn btn-info" type="button"
 			data-toggle='modal' data-target='#addIntern'>
 			<i class="icon-plus"></i> Add an Intern

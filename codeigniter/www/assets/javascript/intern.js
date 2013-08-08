@@ -17,19 +17,8 @@ function confirmationAdding(is_success){
 	}
 }
 
-$('#viewDetails').on('hidden', function() {
-	//~ alert('debut listener');
-	//~ document.getElementById('viewDetails').setAttribute('data-remote', "");
-	//~ $(this).removeData('modal');
-	//~ alert('fin listener');
-
-	//~ $('#viewDetails').removeData("modal");
-})
-
 function viewDetails(id){
-	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/intern/intern/viewDetails/" + id);
-	//~ alert(document.getElementById('viewDetails').getAttribute('data-remote'));
 	$('#viewDetails').modal('show');
 }
 
@@ -41,13 +30,9 @@ function deleteIntern(id){
 		
 function modifyIntern(id){						
 	$('#viewDetails').modal('hide');
-	//~ document.getElementById('modifyId').value = id ;
 	document.getElementById('modifyIntern').setAttribute('data-remote', "/index.php/intern/intern/formCompletionModify/" + id);
-	document.getElementById('tmpId').value = id;
-	//~ alert(document.getElementById('tmpId').value);
 	$('#modifyIntern').modal('show');
-	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = document.getElementById('tmpId').value;},1000);
-	//~ $('#modifyIntern').modal('show');
+	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = id;},1000);
 }
 
 //~ $('#modifyIntern').on('show', function() {
