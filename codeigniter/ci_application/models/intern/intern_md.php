@@ -62,8 +62,6 @@ class Intern_md extends CI_Model
 				   p.phone, 
 				   p.mail, 
 				   p.worked_until, 
-				   r.id_person, 
-				   r.id_university, 
 				   r.is_student, 
 				   u.id_university, 
 				   u.name
