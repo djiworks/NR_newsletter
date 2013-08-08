@@ -374,7 +374,9 @@ class University extends CI_Controller {
 			$subscription = 0;
 			$checking_state = 2;
 			
-			$result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
+			
+			
+			//~ $result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
 
 			$this->index (0);
 		} else {
