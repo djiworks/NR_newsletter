@@ -130,7 +130,7 @@
 	<p>University added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
 	</div>
 	</div>
 	

@@ -39,8 +39,8 @@ class University extends CI_Controller {
 			$session_data = $this->session->userdata('logged_in');
 			
 			loadTopMenu($this, 'university', $session_data) ;
-
-			$this->load->view ( 'university/leftmenu' );
+			isAllowedToView($this, 2, '/university/leftmenu');
+			//~ $this->load->view ( '/university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
 			$this->load->view ( 'university/footer' );
 	}
@@ -160,6 +160,8 @@ class University extends CI_Controller {
 				$id_univ = $line->id_university;
 				
 				// Switching the state number to the real values
+				$sess = $this->session->userdata('logged_in');
+
 				switch ($line->checking_state) {
 					case 0 :
 						$classUniv = "classNormal";
@@ -205,7 +207,7 @@ class University extends CI_Controller {
 								<li class='classSubscription'>".$subcription."</li>
 								<li class='classChkState'>".$state."</li>
 								<li class='classDetails'>
-									<button class='btn btn-small accordion-toggle' type='button' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</a>
+									<button class='btn btn-small accordion-toggle' type='button' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</button>
 								</li>
 							</ul>
 						</div>
