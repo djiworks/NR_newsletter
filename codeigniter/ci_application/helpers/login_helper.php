@@ -28,16 +28,24 @@ function isAdmin($object) {
 	}
 }
 
+function isAllowed($object, $permission) {
+	if(!$object->session->userdata('logged_in'))
+	{
+		$tmp = $object->session->userdata('logged_in');
+		
+		if($tmp['role'] <= $permission) {
+			redirect('university/university', 'refresh');
+		}
+	}
+}
+
 function loadTopMenu($object, $path, $sess) {
 	$tmp = $object->session->userdata('logged_in');
+	$data = array();
+	$data['username'] = $tmp['username'];
+	$data['role'] = $tmp['role'];
+	$data['path'] = $path;
 	
-	if($tmp['role'] == 1)
-	{
-		$object->load->view ( $path.'/topmenu_admin', $sess );
-	}
-	else
-	{
-		$object->load->view ( $path.'/topmenu', $sess );
-	}
+	$object->load->view ( '/topmenu', $data );
 }
 
