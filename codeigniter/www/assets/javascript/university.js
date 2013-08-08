@@ -1,37 +1,7 @@
 /* Global variables */
 var nbIntern = 0;
-/* Listeners */
-//~ var element = document.getElementById('inputSearchUniv');
- //~ 
-//~ element.addEventListener('keyup', function(e) {
-	//~ //alert("element = "+element.value);
-	//~ 
-	//~ var stuff = document.getElementsByTagName("li");
-	//~ 
-	//~ //alert(stuff.length);
-	//~ //alert("stuff[56].innerHTML = "+stuff[56].innerHTML);
-	//~ 
-	//~ for (var i = 1 ; i <= stuff.length ; i++) {
-		//~ if((stuff[i].className == "className")) {
-			//~ //alert("stuff["+i+"].className = "+stuff[i].className);
-			//~ alert("stuff["+i+"].innerHTML = "+stuff[i].innerHTML);
-			//~ alert("element.value = "+element.value);
-			//~ 
-			//~ var test = element.value.test.stuff[i].innerHTML;
-			//~ 
-			//~ alert("test = "+test);
-			//~ 
-			//~ if(stuff[i].innerHTML.test.element.value) {
-				//~ stuff[i].style.background = "red";
-			//~ }
-		//~ }
-	//~ }
-	//~ 
-	//~ //alert("i = "+i);
-//~ }, false);
 
 /* Functions */
-
 function selectedUniv (univName, univId, chkName) {
 	//Creation of variables
 	//~ var chkName = "chk".concat(univId);
@@ -154,7 +124,8 @@ function modifyUniversity(id){
 
 function changeName(id) {
 	/* This function changes the name so it is easier for the user 
-	 * to find the user he added */
+	 * to find the user he added 
+	 */
 	 
 	//Getting the field and its value
 	var e = document.getElementById("linkDisplayContact"+id);
@@ -169,11 +140,18 @@ function changeName(id) {
 }
 
 function delInternForm(id) {
+	/*
+	 * This function deletes an intern in the form
+	 */
 	var e = document.getElementById("groupIntern"+id);
 	e.parentNode.removeChild(e);
 }
 
 var funcAddInternToUniv = function addInternToUniv() {
+	/*
+	 * This function adds in the form the fields to add an intern
+	 * to the university that is added
+	 */
 	nbIntern++;
 	
 	var cell = document.getElementById("cellIntern");
@@ -181,28 +159,53 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var e = document.getElementById("accordion");
 	
-	//Creation of the div for the name input
-	var newElementDivName = document.createElement('div');
-	newElementDivName.className = "control-group";
+	//Creation of the div for the first name input
+	var newElementDivFirstName = document.createElement('div');
+	newElementDivFirstName.className = "control-group";
 	
-	var newLabelName = document.createElement('label');
-	newLabelName.class = "control-label";
-	newLabelName.for = "inputNameContact".concat(nbIntern);
-	newLabelName.innerText = "Contact name";
+	var newLabelFirstName = document.createElement('label');
+	newLabelFirstName.class = "control-label";
+	newLabelFirstName.for = "inputNameFirstName".concat(nbIntern);
+	newLabelFirstName.innerText = "Contact name";
 	
-	var newDivName = document.createElement('div');
-	newDivName.class = "controls";
+	var newDivFirstName = document.createElement('div');
+	newDivFirstName.class = "controls";
 	
-	var newInputName = document.createElement('input');
-	newInputName.type = "text";
-	newInputName.id = "inputNameContact".concat(nbIntern);
-	newInputName.name = "inputNameContact".concat(nbIntern);
-	newInputName.placeholder = "Contact name";
-	newInputName.setAttribute("onblur","changeName("+nbIntern+");");
-	newDivName.appendChild(newInputName);
+	var newInputFirstName = document.createElement('input');
+	newInputFirstName.type = "text";
+	newInputFirstName.id = "inputNameFirstName".concat(nbIntern);
+	newInputFirstName.name = "inputNameFirstName".concat(nbIntern);
+	newInputFirstName.placeholder = "Contact first name";
+	newInputFirstName.setAttribute("onblur","changeName("+nbIntern+", 'first');");
 	
-	newElementDivName.appendChild(newLabelName);
-	newElementDivName.appendChild(newDivName);
+	newDivFirstName.appendChild(newInputFirstName);
+	
+	newElementDivFirstName.appendChild(newLabelFirstName);
+	newElementDivFirstName.appendChild(newDivFirstName);
+	
+	//Creation of the div for the last name input
+	var newElementDivLastName = document.createElement('div');
+	newElementDivLastName.className = "control-group";
+	
+	var newLabelLastName = document.createElement('label');
+	newLabelLastName.class = "control-label";
+	newLabelLastName.for = "inputNameLastContact".concat(nbIntern);
+	newLabelLastName.innerText = "Contact name";
+	
+	var newDivLastName = document.createElement('div');
+	newDivLastName.class = "controls";
+	
+	var newInputLastName = document.createElement('input');
+	newInputLastName.type = "text";
+	newInputLastName.id = "inputNameLastContact".concat(nbIntern);
+	newInputLastName.name = "inputNameLastContact".concat(nbIntern);
+	newInputLastName.placeholder = "Contact last name";
+	newInputLastName.setAttribute("onblur","changeName("+nbIntern+", 'last');");
+	
+	newDivLastName.appendChild(newInputLastName);
+	
+	newElementDivLastName.appendChild(newLabelLastName);
+	newElementDivLastName.appendChild(newDivLastName);
 	
 	//Creation of the div for the additional information
 	var newElementDivInfo = document.createElement('div');
@@ -312,7 +315,8 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newElementDivHead.appendChild(newElementDivModal);
 	
 	/* inner */
-	newElementDivBlock.appendChild(newElementDivName);
+	newElementDivBlock.appendChild(newElementDivFirstName);
+	newElementDivBlock.appendChild(newElementDivLastName);
 	newElementDivBlock.appendChild(newElementDivInfo);
 	newElementDivBlock.appendChild(newElementDivMail);
 	newElementDivBlock.appendChild(newElementDivPhone);
@@ -332,6 +336,46 @@ var funcAddInternToUniv = function addInternToUniv() {
 	e.appendChild(newElementDivGroup);
 }
 
+var funcSearch = function search(field, field) {
+	/*
+	 * This function does the search in the page
+	 */
+	
+	//~ Field is optional so we can use this function for other searches
+	//~ field = (field ? field : null);
+	 
+	//~ alert("element = "+element.value);
+	
+	//~ var stuff = document.getElementsByTagName("li");
+	
+	//~ alert(stuff.length);
+	//~ alert("stuff[56].innerHTML = "+stuff[56].innerHTML);
+	
+	//~ for (var i = 1 ; i <= stuff.length ; i++) {
+		//~ if((stuff[i].className == "className")) {
+			//~ //alert("stuff["+i+"].className = "+stuff[i].className);
+			//~ alert("stuff["+i+"].innerHTML = "+stuff[i].innerHTML);
+			//~ alert("element.value = "+element.value);
+			//~ 
+			//~ var test = element.value.test.stuff[i].innerHTML;
+			//~ 
+			//~ alert("test = "+test);
+			//~ 
+			//~ if(stuff[i].innerHTML.test.element.value) {
+				//~ stuff[i].style.background = "red";
+			//~ }
+		//~ }
+	//~ }
+	
+	//~ alert("i = "+i);
+}
+
+
 /* Listeners */
+//~ Listener to add interns for a university
 var element = document.getElementById('button2AddIntern');
 element.addEventListener('click', funcAddInternToUniv, false);
+
+//~ Listener for the search in the main university page
+//~ var element = document.getElementById('inputSearchUniv');
+//~ element.addEventListener('keyup', funcSearch("inputSearchUniv"), false);
