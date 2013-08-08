@@ -11,10 +11,14 @@ function confirmationAdding(is_success){
 	{
 		$('#success_deletion').modal('show');
 	}
+	else if(is_success == 3)
+	{
+		$('#success_modify').modal('show');
+	}
 }
 
 $('#viewDetails').on('hidden', function() {
-	alert('debut listener');
+	//~ alert('debut listener');
 	//~ document.getElementById('viewDetails').setAttribute('data-remote', "");
 	//~ $(this).removeData('modal');
 	//~ alert('fin listener');
@@ -36,6 +40,22 @@ function deleteIntern(id){
 }
 		
 function modifyIntern(id){						
+	$('#viewDetails').modal('hide');
 	//~ document.getElementById('modifyId').value = id ;
-	$('#modifyUniversity').modal('show');
+	document.getElementById('modifyIntern').setAttribute('data-remote', "/index.php/intern/intern/formCompletionModify/" + id);
+	document.getElementById('tmpId').value = id;
+	//~ alert(document.getElementById('tmpId').value);
+	$('#modifyIntern').modal('show');
+	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = document.getElementById('tmpId').value;},1000);
+	//~ $('#modifyIntern').modal('show');
 }
+
+//~ $('#modifyIntern').on('show', function() {
+	//~ alert(document.forms['modifyInternForm']);
+//~ })
+//~ 
+//~ $('#submitModify').on('click', function() {
+	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
+	//~ document.forms['modifyInternForm'].elements['modifyId'].value = document.getElementById('tmpId').value;
+	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
+//~ })

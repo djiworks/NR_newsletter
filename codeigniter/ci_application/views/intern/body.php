@@ -1,4 +1,5 @@
 <div class="container">
+	<input type="hidden"  name="tmpId" id="tmpId"  value=""/>
 
 		<button class="btn btn-small btn btn-info" type="button"
 			data-toggle='modal' data-target='#addIntern'>
@@ -27,17 +28,17 @@
 
 
 	<!-- Modal -->
-	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="blabla" aria-hidden="true">
+	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
+				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
 			<h3 id="myModalLabel">Intern Name</h3>
 		</div>
 		<div class="modal-body">
 
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
 		</div>
 	</div>
 	
@@ -131,6 +132,21 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+	
+	<div id="modifyIntern" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
+			<h3 id="addInternLabel">Modify an Intern</h3>
+		</div>
+		<div class="modal-body">
+			
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+		</div>
+	</div>
 
 	<div id="success" class="modal hide fade">
 	<div class="modal-header">
@@ -160,9 +176,9 @@
 	</div>
 	
 	<div id="confirmDeletion" class="modal hide fade">
-	<div class="modal-header">
 	<form method="post" id="deleteUserForm" action="/index.php/intern/intern/deleteIntern" class="form-horizontal">
-	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
+	<div class="modal-header">
+	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value=""/>
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
 	<h4>Confirm deletion</h4>
 	</div>
@@ -171,9 +187,9 @@
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
-	</form>
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Cancel</button>
 	</div>
+	</form>
 	</div>
 	
 	<div id="success_deletion" class="modal hide fade">
@@ -183,6 +199,19 @@
 	</div>
 	<div class="modal-body">
 	<p>Intern deleted with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	</div>
+	</div>
+	
+	<div id="success_modify" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>Intern modified with success.</p>
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>

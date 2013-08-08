@@ -6,14 +6,14 @@ class Intern_md extends CI_Model
 	private $table2 = "recommended_by";
 	private $table3 = "university";
 	
-	public function update($id, $first_name, $last_name, $country, $phone, $mail){
+	public function update($id, $first_name, $last_name, $country, $phone, $mail,$worked_until){
 		 
 		$this->db->set("first_name",$first_name)
 				 ->set("last_name",$last_name)
 				 ->set("country",$country)
 				 ->set("phone",$phone)
 				 ->set("mail",$mail)
-				 ->set("work_until",$work_until)
+				 ->set("worked_until",$worked_until)
 				 ->where("id_person",$id)
 				 ->update($this->table);
 	}
