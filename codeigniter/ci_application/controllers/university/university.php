@@ -143,7 +143,14 @@ class University extends CI_Controller {
 					<td class='classTabContactNumber'>".$line->id_contact."</td>
 					<td class='classTabContactInfo'>".$line->information."</td>
 					<td class='classTabContactMail'>".$line->mail."</td>
-					<td class='classTabContactPhone'>".$line->number."</td>
+					<td class='classTabContactPhone'>".$line->number."</td>";
+					
+			if($line->number){
+				$displayContact [$id_univ] = $displayContact [$id_univ]."
+					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
+				}
+			
+				$displayContact [$id_univ] = $displayContact [$id_univ]."
 				</tr>";
 		}
 		
