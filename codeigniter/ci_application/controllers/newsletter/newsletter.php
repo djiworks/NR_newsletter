@@ -4,15 +4,11 @@ class Newsletter extends CI_Controller
 {
 	private $id;
 	
-	public function __construct($id = false){
+	public function __construct(){
 		parent::__construct(); 
 		$this->load->helper('login');
 		$this->load->model('newsletter/newsletter_md');
 
-		if($id){
-			$this->id = $id;
-			$this->initialiseValue();	
-		}
 	}
 
     public function index($is_success = NULL)
@@ -40,8 +36,19 @@ class Newsletter extends CI_Controller
 
 		$this->index();
     }
+    
+     public function deleteNewsletter()
+	{
+		isLoggedInRedirect($this);
+		
+		$id = $this->input->post ( 'confirmDeletionId' );
+
+		$this->newsletter_md->delete($id);
+		
+		$this->index(2);
+	}
        
-    public function mail($is_success = NULL)
+    public function addNewsletter($is_success = NULL)
     {
 		isLoggedInRedirect($this);
 
@@ -54,7 +61,7 @@ class Newsletter extends CI_Controller
 		$this->load->view('newsletter/head');
 		$session_data = $this->session->userdata('logged_in');
 		loadTopMenu($this, 'newsletter', $session_data);
-		$this->load->view('newsletter/mail', $data);
+		$this->load->view('newsletter/addNewsletter', $data);
 
 		$this->load->view('newsletter/footer');
     }
@@ -81,7 +88,7 @@ class Newsletter extends CI_Controller
 
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('newsletter/newsletter_md');
-		$this->load->database();
+		//~ $this->load->database();
 		$fetched = $ci->newsletter_md->getAll();
 		
 		$result = "";		
@@ -119,52 +126,14 @@ class Newsletter extends CI_Controller
 					<td>".$ligne->description."</td>
 					<td>".$ligne->creation_date."</td>
 					<td>".$state."</td>
-					<td><a href='#myModal' data-toggle='modal'>Click here</a></td>
+					<td><button class=\"btn btn-small\" type=\"button\" onclick='viewDetails(".$ligne->id_newsletter.")'>Click here</button></td>
 				</tr>";
 		}
 		
 		return $result;
 	}
-    
-    public function get() {
-		isLoggedInRedirect($this);
 
-	 }
-
-	public function getId() {
-	isLoggedInRedirect($this);
-
-	}
-
-	public function getName() {
-	isLoggedInRedirect($this);
-	}
-
-	public function getAdress() {
-		isLoggedInRedirect($this);
-	}
-
-	public function getCountry() {
-	isLoggedInRedirect($this);
-
-	}
-
-	public function getSubscription() {
-	isLoggedInRedirect($this);
-
-	}
-
-	public function getCheckingState() {
-		isLoggedInRedirect($this);
-
-	}
-
-	public function getComment() {
-	isLoggedInRedirect($this);
-
-	}
-
-	public function addNewsletter(){
+	public function verificationAddNewsletter(){
 		isLoggedInRedirect($this);
 		
 		// loading of the library
@@ -185,30 +154,97 @@ class Newsletter extends CI_Controller
 			$path = $this->input->post ( 'Path' );
 			$content = $this->input->post ( 'Content' );
 			$description = $this->input->post ( 'Description' );
-			$creation_date = date("Y-m-d");
-			$checking_state = 2;
+			$id_modify = $this->input->post ( 'modifyId' );
+			if($id_modify != -1)
+			{
+				$creation_date = $this->input->post ( 'creationDate' );
+				$checking_state = $this->input->post ( 'checkingState' );
+			}
+			else
+			{
+				$creation_date = date("Y-m-d");
+				$checking_state = 2;
+			}
 			
-			$result = $this->newsletter_md->create ( $name, $cover, $path, $content, $description, $creation_date, $checking_state);
-			
-			$this->index (0);
+			if($id_modify != -1)
+			{
+				$this->newsletter_md->update( $id_modify, $name, $cover, $path, $content, $description, $creation_date, $checking_state);
+				$this->index (3);
+			}
+			else
+			{
+				$result = $this->newsletter_md->create ( $name, $cover, $path, $content, $description, $creation_date, $checking_state);
+				$this->index (0);
+			}
 		} else {
 			// If the form is not valid or empty
 			$description = $this->input->post ( 'Description' );
 			$content = $this->input->post ( 'Content' );
 			
 			//~ $this->formCompletion ( $description, $content );
-			$this->mail(1);
+			$this->addNewsletter(1);
 		}
 	}
 
-	public function addCommentOnNewsletter(){
-	isLoggedInRedirect($this);
+	public function viewDetails()
+	{
+		isLoggedInRedirect($this);
 
+		$sess = $this->session->userdata('logged_in');
+		$id = $this->uri->segment ( 4 );
+		$fetched = $this->newsletter_md->get($id);
+
+		$result = "";		
+		foreach ( $fetched->result () as $line ) {
+			$result = $result."
+						ID : ".$line->id_newsletter."</br>
+						Type : ".$line->type."</br>
+						Name: ".$line->name."</br>
+						Description: ".$line->description."</br>
+						Path: ".$line->path."</br>
+						Creation date: ".$line->creation_date."</br>
+						Cover: ".$line->cover."</br>
+						Checking state: ".$line->checking_state."</br>
+						Content: ".$line->content."</br>
+						";
+						
+			if($sess['role']<= 3)
+				{		
+					$result = $result."
+					<button class='btn btn-small' type='button' onclick=\"window.location.href = '/index.php/newsletter/newsletter/modifyNewsletter/".$id."';\">Modify</button>
+					<button class='btn btn-small' type='button' onclick=deleteNewsletter(".$line->id_newsletter.")>Delete</button>";
+				}
+			}
+		exit($result);
 	}
+	
+	public function modifyNewsletter($id)
+	{
+		isLoggedInRedirect($this);
 
-	public function initialiseValue(){
-	isLoggedInRedirect($this);
+		$result = "";
+		$fetched = $this->newsletter_md->get($id);
+		$data = array();
+		
+		if(isset($is_success)){
+			$data ['is_success'] = $is_success;
+		}
 
-	}
-
+		foreach ( $fetched->result () as $line ) {
+			$data ['name'] = $line->name;
+			$data ['cover'] = $line->cover;
+			$data ['pathnews'] = $line->path;
+			$data ['content'] = $line->content;
+			$data ['description'] = $line->description;
+			$data ['checkingState'] = $line->checking_state;
+			$data ['creationDate'] = $line->creation_date;
+			$data ['id_modify'] = $id;
+			}
+		
+		$this->load->view('newsletter/head');
+		$session_data = $this->session->userdata('logged_in');
+		loadTopMenu($this, 'newsletter', $session_data);
+		$this->load->view('newsletter/addNewsletter', $data);
+		$this->load->view('newsletter/footer');
+	}	
 }

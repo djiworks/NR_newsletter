@@ -40,6 +40,7 @@ class Intern extends CI_Controller
 
 		$this->load->view('intern/head');
 		$session_data = $this->session->userdata('logged_in');
+		$data ['role'] = $session_data['role'];
 		//~ $sess['username'] = $session_data['username'];
 		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view('intern/body', $data);
@@ -234,6 +235,9 @@ class Intern extends CI_Controller
 	
 	public function viewDetails()
 	{
+		isLoggedInRedirect($this);
+
+		$sess = $this->session->userdata('logged_in');
 		$id = $this->uri->segment ( 4 );
 		$fetched = $this->intern_md->get($id);
 
@@ -247,9 +251,15 @@ class Intern extends CI_Controller
 						Mail: ".$line->mail."</br>
 						Country: ".$line->country."</br>
 						Worked until: ".$line->worked_until."</br>
-						<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
-						<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
+						";
+						
+			if($sess['role']<= 3)
+				{		
+					$result = $result."
+					<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
+					<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
 				}
+			}
 		exit($result);
 	}
 	
