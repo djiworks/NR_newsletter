@@ -39,7 +39,11 @@ class University_md extends CI_Model
 				 ->set("country",$country)
 				 ->set("subscription",$subscription)
 				 ->set("checking_state",$checking_state)
-		 		 ->insert($this->table);  
+		 		 ->insert($this->table);
+		 		 
+		return $this->db->query("
+					SELECT MAX(id_university)
+						FROM ".$this->table.";");
 	 }
 	 
 	 public function getSearchedUniversities($field, $value){
@@ -103,18 +107,25 @@ class University_md extends CI_Model
 				ORDER BY u.id_university ASC;");
 	} 
 	
-		public function getAllUniv_Interns() {
-		return $this->db->query("
-			SELECT u.id_university, 
-				   r.id_person, 
-				   r.is_student, 
-				   p.first_name, 
-				   p.last_name, 
-				   p.country, 
-				   p.worked_until
-				FROM ".$this->table." AS u 
-					LEFT OUTER JOIN ".$this->table5." AS r ON u.id_university = r.id_university
-					LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
-				ORDER BY u.id_university ASC;");
-	} 
+	public function getAllUniv_Interns() {
+	return $this->db->query("
+		SELECT u.id_university, 
+			   r.id_person, 
+			   r.is_student, 
+			   p.first_name, 
+			   p.last_name, 
+			   p.country, 
+			   p.worked_until
+			FROM ".$this->table." AS u 
+				LEFT OUTER JOIN ".$this->table5." AS r ON u.id_university = r.id_university
+				LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
+			ORDER BY u.id_university ASC;");
+	}
+	
+/*
+	public function insertContact() {
+		$this->db->query("
+			;");
+	}
+*/
 }

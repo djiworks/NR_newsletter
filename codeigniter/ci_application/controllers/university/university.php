@@ -364,20 +364,47 @@ class University extends CI_Controller {
 		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|encode_php_tags|xss_clean' );
 		
 		if ($this->form_validation->run ()) {
 			// If the form is valid
+			// In a first time we create the university
 			$name = $this->input->post ( 'UniversityName' );
 			$address = $this->input->post ( 'Adress' );
 			$country = $this->input->post ( 'inputCountry' );
 			$subscription = 0;
 			$checking_state = 2;
 			
+			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
+			$id_univ = $result->id_university;
 			
+			echo '$id_univ = '.$id_univ;
 			
-			//~ $result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
-
+			/*
+			// Then we create the contacts linked to the university
+			$nbContact = $this->input->post('nbIntern2Add');
+			
+			for($i = 1 ; $i <= $nbContact ; $i++) {
+				$varName = 'textAreaInfoContact'.$i;
+				
+				if($this->input->post($varName)) {
+					$InfoContact = $this->input->post($varName);
+				}
+				
+				$varName = 'inputEmail'.$i;
+				
+				if($this->input->post($varName)) {
+					$mailContact = $this->input->post($varName);
+				}
+				
+				$varName = 'inputPhone'.$i;
+				
+				if($this->input->post($varName)) {
+					$phoneContact = $this->input->post($varName);
+				}
+			}
+			*/
+			
 			$this->index (0);
 		} else {
 			// If the form is not valid or empty
