@@ -40,6 +40,7 @@ class Newsletter extends CI_Controller
      public function deleteNewsletter()
 	{
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 		
 		$id = $this->input->post ( 'confirmDeletionId' );
 
@@ -51,6 +52,7 @@ class Newsletter extends CI_Controller
     public function addNewsletter($is_success = NULL)
     {
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 
 		$data = array();
 		if (isset($is_success))
@@ -66,8 +68,7 @@ class Newsletter extends CI_Controller
 		$this->load->view('newsletter/footer');
     }
     
-    public static function getNewsletterList()
-	{	
+    public static function getNewsletterList(){	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 		isLoggedInRedirect($ci);
@@ -135,6 +136,7 @@ class Newsletter extends CI_Controller
 
 	public function verificationAddNewsletter(){
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 		
 		// loading of the library
 		$this->load->library ( 'form_validation' );
@@ -221,6 +223,7 @@ class Newsletter extends CI_Controller
 	public function modifyNewsletter($id)
 	{
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 
 		$result = "";
 		$fetched = $this->newsletter_md->get($id);

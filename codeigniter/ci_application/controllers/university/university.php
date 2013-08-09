@@ -276,6 +276,7 @@ class University extends CI_Controller {
 	public function deleteUniversity()
 	{
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 		
 		$id = $this->input->post ( 'confirmDeletionId' );
 
@@ -368,7 +369,8 @@ class University extends CI_Controller {
 	
 	public function verificationAddUniversity() {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		// loading of the library
 		$this->load->library ( 'form_validation' );
 		$this->load->model ( 'university/university_md' );
@@ -403,13 +405,15 @@ class University extends CI_Controller {
 	
 	public function modifyUniversity() {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		echo 'TODO faire le controller modifyUniversity (reprendre addUniversity nouvelle version ?)';
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
