@@ -1,12 +1,20 @@
 			<div class="span10">
 				<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button"
-						 onclick="window.location.href = '/index.php/university/university/addUniversity';">
+				<?php if($role<=3)
+				{echo 
+					'<button class="btn btn-small btn btn-info" type="button"
+						 onclick="window.location.href = \'/index.php/university/university/addUniversity\';">
 						<i class="icon-plus"></i> Add University
 					</button>
+				';} ?>
+				<?php if($role<=2)
+				{echo '
 					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
+				';} ?>
+
 				</div>
+
 				<form method="post" action="#" class="form-search pull-right">
 					<i class="icon-search"></i>
 					<div class="input-append">
@@ -20,7 +28,10 @@
 						<div class="container-fluid">
 							<div class="nav-collapse collapse">
 								<ul class="nav wrapTabColName">
+									<?php if($role<=2)
+									{echo' 
 									<li class="classToSend">To Send</li>
+									';} ?>
 									<li class="classNumber">#</li>
 									<li class="className"><i class="icon-chevron-down"></i> Name</li>
 									<li class="classAddress"><i class="icon-chevron-down"></i>Address</li>
@@ -40,11 +51,21 @@
 				</div>
 				
 		    	<div class="btn-group">
-					<button class="btn btn-small btn btn-info" type="button"  onclick="window.location.href = '/index.php/university/university/addUniversity';">
+				<?php if($role<=3)
+				{echo 
+					'<button class="btn btn-small btn btn-info" type="button"
+						 onclick="window.location.href = \'/index.php/university/university/addUniversity\';">
 						<i class="icon-plus"></i> Add University
-					</button>					<button class="btn btn-small" onclick="selectAll()">Check All</button>
+					</button>
+				';} ?>
+				<?php if($role<=2)
+				{echo '
+					<button class="btn btn-small" onclick="selectAll()">Check All</button>
 					<button class="btn btn-small" onclick="unselectAll()">Uncheck All</button>
-    			</div>
+				';} ?>
+
+				</div>
+
 		    </div>
 		</div>
 	</div>
