@@ -42,7 +42,7 @@ class University_md extends CI_Model
 		 		 ->insert($this->table);
 		 		 
 		return $this->db->query("
-					SELECT MAX(id_university)
+					SELECT MAX(id_university) as id_univ
 						FROM ".$this->table.";");
 	 }
 	 
@@ -121,11 +121,4 @@ class University_md extends CI_Model
 				LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
 			ORDER BY u.id_university ASC;");
 	}
-	
-/*
-	public function insertContact() {
-		$this->db->query("
-			;");
-	}
-*/
 }

@@ -359,9 +359,10 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		
 		// loading of the library
-		$this->load->library ( 'form_validation' );
-		$this->load->model ( 'university/university_md' );
-		$this->load->database ();
+		$this->load->library('form_validation');
+		$this->load->model('university/university_md');
+		$this->load->model('contact/contact_md');
+		$this->load->database();
 		
 		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
@@ -378,34 +379,48 @@ class University extends CI_Controller {
 			$checking_state = 2;
 			
 			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
-			$id_univ = $result->id_university;
+			foreach ( $result->result () as $line ) {
+				$id_univ = $line->id_univ;
+			}
 			
-			echo '$id_univ = '.$id_univ;
-			
-			/*
 			// Then we create the contacts linked to the university
 			$nbContact = $this->input->post('nbIntern2Add');
 			
 			for($i = 1 ; $i <= $nbContact ; $i++) {
+				//Get the value of the text area
 				$varName = 'textAreaInfoContact'.$i;
-				
 				if($this->input->post($varName)) {
 					$InfoContact = $this->input->post($varName);
 				}
 				
+				$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
+				foreach ( $resultCo->result () as $line ) {
+					$id_contact = $line->id_contact;
+				}
+				
+				//Get the email
 				$varName = 'inputEmail'.$i;
-				
 				if($this->input->post($varName)) {
-					$mailContact = $this->input->post($varName);
+					$mail = $this->input->post($varName);
 				}
 				
+				//Get the phone 
 				$varName = 'inputPhone'.$i;
-				
 				if($this->input->post($varName)) {
-					$phoneContact = $this->input->post($varName);
+					$phone = $this->input->post($varName);
 				}
+				
+				///Check if it's a fax
+				$varName = 'inputCheckFax'.$i;
+				if($this->input->post($varName)) {
+					$type = true;
+				} else {
+					$type = false;
+				}
+				
+				$this->contact_md->addMail2Contact($mail, $id_contact);
+				$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
 			}
-			*/
 			
 			$this->index (0);
 		} else {

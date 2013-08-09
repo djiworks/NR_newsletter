@@ -132,7 +132,7 @@ function changeName(id) {
 	var info = document.getElementById("textAreaInfoContact"+id);
 	
 	//changing the value
-	if ((info.length === 0)) {
+	if (!info.value) {
 		e.innerHTML = "New contact ".concat(id);
 	} else {
 		e.innerHTML = info.value;
@@ -224,7 +224,19 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newInputPhone.name = "inputPhone".concat(numContact);
 	newInputPhone.placeholder = "Phone";
 	
+	var newLabelFax = document.createElement('label');
+	newLabelFax.class = "control-label";
+	newLabelFax.for = "inputCheckFax".concat(numContact);
+	newLabelFax.innerText = "Fax";
+	
+	var newCheckFax = document.createElement('input');
+	newCheckFax.type = "checkbox";
+	newCheckFax.id = "inputCheckFax".concat(numContact);
+	newCheckFax.name = "inputCheckFax".concat(numContact);
+	
 	newDivPhone.appendChild(newInputPhone);
+	newDivPhone.appendChild(newLabelFax);
+	newDivPhone.appendChild(newCheckFax);
 	
 	newElementDivPhone.appendChild(newLabelPhone);
 	newElementDivPhone.appendChild(newDivPhone);	
