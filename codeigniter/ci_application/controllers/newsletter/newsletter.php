@@ -250,4 +250,38 @@ class Newsletter extends CI_Controller
 		$this->load->view('newsletter/addNewsletter', $data);
 		$this->load->view('newsletter/footer');
 	}	
+	
+	public static function getNumberWaitingNewsletters()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('newsletter/newsletter_md');
+		$fetched = $ci->newsletter_md->getNumberWaitingNewsletters();
+		$result = "";
+		if($fetched->num_rows()>0 && ($fetched->row()->nb != 0))
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;	}
+	
+	public static function getNumberWrongNewsletters()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('newsletter/newsletter_md');
+		$fetched = $ci->newsletter_md->getNumberWrongNewsletters();
+		$result = "";
+		if($fetched->num_rows()> 0 && ($fetched->row()->nb != 0))
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;	}
 }

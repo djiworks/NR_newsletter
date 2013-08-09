@@ -448,7 +448,6 @@ class University extends CI_Controller {
 		isLoggedInRedirect($ci);
 		
 		$ci->load->model('university/university_md');
-		$ci->load->database();
 		$fetched = $ci->university_md->getAllCountries();
 		
 		$result = "'[";		
@@ -470,4 +469,41 @@ class University extends CI_Controller {
 		$result = $result."]'";
 		return $result;
 	}
+	
+	public static function getNumberWaitingUniversities()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('university/university_md');
+		$fetched = $ci->university_md->getNumberWaitingUniversities();
+		$result = "";
+		if($fetched->num_rows()>0)
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;	}
+	
+	public static function getNumberWrongUniversities()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+	
+		$ci->load->model('university/university_md');
+		$fetched = $ci->university_md->getNumberWrongUniversities();
+		
+		$result = "";
+		if($fetched->num_rows()>0 && ($fetched->row()->nb != 0))
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;
+	}
+	
 }

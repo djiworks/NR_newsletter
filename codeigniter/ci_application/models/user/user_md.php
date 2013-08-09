@@ -97,5 +97,13 @@ Class User_md extends CI_Model
 			WHERE id_user = ".$id_user.";
 		");  
 	 }
+	 
+	 public function getNumberNotConfirmedUsers() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.id_role = 5
+				;");
+	} 
 }
 ?>

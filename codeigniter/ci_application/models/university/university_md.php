@@ -117,4 +117,20 @@ class University_md extends CI_Model
 					LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
 				ORDER BY u.id_university ASC;");
 	} 
+	
+	public function getNumberWaitingUniversities() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 2
+				;");
+	} 
+	
+	public function getNumberWrongUniversities() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 3
+				;");
+	} 
 }

@@ -76,4 +76,19 @@ class Newsletter_md extends CI_Model
 				FROM ".$this->table." AS n
 				WHERE n.checking_state <= 1;");
 	}
+	public function getNumberWaitingNewsletters() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 2
+				;");
+	} 
+	
+	public function getNumberWrongNewsletters() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 3
+				;");
+	} 
 }
