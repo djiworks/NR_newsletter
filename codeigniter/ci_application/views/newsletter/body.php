@@ -50,7 +50,7 @@
 	<p>Newsletter added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" class="close" data-dismiss="modal" >Close</button>
+	<button class="btn close" type="button" data-dismiss="modal" >Close</button>
 	</div>
 	</div>
 	

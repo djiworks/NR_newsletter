@@ -125,12 +125,12 @@ class Newsletter extends CI_Controller
 			
 			$image = (isset($ligne->cover)) ? $ligne->cover : "/assets/holder/holder.js/80x100";
 			
-			$state_list = '<li class="dropdown">
-						<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+			$state_list = '<ul><li class="dropdown">
+						<a id="dropCheckingState'.$ligne->id_newsletter.'" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
 						 '. $state_table[$ligne->checking_state] .' 
 							<b class="caret"></b>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+						<ul class="dropdown-menu" aria-labelledby="dropCheckingState'.$ligne->id_newsletter.'" role="menu">
 							';
 		
 				$state_list = $state_list . '<li role="presentation">
@@ -151,11 +151,11 @@ class Newsletter extends CI_Controller
 							
 				$state_list = $state_list . '
 								</ul>
-							</li>';	
+							</li></ul>';	
 			
 			$result =  $result."
 				<tr class='".$classUniv."'>
-					<td><img class='media-object' src='".$image."'/></td>
+					<td><img class='media-object' src='".$image."' alt='".$image."'/></td>
 					<td>".$ligne->id_newsletter."</td>
 					<td>".$ligne->name."</td>
 					<td>".$ligne->description."</td>
