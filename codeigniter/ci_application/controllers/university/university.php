@@ -37,6 +37,7 @@ class University extends CI_Controller {
 		
 			$this->load->view ( 'university/head' );
 			$session_data = $this->session->userdata('logged_in');
+			$data ['role'] = $session_data['role'];
 			
 			loadTopMenu($this, 'university', $session_data) ;
 			isAllowedToView($this, 2, '/university/leftmenu');
@@ -80,13 +81,14 @@ class University extends CI_Controller {
 		
 		$ci = new CI_CONTROLLER ();
 		$ci->load->model('university/university_md');
-		$this->load->database ();
+		//~ $this->load->database ();
+		$sess = $this->session->userdata('logged_in');
 		
 		/**
 		 * *************************************************************
 		 * Preparing the table of interns *
 		 * *************************************************************
-		 */
+		 */ 
 		$fetched_intern = $ci->university_md->getAllUniv_Interns ();
 		$displayInterns = array ();
 		$id_univ = "";
@@ -141,7 +143,14 @@ class University extends CI_Controller {
 					<td class='classTabContactNumber'>".$line->id_contact."</td>
 					<td class='classTabContactInfo'>".$line->information."</td>
 					<td class='classTabContactMail'>".$line->mail."</td>
-					<td class='classTabContactPhone'>".$line->number."</td>
+					<td class='classTabContactPhone'>".$line->number."</td>";
+					
+			if($line->number){
+				$displayContact [$id_univ] = $displayContact [$id_univ]."
+					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
+				}
+			
+				$displayContact [$id_univ] = $displayContact [$id_univ]."
 				</tr>";
 		}
 		
@@ -198,7 +207,12 @@ class University extends CI_Controller {
 						<div class='accordion-heading'>
 							<ul class='nav wrapTab ".$classUniv."'>
 								<li class='classToSend'>
-									".$input."
+									";
+				if($sess['role']<= 2)
+				{
+					$result = $result.$input;
+				}				
+					$result = $result."
 								</li>
 								<li class='classNumber'>".$line->id_university."</li>
 								<li class='className'>".$line->name."</li>
@@ -247,10 +261,14 @@ class University extends CI_Controller {
 													".$displayContact[$line->id_university]."
 												</tbody>
 											</table>
-										</li>
-										<li class='classBtnModify'><button class='btn btn-small' type='button' onclick =modifyUniversity(".$line->id_university.")>Modify</button></li>
-										<li class='classBtnDelete'><button class='btn btn-small' type='button' onclick =deleteUniversity(".$line->id_university.")>Delete</button></li>
-									</ul>
+										</li>";
+							if($sess['role']<= 3)
+							{
+								$result = $result.		
+										"<li class='classBtnModify'><button class='btn btn-small' type='button' onclick =modifyUniversity(".$line->id_university.")>Modify</button></li>
+										<li class='classBtnDelete'><button class='btn btn-small' type='button' onclick =deleteUniversity(".$line->id_university.")>Delete</button></li>";
+							}				
+								$result = $result."</ul>
 								</div>
 							</div>
 						</div>
@@ -265,6 +283,7 @@ class University extends CI_Controller {
 	public function deleteUniversity()
 	{
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 		
 		$id = $this->input->post ( 'confirmDeletionId' );
 
@@ -357,7 +376,8 @@ class University extends CI_Controller {
 	
 	public function verificationAddUniversity() {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		// loading of the library
 		$this->load->library('form_validation');
 		$this->load->model('university/university_md');
@@ -434,13 +454,15 @@ class University extends CI_Controller {
 	
 	public function modifyUniversity() {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		echo 'TODO faire le controller modifyUniversity (reprendre addUniversity nouvelle version ?)';
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
@@ -468,7 +490,6 @@ class University extends CI_Controller {
 		isLoggedInRedirect($ci);
 		
 		$ci->load->model('university/university_md');
-		$ci->load->database();
 		$fetched = $ci->university_md->getAllCountries();
 		
 		$result = "'[";		
@@ -490,4 +511,41 @@ class University extends CI_Controller {
 		$result = $result."]'";
 		return $result;
 	}
+	
+	public static function getNumberWaitingUniversities()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('university/university_md');
+		$fetched = $ci->university_md->getNumberWaitingUniversities();
+		$result = "";
+		if($fetched->num_rows()>0)
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;	}
+	
+	public static function getNumberWrongUniversities()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+	
+		$ci->load->model('university/university_md');
+		$fetched = $ci->university_md->getNumberWrongUniversities();
+		
+		$result = "";
+		if($fetched->num_rows()>0 && ($fetched->row()->nb != 0))
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;
+	}
+	
 }
