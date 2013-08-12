@@ -339,7 +339,7 @@ class Intern extends CI_Controller
 			<input type="hidden"  name="modifyId" id="modifyId"  value=""/>
 
 			<div class="control-group">
-				<label class="control-label" for="inputName">First name</label>
+				<label class="control-label" for="FirstName">First name</label>
 				<div class="controls">
 					<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="'.$line->first_name.'"/>
 						<?php echo form_error(\'FirstName\'); ?> 
@@ -347,7 +347,7 @@ class Intern extends CI_Controller
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="inputName">Last name</label>
+				<label class="control-label" for="LastName">Last name</label>
 				<div class="controls">
 					<input type="text" id="LastName" name="LastName" placeholder="Last name" value="'.$line->last_name.'"/>
 						<?php echo form_error(\'LastName\'); ?> 
@@ -355,7 +355,7 @@ class Intern extends CI_Controller
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="inputEmail">Email</label>
+				<label class="control-label" for="Mail">Email</label>
 				<div class="controls">
 					<input type="text" id="Mail" name="Mail" placeholder="Mail" value="'.$line->mail.'"/>
 						<?php echo form_error(\'Mail\'); ?> 
@@ -363,7 +363,7 @@ class Intern extends CI_Controller
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="inputPhone">Phone</label>
+				<label class="control-label" for="Phone">Phone</label>
 				<div class="controls">
 					<input type="text" id="Phone" name="Phone" placeholder="Phone" value="'.$line->phone.'"/>
 						<?php echo form_error(\'Phone\'); ?> 
