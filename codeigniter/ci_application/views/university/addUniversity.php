@@ -48,7 +48,7 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="inputIntern">Add a contact</label>
+									<label class="control-label" for="buttonAddContact">Add a contact</label>
 									<div class="controls">
 										<button class="btn btn-success" type="button" id="buttonAddContact">
 											<i class="icon-plus icon-white"></i>

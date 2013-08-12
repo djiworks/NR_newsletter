@@ -135,7 +135,12 @@ function changeName(id) {
 	if (!info.value) {
 		e.innerHTML = "New contact ".concat(id);
 	} else {
-		e.innerHTML = info.value;
+		if(info.value.length > 24) {
+			//If there is more than 24 characters, we cut the name
+			e.innerHTML = info.value.substr(0, 24).concat("...");
+		} else {
+			e.innerHTML = info.value;
+		}
 	}
 }
 
@@ -147,7 +152,7 @@ function delInternForm(id) {
 	e.parentNode.removeChild(e);
 }
 
-var funcAddInternToUniv = function addInternToUniv() {
+var funcAddContactToUniv = function addInternToUniv() {
 	/*
 	 * This function adds in the form the fields to add an intern
 	 * to the university that is added
@@ -199,8 +204,8 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newInputMail.type = "text";
 	newInputMail.id = "inputEmail".concat(numContact);
 	newInputMail.name = "inputEmail".concat(numContact);
+	newInputMail.setAttribute("class", "input-medium");
 	newInputMail.placeholder = "Email";
-	
 	newDivMail.appendChild(newInputMail);
 	
 	newElementDivMail.appendChild(newLabelMail);
@@ -222,6 +227,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newInputPhone.type = "text";
 	newInputPhone.id = "inputPhone".concat(numContact);
 	newInputPhone.name = "inputPhone".concat(numContact);
+	newInputPhone.setAttribute("class", "input-medium");
 	newInputPhone.placeholder = "Phone";
 	
 	var newLabelFax = document.createElement('label');
@@ -235,8 +241,8 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newCheckFax.name = "inputCheckFax".concat(numContact);
 	
 	newDivPhone.appendChild(newInputPhone);
-	newDivPhone.appendChild(newLabelFax);
 	newDivPhone.appendChild(newCheckFax);
+	newDivPhone.appendChild(newLabelFax);
 	
 	newElementDivPhone.appendChild(newLabelPhone);
 	newElementDivPhone.appendChild(newDivPhone);	
@@ -341,7 +347,7 @@ var funcSearch = function search(field, field) {
 /* Listeners */
 //~ Listener to add interns for a university
 var element = document.getElementById('buttonAddContact');
-element.addEventListener('click', funcAddInternToUniv, false);
+element.addEventListener('click', funcAddContactToUniv, false);
 
 //~ Listener for the search in the main university page
 //~ var element = document.getElementById('inputSearchUniv');
