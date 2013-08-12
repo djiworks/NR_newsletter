@@ -78,6 +78,11 @@ class University extends CI_Controller {
 	public function getAllUniversities() {
 		isLoggedInRedirect($this);
 
+		$state_table = array();
+		$state_table[0] = "First newsletter sent";
+		$state_table[1] = "Approved";
+		$state_table[2] = "Waiting";
+		$state_table[3] = "Wrong";
 		
 		$ci = new CI_CONTROLLER ();
 		$ci->load->model('university/university_md');
@@ -199,6 +204,34 @@ class University extends CI_Controller {
 						break;
 				}
 				
+				$state_list = '<li class="dropdown">
+						<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+						 '. $state_table[$line->checking_state] .' 
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+							';
+		
+				$state_list = $state_list . '<li role="presentation">
+				<a href="university/updateCheckingState/'.$line->id_university.'/0" tabindex="-1" role="menuitem">
+			First newsletter sent</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="university/updateCheckingState/'.$line->id_university.'/1" tabindex="-1" role="menuitem">
+			Approved</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="university/updateCheckingState/'.$line->id_university.'/2" tabindex="-1" role="menuitem">
+			Waiting</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="university/updateCheckingState/'.$line->id_university.'/3" tabindex="-1" role="menuitem">
+			Wrong</a></li>';
+							
+				$state_list = $state_list . '
+								</ul>
+							</li>';	
+				
 				//Changing the value of subscription
 				$subcription = ($line->subscription == 1) ? "Yes" : "No";
 				
@@ -218,8 +251,10 @@ class University extends CI_Controller {
 								<li class='className'>".$line->name."</li>
 								<li class='classAddress'>".$line->address."</li>
 								<li class='classCountry'>".$line->country."</li>
-								<li class='classSubscription'>".$subcription."</li>
-								<li class='classChkState'>".$state."</li>
+								<li class='classSubscription'>".$subcription."</li>";
+												
+								
+					$result = $result."	<li class='classChkState'><ul>".$state_list."</ul></li>
 								<li class='classDetails'>
 									<button class='btn btn-small accordion-toggle' type='button' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</button>
 								</li>
@@ -480,7 +515,7 @@ class University extends CI_Controller {
 		$ci->load->model('university/university_md');
 		$fetched = $ci->university_md->getNumberWaitingUniversities();
 		$result = "";
-		if($fetched->num_rows()>0)
+		if($fetched->num_rows()>0 && ($fetched->row()->nb != 0))
 		{
 			$result = $fetched->row()->nb;
 		}
@@ -504,6 +539,27 @@ class University extends CI_Controller {
 		}
 		
 		return $result;
+	}
+	
+	public function updateCheckingState()
+	{
+		isLoggedInRedirect($this);
+		
+		$session_data = $this->session->userdata('logged_in');
+		$id_user_session = $session_data['id'];
+		
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+		$ci->load->helper('url');		
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('/university/university_md');
+		$id_university = $ci->uri->segment(4);
+		$checking_state = $ci->uri->segment(5);
+		
+		$ci->university_md->updateCheckingState($id_university, $checking_state);		
+		redirect('university/university', 'refresh');
 	}
 	
 }

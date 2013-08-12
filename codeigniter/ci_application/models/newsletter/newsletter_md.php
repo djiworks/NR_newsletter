@@ -91,4 +91,13 @@ class Newsletter_md extends CI_Model
 				WHERE u.checking_state = 3
 				;");
 	} 
+	
+	function updateCheckingState($id_newsletter, $checking_state)
+	 {
+		return $this->db->query("
+			UPDATE ".$this->table."
+			SET checking_state = ".$checking_state."
+			WHERE id_newsletter = ".$id_newsletter.";
+		");  
+	 }
 }

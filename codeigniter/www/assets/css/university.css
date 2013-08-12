@@ -179,3 +179,7 @@ a {
 #cellIntern {
 	visibility: hidden;
 }
+
+li {
+	list-style-type: none; 
+}
