@@ -154,6 +154,11 @@ class University extends CI_Controller {
 				$displayContact [$id_univ] = $displayContact [$id_univ]."
 					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
 				}
+				else
+				{
+					$displayContact [$id_univ] = $displayContact [$id_univ]."
+					<td></td>";
+				}
 			
 				$displayContact [$id_univ] = $displayContact [$id_univ]."
 				</tr>";
@@ -205,11 +210,11 @@ class University extends CI_Controller {
 				}
 				
 				$state_list = '<li class="dropdown">
-						<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+						<a id="dropCheckingState'.$line->id_university.'" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
 						 '. $state_table[$line->checking_state] .' 
 							<b class="caret"></b>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+						<ul class="dropdown-menu" aria-labelledby="dropCheckingState'.$line->id_university.'" role="menu">
 							';
 		
 				$state_list = $state_list . '<li role="presentation">
@@ -256,7 +261,7 @@ class University extends CI_Controller {
 								
 					$result = $result."	<li class='classChkState'><ul>".$state_list."</ul></li>
 								<li class='classDetails'>
-									<button class='btn btn-small accordion-toggle' type='button' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</button>
+									<a class='accordion-toggle btn btn-small' data-toggle='collapse' data-parent='#accordion' href='#collapse".$i."'>View Details</a>
 								</li>
 							</ul>
 						</div>
@@ -290,6 +295,7 @@ class University extends CI_Controller {
 														<th>Information</th>
 														<th>Mail</th>
 														<th>Phone</th>
+														<th></th>
 													</tr>
 												</thead>
 												<tbody>

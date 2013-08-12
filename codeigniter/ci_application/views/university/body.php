@@ -73,7 +73,7 @@
 	<!-- Modals -->
 
 	<div id="modifyUniversity" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		role="dialog" aria-labelledby="modifyUniversityLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
@@ -96,11 +96,11 @@
 	</div>
 
 	<div id="sendingbox" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		role="dialog" aria-labelledby="sendNewsletterLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
-			<h3 id="myModalLabel">Prepare to send Newsletter</h3>
+			<h3 id="sendNewsletterLabel">Prepare to send Newsletter</h3>
 		</div>
 		
 		<form method="post" id="sendNewsletter" action="/index.php/university/university/sendNewsletter" class="form-horizontal">
@@ -118,16 +118,16 @@
 			<button class="btn btn-info"
 				onclick="$('#sendingbox2').modal('show');$('#sendingbox').modal('hide')">Confirm</button>
 -->
-			</form>
 		</div>
+		</form>
 	</div>
 
 	<div id="sendingbox2" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		role="dialog" aria-labelledby="PreviewLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
-			<h3 id="myModalLabel">Ready to send Newsletter - Preview</h3>
+			<h3 id="PreviewLabel">Ready to send Newsletter - Preview</h3>
 		</div>
 		<div class="modal-body">
 			<h3>Object: Newsletter Name</h3>
@@ -170,21 +170,21 @@
 
 	<div id="confirmDeletion" class="modal hide fade">
 	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	</div>
 
 	<form method="post" id="deleteUserForm" action="/index.php/university/university/deleteUniversity" class="form-horizontal">
 
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
 	<h4>Confirm deletion</h4>
-	</div>
 	<div class="modal-body">
 	<p>Are you sure you want to delete that university ?</p>
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Cancel</button>
+	</div>
 
 	</form>
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Cancel</button>
 
-	</div>
 	</div>

@@ -5,7 +5,7 @@
 					<ul class="nav nav-list" id="listSelectedUniversity">
 						<li class="nav-header">Information selected</li>
 						<li>University checked:</li>
-						<div id="divListUniv"></div>
+						<li><ul id="divListUniv"></ul></li>
 						<li class="divider" id="liDivider"></li>
 						<li>
 							<button class="btn btn-mini btn-primary" type="button"
