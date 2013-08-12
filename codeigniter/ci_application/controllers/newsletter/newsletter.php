@@ -141,7 +141,7 @@ class Newsletter extends CI_Controller
 		// loading of the library
 		$this->load->library ( 'form_validation' );
 		$this->load->model ( 'newsletter/newsletter_md' );
-		$this->load->database ();
+		//~ $this->load->database ();
 		
 		$this->form_validation->set_rules ( 'Name', '"Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Description', '"Description"', 'trim|required|encode_php_tags|xss_clean' );

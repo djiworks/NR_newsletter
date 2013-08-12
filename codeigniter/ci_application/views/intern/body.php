@@ -1,5 +1,6 @@
 <div class="container">
-		
+		<input type="hidden"  name="hasToRefresh" id="hasToRefresh"  value="0"/>
+
 		<?php if($role<=3)
 				{echo '
 				<button class="btn btn-small btn btn-info" type="button" data-toggle=\'modal\' data-target=\'#addIntern\'>
@@ -31,14 +32,14 @@
 	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
+				aria-hidden="true" >x</button>
 			<h3 id="myModalLabel">Intern Details</h3>
 		</div>
 		<div class="modal-body">
 
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
