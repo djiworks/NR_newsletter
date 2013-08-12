@@ -40,6 +40,7 @@ class Intern extends CI_Controller
 
 		$this->load->view('intern/head');
 		$session_data = $this->session->userdata('logged_in');
+		$data ['role'] = $session_data['role'];
 		//~ $sess['username'] = $session_data['username'];
 		loadTopMenu($this, 'intern', $session_data);
 		$this->load->view('intern/body', $data);
@@ -56,7 +57,8 @@ class Intern extends CI_Controller
     public function deleteIntern()
 	{
 		isLoggedInRedirect($this);
-		
+		isAllowed($this, 3);
+
 		$id = $this->input->post ( 'confirmDeletionId' );
 
 		$this->intern_md->delete($id);
@@ -128,7 +130,8 @@ class Intern extends CI_Controller
 
 	public function addIntern(){
 		isLoggedInRedirect($this);
-
+		isAllowed($this, 3);
+		
 		$ci = new CI_CONTROLLER();
 		$this->load->model('intern/intern_md');
 		$this->load->database();
@@ -234,6 +237,9 @@ class Intern extends CI_Controller
 	
 	public function viewDetails()
 	{
+		isLoggedInRedirect($this);
+
+		$sess = $this->session->userdata('logged_in');
 		$id = $this->uri->segment ( 4 );
 		$fetched = $this->intern_md->get($id);
 
@@ -247,14 +253,21 @@ class Intern extends CI_Controller
 						Mail: ".$line->mail."</br>
 						Country: ".$line->country."</br>
 						Worked until: ".$line->worked_until."</br>
-						<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
-						<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
+						";
+						
+			if($sess['role']<= 3)
+				{		
+					$result = $result."
+					<button class='btn btn-small' type='button' onclick =modifyIntern(".$line->id_person.")>Modify</button>
+					<button class='btn btn-small' type='button' onclick =deleteIntern(".$line->id_person.")>Delete</button>";
 				}
+			}
 		exit($result);
 	}
 	
 		public function verificationAddIntern() {
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 
 		// loading of the library
 		$this->load->library ( 'form_validation' );
@@ -298,6 +311,7 @@ class Intern extends CI_Controller
 	
 		public function formCompletion() {
 		isLoggedInRedirect($this);
+		isAllowed($this, 3);
 			
 		$data = array ();
 		$data ['allCountries'] = University::getAllCountries();
@@ -311,77 +325,78 @@ class Intern extends CI_Controller
 		$this->load->view ( 'intern/footer' );
 	}
 	
-		public function formCompletionModify()
-		{
-			$result = "";
-			$id = $this->uri->segment ( 4 );
-			$fetched = $this->intern_md->get($id);
+		public function formCompletionModify(){
+		isLoggedInRedirect($this);
+		isAllowed($this, 3);
+		$result = "";
+		$id = $this->uri->segment ( 4 );
+		$fetched = $this->intern_md->get($id);
 
-			$result = "";		
-			foreach ( $fetched->result () as $line ) {
-				$result = $result.'
-				<form method="post" name="modifyInternForm" id="modifyInternForm" action="/index.php/intern/intern/verificationAddIntern/true" class="form-horizontal">
-				<input type="hidden"  name="modifyId" id="modifyId"  value=""/>
+		$result = "";		
+		foreach ( $fetched->result () as $line ) {
+			$result = $result.'
+			<form method="post" name="modifyInternForm" id="modifyInternForm" action="/index.php/intern/intern/verificationAddIntern/true" class="form-horizontal">
+			<input type="hidden"  name="modifyId" id="modifyId"  value=""/>
 
-				<div class="control-group">
-					<label class="control-label" for="inputName">First name</label>
-					<div class="controls">
-						<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="'.$line->first_name.'"/>
-							<?php echo form_error(\'FirstName\'); ?> 
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="inputName">First name</label>
+				<div class="controls">
+					<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="'.$line->first_name.'"/>
+						<?php echo form_error(\'FirstName\'); ?> 
 				</div>
+			</div>
 
-				<div class="control-group">
-					<label class="control-label" for="inputName">Last name</label>
-					<div class="controls">
-						<input type="text" id="LastName" name="LastName" placeholder="Last name" value="'.$line->last_name.'"/>
-							<?php echo form_error(\'LastName\'); ?> 
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="inputName">Last name</label>
+				<div class="controls">
+					<input type="text" id="LastName" name="LastName" placeholder="Last name" value="'.$line->last_name.'"/>
+						<?php echo form_error(\'LastName\'); ?> 
 				</div>
+			</div>
 
-				<div class="control-group">
-					<label class="control-label" for="inputEmail">Email</label>
-					<div class="controls">
-						<input type="text" id="Mail" name="Mail" placeholder="Mail" value="'.$line->mail.'"/>
-							<?php echo form_error(\'Mail\'); ?> 
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="inputEmail">Email</label>
+				<div class="controls">
+					<input type="text" id="Mail" name="Mail" placeholder="Mail" value="'.$line->mail.'"/>
+						<?php echo form_error(\'Mail\'); ?> 
 				</div>
+			</div>
 
-				<div class="control-group">
-					<label class="control-label" for="inputPhone">Phone</label>
-					<div class="controls">
-						<input type="text" id="Phone" name="Phone" placeholder="Phone" value="'.$line->phone.'"/>
-							<?php echo form_error(\'Phone\'); ?> 
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="inputPhone">Phone</label>
+				<div class="controls">
+					<input type="text" id="Phone" name="Phone" placeholder="Phone" value="'.$line->phone.'"/>
+						<?php echo form_error(\'Phone\'); ?> 
 				</div>
+			</div>
 
-				<div class="control-group">
-					<label class="control-label" for="Country">Country</label>
-					<div class="controls">
-							<input class="span2" type="text" id="Country" name="Country"
-								placeholder="Country" data-provide="typeahead" data-items="4"
-								data-source= '.University::getAllCountries().'
-								autocomplete="off" value="'.$line->country.'" />
-							<?php echo form_error(\'Country\'); ?>
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="Country">Country</label>
+				<div class="controls">
+						<input class="span2" type="text" id="Country" name="Country"
+							placeholder="Country" data-provide="typeahead" data-items="4"
+							data-source= '.University::getAllCountries().'
+							autocomplete="off" value="'.$line->country.'" />
+						<?php echo form_error(\'Country\'); ?>
 				</div>
+			</div>
 
-				<div class="control-group">
-					<label class="control-label" for="WorkedUntil">Worked until</label>
-					<div class="controls">
-						<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014-05-21" value="'.$line->worked_until.'"/>
-							<?php echo form_error(\'WorkedUntil\'); ?>
-					</div>
+			<div class="control-group">
+				<label class="control-label" for="WorkedUntil">Worked until</label>
+				<div class="controls">
+					<input type="text" id="WorkedUntil" name="WorkedUntil" placeholder="ex : 2014-05-21" value="'.$line->worked_until.'"/>
+						<?php echo form_error(\'WorkedUntil\'); ?>
 				</div>
+			</div>
 
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn">Submit</button>
-					</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn">Submit</button>
 				</div>
-			</form>';
-				}
-			
-			exit($result);
-		}					
+			</div>
+		</form>';
+			}
+		
+		exit($result);
+	}					
 }

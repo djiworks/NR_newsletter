@@ -1,4 +1,7 @@
 <?php
+include_once (APPPATH . "controllers/university/university.php");
+include_once (APPPATH . "controllers/newsletter/newsletter.php");
+include_once (APPPATH . "controllers/admin/admin.php");
 
 function isLoggedInRedirect($object) {
 	if(!$object->session->userdata('logged_in'))
@@ -59,7 +62,11 @@ function loadTopMenu($object, $path, $sess) {
 	$data['username'] = $sess['username'];
 	$data['role'] = $sess['role'];
 	$data['path'] = $path;
-	
+	$data['nb_w_univ'] = University::getNumberWaitingUniversities();
+	$data['nb_wr_univ'] = University::getNumberWrongUniversities();
+	$data['nb_w_news'] = Newsletter::getNumberWaitingNewsletters();
+	$data['nb_wr_news'] = Newsletter::getNumberWrongNewsletters();
+	$data['nb_w_users'] = Admin::getNumberNotConfirmedUsers();
 	$object->load->view ( '/topmenu', $data );
 }
 

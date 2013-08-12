@@ -231,4 +231,23 @@ class Admin extends CI_Controller {
 
 		return $result;
 	}
+	
+	public static function getNumberNotConfirmedUsers()
+	{	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+	
+		$ci->load->model ( 'user/user_md' );
+		$fetched = $ci->user_md->getNumberNotConfirmedUsers();
+		
+		$result = "";
+		if($fetched->num_rows()>0 && ($fetched->row()->nb != 0))
+		{
+			$result = $fetched->row()->nb;
+		}
+		
+		return $result;
+	}
 }

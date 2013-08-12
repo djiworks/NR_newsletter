@@ -1,4 +1,4 @@
-	function confirmationAdding(is_success){
+function confirmationAdding(is_success){
 	if(is_success == 1)
 	{
 		$('#failure').modal('show');
@@ -7,8 +7,35 @@
 	{
 		$('#success').modal('show');
 	}
+	else if(is_success == 2)
+	{
+		$('#success_deletion').modal('show');
+	}
+	else if(is_success == 3)
+	{
+		$('#success_modify').modal('show');
+	}
 }
 
+function viewDetails(id){
+	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/newsletter/newsletter/viewDetails/" + id);
+
+	$('#viewDetails').modal('show');
+}
+
+function deleteNewsletter(id){						
+	document.getElementById('confirmDeletionId').value = id ;
+	$('#viewDetails').modal('hide');
+	$('#confirmDeletion').modal('show');
+}
+
+$('#hiddenfilepath').on('change', function() {
+	document.getElementById('Path').value = document.getElementById('hiddenfilepath').value;
+})
+
+$('#hiddenfilecover').on('change', function() {
+	document.getElementById('Cover').value = document.getElementById('hiddenfilecover').value;
+})
 	
 	tinymce.init({
 		mode : "specific_textareas",

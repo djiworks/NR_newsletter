@@ -4,9 +4,6 @@ class Newsletter_md extends CI_Model
 {
 	private $table = "newsletter";
 	private $table2 = "contact";
-	
-	public function update(){
-	}
 	 
 	 public function addCommentOnNewsletter($id, $comment){
 		 return $this->db->query("
@@ -32,6 +29,18 @@ class Newsletter_md extends CI_Model
 		 		 ->insert($this->table);  
 	 }
 	 
+	 public function update ( $id, $name, $cover, $path, $content, $description, $creation_date, $checking_state){
+		$this->db->set("name",$name)
+				 ->set("cover",$cover)
+				 ->set("path",$path)
+				 ->set("content",$content)
+				 ->set("description",$description)
+				 ->set("creation_date",$creation_date)
+				 ->set("checking_state",$checking_state)
+				 ->where("id_newsletter", $id)
+		 		 ->update($this->table);  
+	 }
+	 
 	 public function getSearchedNewsletter($field, $value){
 		 return $this->db->query("
 					SELECT id_newsletter
@@ -42,7 +51,7 @@ class Newsletter_md extends CI_Model
 	 
 	function delete($id)
 	{
-		$this -> db -> where('id_user', $id)
+		$this -> db -> where('id_newsletter', $id)
 					-> delete($this->table);
 	}
 	 
@@ -67,4 +76,19 @@ class Newsletter_md extends CI_Model
 				FROM ".$this->table." AS n
 				WHERE n.checking_state <= 1;");
 	}
+	public function getNumberWaitingNewsletters() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 2
+				;");
+	} 
+	
+	public function getNumberWrongNewsletters() {
+		return $this->db->query("
+			SELECT COUNT(*) as nb
+				FROM ".$this->table." AS u 
+				WHERE u.checking_state = 3
+				;");
+	} 
 }
