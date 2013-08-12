@@ -46,10 +46,31 @@
 										</div>
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="buttonAddContact">Add a contact</label>
+									<div class="controls">
+										<button class="btn btn-success" type="button" id="buttonAddContact">
+											<i class="icon-plus icon-white"></i>
+										</button>
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="controls">
+										<input type="hidden" id="nbContact2Add" name="nbIntern2Add" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn">Submit</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</td>
-					<td id="cellIntern">
+					<td id="cellContact">
 						<div class='modal-header'>
 							<h4 id='addUniversityLabel'>Add a contact for this university</h4>
 						</div>
@@ -60,12 +81,6 @@
 					</td>
 				</tr>
 			</table>
-			
-			<div class="control-group">
-				<div class="controls">
-					<button type="submit" class="btn">Submit</button>
-				</div>
-			</div>
 		</form>
 		
 		<!-- Modals -->

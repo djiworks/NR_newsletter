@@ -414,27 +414,69 @@ class University extends CI_Controller {
 		isAllowed($this, 3);
 
 		// loading of the library
-		$this->load->library ( 'form_validation' );
-		$this->load->model ( 'university/university_md' );
-		$this->load->database ();
+		$this->load->library('form_validation');
+		$this->load->model('university/university_md');
+		$this->load->model('contact/contact_md');
+		$this->load->database();
 		
 		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|required|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|encode_php_tags|xss_clean' );
 		
 		if ($this->form_validation->run ()) {
 			// If the form is valid
+			// In a first time we create the university
 			$name = $this->input->post ( 'UniversityName' );
 			$address = $this->input->post ( 'Adress' );
 			$country = $this->input->post ( 'inputCountry' );
 			$subscription = 0;
 			$checking_state = 2;
 			
+			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
+			foreach ( $result->result () as $line ) {
+				$id_univ = $line->id_univ;
+			}
 			
+			// Then we create the contacts linked to the university
+			$nbContact = $this->input->post('nbIntern2Add');
 			
-			//~ $result = $this->university_md->create ( $name, $address, $country, $subscription, $checking_state );
-
+			for($i = 1 ; $i <= $nbContact ; $i++) {
+				//Get the value of the text area
+				$varName = 'textAreaInfoContact'.$i;
+				if($this->input->post($varName)) {
+					$InfoContact = $this->input->post($varName);
+				}
+				
+				$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
+				foreach ( $resultCo->result () as $line ) {
+					$id_contact = $line->id_contact;
+				}
+				
+				//Get the email
+				$varName = 'inputEmail'.$i;
+				if($this->input->post($varName)) {
+					$mail = $this->input->post($varName);
+				}
+				
+				//Get the phone 
+				$varName = 'inputPhone'.$i;
+				if($this->input->post($varName)) {
+					$phone = $this->input->post($varName);
+				}
+				
+				///Check if it's a fax
+				$varName = 'inputCheckFax'.$i;
+				if($this->input->post($varName)) {
+					$type = true;
+				} else {
+					$type = false;
+				}
+				
+				$this->contact_md->addMail2Contact($mail, $id_contact);
+				$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
+			}
+			
 			$this->index (0);
 		} else {
 			// If the form is not valid or empty

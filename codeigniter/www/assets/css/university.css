@@ -21,7 +21,7 @@ a {
 	color:#08c;
 }
 
-#cellUniversity, #cellIntern {
+#cellUniversity, #cellContact {
 	vertical-align: top;
 }
 
@@ -176,7 +176,7 @@ a {
 	overflow: auto;
 }
 
-#cellIntern {
+#cellContact {
 	visibility: hidden;
 }
 

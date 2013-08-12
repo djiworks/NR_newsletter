@@ -1,5 +1,5 @@
 /* Global variables */
-var nbIntern = 0;
+var numContact = 0;
 
 /* Functions */
 function selectedUniv (univName, univId, chkName) {
@@ -129,13 +129,18 @@ function changeName(id) {
 	 
 	//Getting the field and its value
 	var e = document.getElementById("linkDisplayContact"+id);
-	var name = document.getElementById("inputNameContact"+id).value;
+	var info = document.getElementById("textAreaInfoContact"+id);
 	
 	//changing the value
-	if (name.length === 0) {
-		e.innerHTML = "New intern ".concat(id);
+	if (!info.value) {
+		e.innerHTML = "New contact ".concat(id);
 	} else {
-		e.innerHTML = name;
+		if(info.value.length > 24) {
+			//If there is more than 24 characters, we cut the name
+			e.innerHTML = info.value.substr(0, 24).concat("...");
+		} else {
+			e.innerHTML = info.value;
+		}
 	}
 }
 
@@ -147,65 +152,17 @@ function delInternForm(id) {
 	e.parentNode.removeChild(e);
 }
 
-var funcAddInternToUniv = function addInternToUniv() {
+var funcAddContactToUniv = function addInternToUniv() {
 	/*
 	 * This function adds in the form the fields to add an intern
 	 * to the university that is added
 	 */
-	nbIntern++;
+	numContact++;
 	
-	var cell = document.getElementById("cellIntern");
+	var cell = document.getElementById("cellContact");
 	cell.style.visibility = "visible";
 	
 	var e = document.getElementById("accordion");
-	
-	//Creation of the div for the first name input
-	var newElementDivFirstName = document.createElement('div');
-	newElementDivFirstName.className = "control-group";
-	
-	var newLabelFirstName = document.createElement('label');
-	newLabelFirstName.class = "control-label";
-	newLabelFirstName.for = "inputNameFirstName".concat(nbIntern);
-	newLabelFirstName.innerText = "Contact name";
-	
-	var newDivFirstName = document.createElement('div');
-	newDivFirstName.class = "controls";
-	
-	var newInputFirstName = document.createElement('input');
-	newInputFirstName.type = "text";
-	newInputFirstName.id = "inputNameFirstName".concat(nbIntern);
-	newInputFirstName.name = "inputNameFirstName".concat(nbIntern);
-	newInputFirstName.placeholder = "Contact first name";
-	newInputFirstName.setAttribute("onblur","changeName("+nbIntern+", 'first');");
-	
-	newDivFirstName.appendChild(newInputFirstName);
-	
-	newElementDivFirstName.appendChild(newLabelFirstName);
-	newElementDivFirstName.appendChild(newDivFirstName);
-	
-	//Creation of the div for the last name input
-	var newElementDivLastName = document.createElement('div');
-	newElementDivLastName.className = "control-group";
-	
-	var newLabelLastName = document.createElement('label');
-	newLabelLastName.class = "control-label";
-	newLabelLastName.for = "inputNameLastContact".concat(nbIntern);
-	newLabelLastName.innerText = "Contact name";
-	
-	var newDivLastName = document.createElement('div');
-	newDivLastName.class = "controls";
-	
-	var newInputLastName = document.createElement('input');
-	newInputLastName.type = "text";
-	newInputLastName.id = "inputNameLastContact".concat(nbIntern);
-	newInputLastName.name = "inputNameLastContact".concat(nbIntern);
-	newInputLastName.placeholder = "Contact last name";
-	newInputLastName.setAttribute("onblur","changeName("+nbIntern+", 'last');");
-	
-	newDivLastName.appendChild(newInputLastName);
-	
-	newElementDivLastName.appendChild(newLabelLastName);
-	newElementDivLastName.appendChild(newDivLastName);
 	
 	//Creation of the div for the additional information
 	var newElementDivInfo = document.createElement('div');
@@ -213,7 +170,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newLabelInfo = document.createElement('label');
 	newLabelInfo.class = "control-label";
-	newLabelInfo.for = "inputInfoContact".concat(nbIntern);
+	newLabelInfo.for = "textAreaInfoContact".concat(numContact);
 	newLabelInfo.innerText = "Additional Information";
 	
 	var newDivInfo = document.createElement('div');
@@ -221,8 +178,10 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newTextAreaInfo = document.createElement('textarea');
 	newTextAreaInfo.rows = "3";
-	newTextAreaInfo.name = "inputInfoContact".concat(nbIntern);
+	newTextAreaInfo.id = "textAreaInfoContact".concat(numContact);
+	newTextAreaInfo.name = "textAreaInfoContact".concat(numContact);
 	newTextAreaInfo.placeholder = "Additional Information";
+	newTextAreaInfo.setAttribute("onblur","changeName("+numContact+");");
 	
 	newDivInfo.appendChild(newTextAreaInfo);
 	
@@ -235,7 +194,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newLabelMail = document.createElement('label');
 	newLabelMail.class = "control-label";
-	newLabelMail.for = "inputEmail".concat(nbIntern);
+	newLabelMail.for = "inputEmail".concat(numContact);
 	newLabelMail.innerText = "Email";
 	
 	var newDivMail = document.createElement('div');
@@ -243,10 +202,10 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newInputMail = document.createElement('input');
 	newInputMail.type = "text";
-	newInputMail.id = "inputEmail".concat(nbIntern);
-	newInputMail.name = "inputEmail".concat(nbIntern);
+	newInputMail.id = "inputEmail".concat(numContact);
+	newInputMail.name = "inputEmail".concat(numContact);
+	newInputMail.setAttribute("class", "input-medium");
 	newInputMail.placeholder = "Email";
-	
 	newDivMail.appendChild(newInputMail);
 	
 	newElementDivMail.appendChild(newLabelMail);
@@ -258,7 +217,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newLabelPhone = document.createElement('label');
 	newLabelPhone.class = "control-label";
-	newLabelPhone.for = "inputPhone".concat(nbIntern);
+	newLabelPhone.for = "inputPhone".concat(numContact);
 	newLabelPhone.innerText = "Phone";
 	
 	var newDivPhone = document.createElement('div');
@@ -266,11 +225,24 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	var newInputPhone = document.createElement('input');
 	newInputPhone.type = "text";
-	newInputPhone.id = "inputPhone".concat(nbIntern);
-	newInputPhone.name = "inputPhone".concat(nbIntern);
+	newInputPhone.id = "inputPhone".concat(numContact);
+	newInputPhone.name = "inputPhone".concat(numContact);
+	newInputPhone.setAttribute("class", "input-medium");
 	newInputPhone.placeholder = "Phone";
 	
+	var newLabelFax = document.createElement('label');
+	newLabelFax.class = "control-label";
+	newLabelFax.for = "inputCheckFax".concat(numContact);
+	newLabelFax.innerText = "Fax";
+	
+	var newCheckFax = document.createElement('input');
+	newCheckFax.type = "checkbox";
+	newCheckFax.id = "inputCheckFax".concat(numContact);
+	newCheckFax.name = "inputCheckFax".concat(numContact);
+	
 	newDivPhone.appendChild(newInputPhone);
+	newDivPhone.appendChild(newCheckFax);
+	newDivPhone.appendChild(newLabelFax);
 	
 	newElementDivPhone.appendChild(newLabelPhone);
 	newElementDivPhone.appendChild(newDivPhone);	
@@ -282,17 +254,17 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newElementDivInner.class = "accordion-inner";
 	
 	var newElementDivcollapse = document.createElement('div');
-	newElementDivcollapse.id = "collapse".concat(nbIntern);
+	newElementDivcollapse.id = "collapse".concat(numContact);
 	newElementDivcollapse.class = "accordion-body collapse";
 	
 	//Creation of the header for the accordion
 	var newElementLink = document.createElement('a');
-	newElementLink.id = "linkDisplayContact".concat(nbIntern);
+	newElementLink.id = "linkDisplayContact".concat(numContact);
 	newElementLink.class = "accordion-toggle";
 	newElementLink.setAttribute("data-toggle", "collapse");
 	newElementLink.setAttribute("data-parent", "#accordion");
-	newElementLink.href = "#collapse".concat(nbIntern);
-	newElementLink.innerHTML = "New intern ".concat(nbIntern);
+	newElementLink.href = "#collapse".concat(numContact);
+	newElementLink.innerHTML = "New contact ".concat(numContact);
 	
 	var newElementButton = document.createElement('button');
 	newElementButton.type = "button";
@@ -300,7 +272,7 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newElementButton.setAttribute("data-dismiss", "modal");
 	newElementButton.setAttribute("aria-hidden", "true");
 	newElementButton.innerHTML = "&times;";
-	newElementButton.setAttribute("onclick","delInternForm("+nbIntern+");");
+	newElementButton.setAttribute("onclick","delInternForm("+numContact+");");
 	
 	var newElementDivHead = document.createElement('div');
 	newElementDivHead.class = "accordion-heading";
@@ -315,8 +287,6 @@ var funcAddInternToUniv = function addInternToUniv() {
 	newElementDivHead.appendChild(newElementDivModal);
 	
 	/* inner */
-	newElementDivBlock.appendChild(newElementDivFirstName);
-	newElementDivBlock.appendChild(newElementDivLastName);
 	newElementDivBlock.appendChild(newElementDivInfo);
 	newElementDivBlock.appendChild(newElementDivMail);
 	newElementDivBlock.appendChild(newElementDivPhone);
@@ -327,13 +297,16 @@ var funcAddInternToUniv = function addInternToUniv() {
 	
 	/* group */
 	var newElementDivGroup = document.createElement('div');
-	newElementDivGroup.id = "groupIntern".concat(nbIntern);
+	newElementDivGroup.id = "groupIntern".concat(numContact);
 	newElementDivGroup.class = "accordion-group wrapTab";
 	
 	newElementDivGroup.appendChild(newElementDivHead);
 	newElementDivGroup.appendChild(newElementDivcollapse);
 	
 	e.appendChild(newElementDivGroup);
+	
+	/* To have the number of intern to add for the university */
+	document.getElementById("nbContact2Add").value = numContact;
 }
 
 var funcSearch = function search(field, field) {
@@ -373,8 +346,8 @@ var funcSearch = function search(field, field) {
 
 /* Listeners */
 //~ Listener to add interns for a university
-var element = document.getElementById('button2AddIntern');
-element.addEventListener('click', funcAddInternToUniv, false);
+var element = document.getElementById('buttonAddContact');
+element.addEventListener('click', funcAddContactToUniv, false);
 
 //~ Listener for the search in the main university page
 //~ var element = document.getElementById('inputSearchUniv');
