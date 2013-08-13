@@ -88,12 +88,13 @@ class Admin extends CI_Controller {
 								<td>' . $line->id_user . '</td>
 								<td>' . $line->login . '</td>
 								<td>
+								<ul>
 								<li class="dropdown">
-									<a id="drop1" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+									<a id="dropRole'.$line->id_user.'" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
 									 '. $line->id_role .' - '. $line->name .' 
 										<b class="caret"></b>
 									</a>
-									<ul class="dropdown-menu" aria-labelledby="drop1" role="menu">
+									<ul class="dropdown-menu" aria-labelledby="dropRole'.$line->id_user.'" role="menu">
 										';
 					foreach ( $fetched_roles->result () as $line_bis ) {				
 							$result = $result . '<li role="presentation">
@@ -104,6 +105,7 @@ class Admin extends CI_Controller {
 					$result = $result . '
 									</ul>
 								</li>
+								</ul>
 								</td>
 								<td>		
 								<button class="btn btn-small" type="button" onclick =\'modifyPassword('.$line->id_user.')\'>Change Password</button>
@@ -119,9 +121,11 @@ class Admin extends CI_Controller {
 								<td>' . $line->id_user . '</td>
 								<td>' . $line->login . '</td>
 								<td>
+								<ul>
 								<li>
 									 '. $line->id_role .' - '. $line->name .' 
 								</li>
+								</ul>
 								</td>		
 								<td></td>		
 

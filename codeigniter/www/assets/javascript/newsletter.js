@@ -23,7 +23,8 @@ function viewDetails(id){
 	$('#viewDetails').modal('show');
 }
 
-function deleteNewsletter(id){						
+function deleteNewsletter(id){
+	document.getElementById('hasToRefresh').value = 1;						
 	document.getElementById('confirmDeletionId').value = id ;
 	$('#viewDetails').modal('hide');
 	$('#confirmDeletion').modal('show');
@@ -35,6 +36,13 @@ $('#hiddenfilepath').on('change', function() {
 
 $('#hiddenfilecover').on('change', function() {
 	document.getElementById('Cover').value = document.getElementById('hiddenfilecover').value;
+})
+
+$('#viewDetails').on('hide', function() {
+	if (document.getElementById('hasToRefresh').value == 0)
+	{
+		window.location.href = "/index.php/newsletter/newsletter/";
+	}
 })
 	
 	tinymce.init({

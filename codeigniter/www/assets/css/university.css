@@ -179,3 +179,7 @@ a {
 #cellContact {
 	visibility: hidden;
 }
+
+li {
+	list-style-type: none; 
+}

@@ -1,4 +1,6 @@
 	<div class="container">
+		<input type="hidden"  name="hasToRefresh" id="hasToRefresh"  value="0"/>
+
 		<div class="btn-group">
 					<?php if($role<=3)
 				{echo '
@@ -28,14 +30,14 @@
 	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true" onclick="window.location.href = '/index.php/newsletter/newsletter';">x</button>
+				aria-hidden="true" >x</button>
 			<h3 id="myModalLabel">Newsletter Details</h3>
 		</div>
 		<div class="modal-body">
 
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/newsletter/newsletter';">Close</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 	
@@ -48,7 +50,7 @@
 	<p>Newsletter added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" class="close" data-dismiss="modal" >Close</button>
+	<button class="btn close" type="button" data-dismiss="modal" >Close</button>
 	</div>
 	</div>
 	

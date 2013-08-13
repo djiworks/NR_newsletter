@@ -86,6 +86,12 @@ class Newsletter extends CI_Controller
     
 	public function getAllNewsletters() {
 		isLoggedInRedirect($this);
+		
+		$state_table = array();
+		$state_table[0] = "Sent";
+		$state_table[1] = "Approved";
+		$state_table[2] = "Waiting";
+		$state_table[3] = "Wrong";
 
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('newsletter/newsletter_md');
@@ -119,14 +125,42 @@ class Newsletter extends CI_Controller
 			
 			$image = (isset($ligne->cover)) ? $ligne->cover : "/assets/holder/holder.js/80x100";
 			
+			$state_list = '<ul><li class="dropdown">
+						<a id="dropCheckingState'.$ligne->id_newsletter.'" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
+						 '. $state_table[$ligne->checking_state] .' 
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dropCheckingState'.$ligne->id_newsletter.'" role="menu">
+							';
+		
+				$state_list = $state_list . '<li role="presentation">
+				<a href="newsletter/updateCheckingState/'.$ligne->id_newsletter.'/0" tabindex="-1" role="menuitem">
+			Sent</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="newsletter/updateCheckingState/'.$ligne->id_newsletter.'/1" tabindex="-1" role="menuitem">
+			Approved</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="newsletter/updateCheckingState/'.$ligne->id_newsletter.'/2" tabindex="-1" role="menuitem">
+			Waiting</a></li>';
+			
+				$state_list = $state_list . '<li role="presentation">
+				<a href="newsletter/updateCheckingState/'.$ligne->id_newsletter.'/3" tabindex="-1" role="menuitem">
+			Wrong</a></li>';
+							
+				$state_list = $state_list . '
+								</ul>
+							</li></ul>';	
+			
 			$result =  $result."
 				<tr class='".$classUniv."'>
-					<td><img class='media-object' src='".$image."'/></td>
+					<td><img class='media-object' src='".$image."' alt='".$image."'/></td>
 					<td>".$ligne->id_newsletter."</td>
 					<td>".$ligne->name."</td>
 					<td>".$ligne->description."</td>
 					<td>".$ligne->creation_date."</td>
-					<td>".$state."</td>
+					<td>".$state_list."</td>
 					<td><button class=\"btn btn-small\" type=\"button\" onclick='viewDetails(".$ligne->id_newsletter.")'>Click here</button></td>
 				</tr>";
 		}
@@ -141,7 +175,7 @@ class Newsletter extends CI_Controller
 		// loading of the library
 		$this->load->library ( 'form_validation' );
 		$this->load->model ( 'newsletter/newsletter_md' );
-		$this->load->database ();
+		//~ $this->load->database ();
 		
 		$this->form_validation->set_rules ( 'Name', '"Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Description', '"Description"', 'trim|required|encode_php_tags|xss_clean' );
@@ -284,4 +318,26 @@ class Newsletter extends CI_Controller
 		}
 		
 		return $result;	}
+		
+	public function updateCheckingState()
+	{
+		isLoggedInRedirect($this);
+		
+		$session_data = $this->session->userdata('logged_in');
+		$id_user_session = $session_data['id'];
+		
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+		$ci->load->helper('url');		
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('/newsletter/newsletter_md');
+		$id_newsletter = $ci->uri->segment(4);
+		$checking_state = $ci->uri->segment(5);
+		
+		$ci->newsletter_md->updateCheckingState($id_newsletter, $checking_state);		
+		redirect('newsletter/newsletter', 'refresh');
+	}
+	
 }

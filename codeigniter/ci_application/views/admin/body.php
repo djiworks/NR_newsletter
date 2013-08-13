@@ -10,6 +10,7 @@
 	    		<th><a><i class="icon-chevron-right"></i>ID</a></th>
 	    		<th><a><i class="icon-chevron-right"></i>Login</a></th>
 	    		<th><a><i class="icon-chevron-right"></i>Role</a></th>
+	    		<th></th>
     		</tr>
 		</thead>
 		<tbody>
@@ -25,7 +26,7 @@
 
 
 <div id="addUser" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
@@ -58,7 +59,7 @@
 				<div class="control-group">
 					<label class="control-label" for="Role">Role</label>
 					<div class="controls">
-						<select id="Role" name="Role" value="<?php echo set_value('Role'); ?>" >							
+						<select id="Role" name="Role" >							
 							<?php echo $roleList; ?>
 						</select>						
 						<?php echo form_error('Role'); ?>
@@ -78,7 +79,7 @@
 	</div>
 	
 	<div id="modifyPassword" class="modal hide fade" tabindex="-1"
-		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		role="dialog" aria-labelledby="modifyPasswordLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
@@ -90,14 +91,14 @@
 				<div class="control-group">
 					<label class="control-label" for="Password">New Password</label>
 					<div class="controls">
-						<input type="password" id="Password" name="Password" placeholder="Password" />
+						<input type="password" id="mdfyPassword" name="Password" placeholder="Password" />
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="ConfirmPassword">Confirm New Password</label>
 					<div class="controls">
-						<input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
+						<input type="password" id="modifyConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" />
 					</div>
 				</div>
 
@@ -114,10 +115,9 @@
 	</div>
 	
 	<div id="confirmDeletion" class="modal hide fade">
-	<div class="modal-header">
 
 	<form method="post" id="deleteUserForm" action="/index.php/admin/admin/deleteUser" class="form-horizontal">
-
+	<div class="modal-header">
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
 	<h4>Confirm deletion</h4>
@@ -128,10 +128,10 @@
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
 
-	</form>
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Cancel</button>
 
 	</div>
+	</form>
 	</div>
 	
 	<div id="success" class="modal hide fade">

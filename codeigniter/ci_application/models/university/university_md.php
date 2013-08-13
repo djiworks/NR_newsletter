@@ -136,5 +136,14 @@ class University_md extends CI_Model
 				FROM ".$this->table." AS u 
 				WHERE u.checking_state = 3
 				;");
-	}
+	} 
+	
+	function updateCheckingState($id_university, $checking_state)
+	 {
+		return $this->db->query("
+			UPDATE ".$this->table."
+			SET checking_state = ".$checking_state."
+			WHERE id_university = ".$id_university.";
+		");  
+	 }
 }

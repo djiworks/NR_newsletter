@@ -1,5 +1,6 @@
 <div class="container">
-		
+		<input type="hidden"  name="hasToRefresh" id="hasToRefresh"  value="0"/>
+
 		<?php if($role<=3)
 				{echo '
 				<button class="btn btn-small btn btn-info" type="button" data-toggle=\'modal\' data-target=\'#addIntern\'>
@@ -28,31 +29,31 @@
 	</div>
 
 	<!-- Modal -->
-	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-remote="" aria-hidden="true">
+	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="viewDetailsLabel" data-remote="" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
-			<h3 id="myModalLabel">Intern Details</h3>
+				aria-hidden="true" >x</button>
+			<h3 id="viewDetailsLabel">Intern Details</h3>
 		</div>
 		<div class="modal-body">
 
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
 	<div id="addIntern" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+		aria-labelledby="addInternLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
 			<h3 id="addInternLabel">Add an Intern</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/intern/intern/verificationAddIntern" class="form-horizontal">
+			<form method="post" id="addInternForm" action="/index.php/intern/intern/verificationAddIntern" class="form-horizontal">
 				<div class="control-group">
-					<label class="control-label" for="inputName">First name</label>
+					<label class="control-label" for="FirstName">First name</label>
 					<div class="controls">
 						<input type="text" id="FirstName" name="FirstName" placeholder="First name" value="<?php echo set_value('FirstName'); ?>"/>
 							<?php echo form_error('FirstName'); ?> 
@@ -60,7 +61,7 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputName">Last name</label>
+					<label class="control-label" for="LastName">Last name</label>
 					<div class="controls">
 						<input type="text" id="LastName" name="LastName" placeholder="Last name" value="<?php echo set_value('LastName'); ?>"/>
 							<?php echo form_error('LastName'); ?> 
@@ -68,7 +69,7 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputEmail">Email</label>
+					<label class="control-label" for="Mail">Email</label>
 					<div class="controls">
 						<input type="text" id="Mail" name="Mail" placeholder="Mail" value="<?php echo set_value('Mail'); ?>"/>
 							<?php echo form_error('Mail'); ?> 
@@ -76,7 +77,7 @@
 				</div>
 
 				<div class="control-group">
-					<label class="control-label" for="inputPhone">Phone</label>
+					<label class="control-label" for="Phone">Phone</label>
 					<div class="controls">
 						<input type="text" id="Phone" name="Phone" placeholder="Phone" value="<?php echo set_value('Phone'); ?>"/>
 							<?php echo form_error('Phone'); ?> 
@@ -115,11 +116,11 @@
 	</div>
 	
 	<div id="modifyIntern" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+		aria-labelledby="modifyInternLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
-			<h3 id="addInternLabel">Modify an Intern</h3>
+			<h3 id="modifyInternLabel">Modify an Intern</h3>
 		</div>
 		<div class="modal-body">
 			
@@ -138,7 +139,7 @@
 	<p>Intern added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	<button class="btn close" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
 	</div>
 	</div>
 	

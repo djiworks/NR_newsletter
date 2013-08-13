@@ -22,25 +22,28 @@ function viewDetails(id){
 	$('#viewDetails').modal('show');
 }
 
-function deleteIntern(id){						
+function deleteIntern(id){
+	document.getElementById('hasToRefresh').value = 1;												
 	document.getElementById('confirmDeletionId').value = id ;
 	$('#viewDetails').modal('hide');
 	$('#confirmDeletion').modal('show');
 }
 		
-function modifyIntern(id){						
-	$('#viewDetails').modal('hide');
+function modifyIntern(id){
+	document.getElementById('hasToRefresh').value = 1;																		
 	document.getElementById('modifyIntern').setAttribute('data-remote', "/index.php/intern/intern/formCompletionModify/" + id);
+	$('#viewDetails').modal('hide');
 	$('#modifyIntern').modal('show');
 	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = id;},1000);
 }
 
-//~ $('#modifyIntern').on('show', function() {
-	//~ alert(document.forms['modifyInternForm']);
-//~ })
-//~ 
-//~ $('#submitModify').on('click', function() {
-	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
-	//~ document.forms['modifyInternForm'].elements['modifyId'].value = document.getElementById('tmpId').value;
-	//~ alert(document.forms['modifyInternForm'].elements['modifyId'].value);
-//~ })
+$('#viewDetails').on('hide', function() {
+	if (document.getElementById('hasToRefresh').value == 0)
+	{
+		window.location.href = "/index.php/intern/intern/";
+	}
+})
+
+$('#modifyIntern').on('hide', function() {
+		window.location.href = "/index.php/intern/intern/";
+})
