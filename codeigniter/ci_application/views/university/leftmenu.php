@@ -1,5 +1,3 @@
-	<div class="container-fluid">
-		<div class="row-fluid">
 			<div class="span2 ajust">
 				<div class="affix">
 					<ul class="nav nav-list" id="listSelectedUniversity">

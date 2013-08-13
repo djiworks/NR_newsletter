@@ -29,6 +29,8 @@
 		</div>
 	</form>
 </div>
+</div>
+</div>
 
 	<div id="success_pwd" class="modal hide fade">
 	<div class="modal-header">

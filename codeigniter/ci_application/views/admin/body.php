@@ -23,6 +23,8 @@
 	</button>
 	</div>
 </div>
+</div>
+</div>
 
 
 <div id="addUser" class="modal hide fade" tabindex="-1"
