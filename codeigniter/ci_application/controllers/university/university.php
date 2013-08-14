@@ -357,10 +357,10 @@ class University extends CI_Controller {
 
 		return $this->id;
 	}
-	public function getName() {
+	public function getName($id) {
 		isLoggedInRedirect($this);
 		
-		return $this->name;
+		return $this->university_md->get($id);
 	}
 	public function getAdress() {
 		isLoggedInRedirect($this);
@@ -507,18 +507,23 @@ class University extends CI_Controller {
 		$newsletterToSend = $this->input->post ('NewsletterList');
 		$recipientsList = $this->input->post ( 'sendNewsletterList' );
 		$newsletterToSend = explode('-', $newsletterToSend); 
-		$recipientsListArray = explode(',', $recipientsList);
+		if($recipientsList !=NULL)
+		{
+			$recipientsListArray = explode(',', $recipientsList);
 		
-		//~ for($i = 0; $i < $recipientsListArray.length; $i++)
-		//~ {
-			//~ $recipientsListArray[i] = $this->getName($recipientsListArray[i]);
-		//~ }
+			for($i = 0; $i < count($recipientsListArray); $i++)
+			{
+				$recipientsListArray[$i] = $this->getName($recipientsListArray[$i])->row(0)->name;
+			}
+		}
 
 		//~ echo '</br>'.var_dump($newsletterToSend).'</br>';		
 		//~ echo '</br>'.var_dump($recipientsListArray).'</br>';
 
-		$newsletterPreview  = Newsletter::get($newsletterToSend[0]);
-		
+		$newsletterPreview  = Newsletter::get($newsletterToSend[0])->row(0)->content;
+		$newsletterPreview  = '<input type="hidden"  name="recipientsList" id="recipientsList"  value="'.$recipientsList.'"/>'.
+							'<input type="hidden"  name="newsletterId" id="newsletterId"  value="'.$newsletterToSend[0].'"/>'.$newsletterPreview;
+
 		//~ echo var_dump($newsletterPreview->row(0)->content);
 					
 		$data = array ();
@@ -526,8 +531,12 @@ class University extends CI_Controller {
 		$data ['allNames'] = Intern::getAllNames ();
 		$data ['allCountries'] = $this->getAllCountries();
 		$data ['newsletterList'] = Newsletter::getNewsletterList();
-		$data ['previewNewsletter'] = $newsletterPreview->row(0)->content;
-		$data ['recipientsList'] = $recipientsList;
+		
+		if(isset($recipientsListArray))
+		{
+			$data ['previewNewsletter'] = $newsletterPreview;
+			$data ['recipientsList'] = "Recipients: ".implode(", ",$recipientsListArray);
+		}
 
 		if(isset($is_success)){
 			$data ['is_success'] = $is_success;
@@ -545,6 +554,19 @@ class University extends CI_Controller {
 	//~ <h3>Object: Newsletter Name</h3>
 			//~ <h3>Content:</h3>
 			//~ newsletter contents in html
+	}
+	
+	public function mailNewsletter() {
+		isLoggedInRedirect($this);
+		isAllowed($this, 2);
+
+		$recipientsList = $this->input->post ('recipientsList');
+		$newsletterId = $this->input->post ( 'newsletterId' );
+
+
+		echo '</br>'.var_dump($recipientsList).'</br>';		
+		echo '</br>'.var_dump($newsletterId).'</br>';
+
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {

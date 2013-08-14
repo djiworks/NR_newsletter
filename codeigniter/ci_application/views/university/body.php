@@ -127,6 +127,7 @@
 
 	<div id="previewNewsletter" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="PreviewLabel" aria-hidden="true">
+	<form method="post" action="/index.php/university/university/mailNewsletter" class="form-horizontal">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
@@ -142,6 +143,7 @@
 				<i class="icon-envelope icon-white"></i> Send Now
 			</button>
 		</div>
+	</form>
 	</div>
 
 	<div id="success" class="modal hide fade">
