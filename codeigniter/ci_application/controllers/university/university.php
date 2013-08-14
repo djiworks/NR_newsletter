@@ -10,6 +10,7 @@ class University extends CI_Controller {
 	private $subscription;
 	private $checking_state;
 	private $comment;
+	
 	public function __construct($id = false) {
 		parent::__construct ();
 		$this->load->helper('login');
@@ -321,8 +322,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public function deleteUniversity()
-	{
+	public function deleteUniversity() {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 		
@@ -332,7 +332,6 @@ class University extends CI_Controller {
 		
 		$this->index(2);
 	}
-	
 	
 	public function get() {
 		isLoggedInRedirect($this);
@@ -352,36 +351,43 @@ class University extends CI_Controller {
 				"comment" => $university->getComment () 
 		) ) );
 	}
+	
 	public function getId() {
 		isLoggedInRedirect($this);
 
 		return $this->id;
 	}
+	
 	public function getName() {
 		isLoggedInRedirect($this);
 		
 		return $this->name;
 	}
+	
 	public function getAdress() {
 		isLoggedInRedirect($this);
 		
 		return $this->address;
 	}
+	
 	public function getCountry() {
 		isLoggedInRedirect($this);
 		
 		return $this->country;
 	}
+	
 	public function getSubscription() {
 		isLoggedInRedirect($this);
 		
 		return $this->subscription;
 	}
+	
 	public function getCheckingState() {
 		isLoggedInRedirect($this);
 		
 		return $this->checking_state;
 	}
+	
 	public function getComment() {
 		isLoggedInRedirect($this);
 		
@@ -400,6 +406,7 @@ class University extends CI_Controller {
 		
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
+	
 	public function initialiseValue() {
 		isLoggedInRedirect($this);
 		$result = $this->university_md->get ( $this->id );
@@ -440,16 +447,23 @@ class University extends CI_Controller {
 			$subscription = 0;
 			$checking_state = 2;
 			
+			//Getting the id of the new university
 			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
 			foreach ( $result->result () as $line ) {
 				$id_univ = $line->id_univ;
 			}
 			
 			//Then we link the intern to the university
-			$intern = $this->input->post('inputIntern');
-			$intern = explode(" ", $intern);
-			$resultIntern = $this->intern_md->getSearchedInterns("last_name", $intern[sizeOf($intern) -1]);
+			$person = $this->input->post('inputIntern');
+			$person = explode(" ", $person);
+			$resultPerson = $this->intern_md->getSearchedInterns("last_name", $person[sizeOf($person) -1]);
 			
+			//Getting the id of the intern
+			foreach($resultPerson->result () as $line) {
+				$id_person = $line->id_person;
+			}
+			$this->university_md->university_recommendedBy_intern($id_univ, $id_person);
+
 			//Finally we create the contacts linked to the university
 			$nbContact = $this->input->post('nbIntern2Add');
 			
@@ -458,41 +472,47 @@ class University extends CI_Controller {
 				$varName = 'textAreaInfoContact'.$i;
 				if($this->input->post($varName)) {
 					$InfoContact = $this->input->post($varName);
-				}
-				
-				//Creation of the contact
-				$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
-				foreach($resultCo->result () as $line) {
-					$id_contact = $line->id_contact;
-				}
-				
-				//We add the phone and mail of the contact newly created
-				//Get the email
-				$varName = 'inputEmail'.$i;
-				if($this->input->post($varName)) {
-					$mail = $this->input->post($varName);
 				} else {
-					$mail = "";
+					$InfoContact = "";
 				}
 				
-				//Get the phone 
-				$varName = 'inputPhone'.$i;
-				if($this->input->post($varName)) {
-					$phone = $this->input->post($varName);
-				} else {
-					$phone = "";
+				if(!empty($InfoContact)) {
+					//Creation of the contact
+					$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
+					foreach($resultCo->result () as $line) {
+						$id_contact = $line->id_contact;
+					}
+					
+					//We add the phone and mail of the contact newly created
+					//Get the email
+					$varName = 'inputEmail'.$i;
+					if($this->input->post($varName)) {
+						$mail = $this->input->post($varName);
+					} else {
+						$mail = "";
+					}
+					
+					//Get the phone 
+					$varName = 'inputPhone'.$i;
+					if($this->input->post($varName)) {
+						$phone = $this->input->post($varName);
+					} else {
+						$phone = "";
+					}
+					
+					///Check if it's a fax
+					$varName = 'inputCheckFax'.$i;
+					if($this->input->post($varName)) {
+						$type = true;
+					} else {
+						$type = false;
+					}
+					
+					if((!empty($mail)) && (!empty($phone))) {
+						$this->contact_md->addMail2Contact($mail, $id_contact);
+						$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
+					}
 				}
-				
-				///Check if it's a fax
-				$varName = 'inputCheckFax'.$i;
-				if($this->input->post($varName)) {
-					$type = true;
-				} else {
-					$type = false;
-				}
-				
-				$this->contact_md->addMail2Contact($mail, $id_contact);
-				$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
 			}
 			
 			$this->index (0);
@@ -503,7 +523,6 @@ class University extends CI_Controller {
 			$this->formCompletion ( $address, $inputInfoContact );
 		}
 	}
-	
 	
 	public function modifyUniversity() {
 		isLoggedInRedirect($this);
@@ -535,8 +554,7 @@ class University extends CI_Controller {
 		$this->load->view ( 'university/footer' );
 	}
 	
-	public static function getAllCountries()
-	{	
+	public static function getAllCountries() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -565,8 +583,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public static function getNumberWaitingUniversities()
-	{	
+	public static function getNumberWaitingUniversities() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -582,8 +599,7 @@ class University extends CI_Controller {
 		
 		return $result;	}
 	
-	public static function getNumberWrongUniversities()
-	{	
+	public static function getNumberWrongUniversities() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -601,8 +617,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public function updateCheckingState()
-	{
+	public function updateCheckingState() {
 		isLoggedInRedirect($this);
 		
 		$session_data = $this->session->userdata('logged_in');

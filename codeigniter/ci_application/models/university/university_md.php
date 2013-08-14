@@ -10,7 +10,6 @@ class University_md extends CI_Model
 	private $table6 = "person";
 	
 	public function update($id, $name, $address, $country, $subscription, $checking_state){
-		 
 		$this->db->set("name",$name)
 				 ->set("address",$address)
 				 ->set("country",$country)
@@ -139,11 +138,17 @@ class University_md extends CI_Model
 	} 
 	
 	function updateCheckingState($id_university, $checking_state)
-	 {
+	{
 		return $this->db->query("
 			UPDATE ".$this->table."
 			SET checking_state = ".$checking_state."
 			WHERE id_university = ".$id_university.";
 		");  
-	 }
+	}
+	
+	function university_recommendedBy_intern($id_university, $id_person) {
+		$this->db->set("id_university",$id_university)
+				 ->set("id_person",$id_person)
+		 		 ->insert($this->table5);
+	}
 }
