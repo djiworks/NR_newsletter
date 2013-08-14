@@ -252,7 +252,7 @@ class University extends CI_Controller {
 				}				
 					$result = $result."
 								</li>
-								<li class='classNumber'>".$line->id_university."</li>
+								<li id='classNumberchk".$i."' class='classNumber'>".$line->id_university."</li>
 								<li class='className'>".$line->name."</li>
 								<li class='classAddress'>".$line->address."</li>
 								<li class='classCountry'>".$line->country."</li>
@@ -500,6 +500,53 @@ class University extends CI_Controller {
 		echo 'TODO faire le controller modifyUniversity (reprendre addUniversity nouvelle version ?)';
 	}
 	
+	public function sendNewsletter() {
+		isLoggedInRedirect($this);
+		isAllowed($this, 2);
+
+		$newsletterToSend = $this->input->post ('NewsletterList');
+		$recipientsList = $this->input->post ( 'sendNewsletterList' );
+		$newsletterToSend = explode('-', $newsletterToSend); 
+		$recipientsListArray = explode(',', $recipientsList);
+		
+		//~ for($i = 0; $i < $recipientsListArray.length; $i++)
+		//~ {
+			//~ $recipientsListArray[i] = $this->getName($recipientsListArray[i]);
+		//~ }
+
+		//~ echo '</br>'.var_dump($newsletterToSend).'</br>';		
+		//~ echo '</br>'.var_dump($recipientsListArray).'</br>';
+
+		$newsletterPreview  = Newsletter::get($newsletterToSend[0]);
+		
+		//~ echo var_dump($newsletterPreview->row(0)->content);
+					
+		$data = array ();
+		$data ['allUniv'] = $this->getAllUniversities ();
+		$data ['allNames'] = Intern::getAllNames ();
+		$data ['allCountries'] = $this->getAllCountries();
+		$data ['newsletterList'] = Newsletter::getNewsletterList();
+		$data ['previewNewsletter'] = $newsletterPreview->row(0)->content;
+		$data ['recipientsList'] = $recipientsList;
+
+		if(isset($is_success)){
+			$data ['is_success'] = $is_success;
+		}
+	
+		$this->load->view ( 'university/head' );
+		$session_data = $this->session->userdata('logged_in');
+		$data ['role'] = $session_data['role'];
+		
+		loadTopMenu($this, 'university', $session_data) ;
+		isAllowedToView($this, 2, '/university/leftmenu');
+		$this->load->view ( 'university/body', $data );
+		$this->load->view ( 'university/footer' );
+		
+	//~ <h3>Object: Newsletter Name</h3>
+			//~ <h3>Content:</h3>
+			//~ newsletter contents in html
+	}
+	
 	public function formCompletion($address, $inputInfoContact) {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
@@ -518,7 +565,6 @@ class University extends CI_Controller {
 		
 		loadTopMenu($this, 'university', $session_data) ;
 		
-		//~ $this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/addUniversity', $data );
 		$this->load->view ( 'university/footer' );
 	}

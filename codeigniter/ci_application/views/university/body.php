@@ -70,7 +70,9 @@
 		</div>
 	</div>
 
-	<!-- Modals -->
+<!--
+	 Modals 
+-->
 
 	<div id="modifyUniversity" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="modifyUniversityLabel" aria-hidden="true">
@@ -95,7 +97,7 @@
 		</div>
 	</div>
 
-	<div id="sendingbox" class="modal hide fade" tabindex="-1"
+	<div id="sendNewsletterModal" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="sendNewsletterLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -104,10 +106,11 @@
 		</div>
 		
 		<form method="post" id="sendNewsletter" action="/index.php/university/university/sendNewsletter" class="form-horizontal">
-		<div class="modal-body">
+		<input type="hidden"  name="sendNewsletterList" id="sendNewsletterList"  value=""/>
 
+		<div class="modal-body">
 			<label>Select the newsletter to send:</label>
-			 <select>
+			 <select id="NewsletterList" name="NewsletterList">
 					<?php echo $newsletterList; ?>
 			</select>
 		</div>
@@ -122,17 +125,16 @@
 		</form>
 	</div>
 
-	<div id="sendingbox2" class="modal hide fade" tabindex="-1"
+	<div id="previewNewsletter" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="PreviewLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
 			<h3 id="PreviewLabel">Ready to send Newsletter - Preview</h3>
+			<?php if(isset($recipientsList)){echo $recipientsList; }?>
 		</div>
 		<div class="modal-body">
-			<h3>Object: Newsletter Name</h3>
-			<h3>Content:</h3>
-			newsletter contents in html
+		<?php if(isset($previewNewsletter)){echo $previewNewsletter; }?>
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

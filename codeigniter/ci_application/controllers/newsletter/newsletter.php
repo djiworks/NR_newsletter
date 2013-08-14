@@ -11,6 +11,17 @@ class Newsletter extends CI_Controller
 
 	}
 
+	public static function get($i)
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		
+		$ci->load->model('newsletter/newsletter_md');
+		return $ci->newsletter_md->get($i);
+	}
+	
     public function index($is_success = NULL)
     {
 		isLoggedInRedirect($this);
@@ -78,7 +89,7 @@ class Newsletter extends CI_Controller
 		$result = "";
 				
 		foreach ( $fetched_roles->result () as $line_bis ) {				
-				$result = $result . '<option>'.$line_bis->id_newsletter.' - '. $line_bis->name .'</option>';
+				$result = $result . '<option>'.$line_bis->id_newsletter.'-'. $line_bis->name .'</option>';
 		}
 
 		return $result;

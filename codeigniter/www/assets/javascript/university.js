@@ -72,7 +72,7 @@ function unselectAll() {
 	//Uncheck all the checkboxes
 	var arrayInput = document.getElementsByTagName("input");
 	
-	for(var i = 0 ; i <= arrayInput.length ; i++) {
+	for(var i = 0 ; i < arrayInput.length ; i++) {
 		if(arrayInput[i].type == 'checkbox') {
 			arrayInput[i].checked = false;
 		}
@@ -84,7 +84,7 @@ function selectAll() {
 	var arrayInput = document.getElementById("accordion").getElementsByTagName("input");
 	var nbCheckbox = arrayInput.length;
 	
-	for(var i = 0 ; i <= nbCheckbox ; i++) {
+	for(var i = 0 ; i < nbCheckbox ; i++) {
 		if(arrayInput[i].getAttribute('type') == 'checkbox') {
 			if(arrayInput[i].checked == false) {						
 				arrayInput[i].checked = true;
@@ -95,6 +95,25 @@ function selectAll() {
 			}
 		}
 	}
+}
+
+function getAllCheckedUniversities() {
+	//Check all the checkboxes
+	var arrayInput = document.getElementById("accordion").getElementsByTagName("input");
+	var nbCheckbox = arrayInput.length;
+	var list = new Array();
+	var y = 0;
+	for(var i = 0 ; i < nbCheckbox ; i++) {
+		if(arrayInput[i].getAttribute('type') == 'checkbox') {
+			if(arrayInput[i].checked == true) {
+				list[y] = document.getElementById("classNumber" + arrayInput[i].id).innerHTML;
+				y = y+1;					
+			}
+		}
+	}
+		var result = list.join(',');
+		document.getElementById('sendNewsletterList').value = result ;
+		$('#sendNewsletterModal').modal('show');
 }
 
 function confirmationAdding(is_success){
