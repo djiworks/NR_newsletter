@@ -1,5 +1,3 @@
-	<div class="container-fluid">
-		<div class="row-fluid">
 			<div class="span2 ajust">
 				<div class="affix">
 					<ul class="nav nav-list" id="listSelectedUniversity">
@@ -9,7 +7,7 @@
 						<li class="divider" id="liDivider"></li>
 						<li>
 							<button class="btn btn-mini btn-primary" type="button"
-								onclick="$('#sendingbox').modal('show')">
+								onclick="getAllCheckedUniversities()">
 								<i class="icon-envelope icon-white"></i> Send Mail
 							</button>
 							<button class="btn btn-mini btn-inverse" type="button"

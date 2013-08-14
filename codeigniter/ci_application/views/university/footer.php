@@ -8,5 +8,12 @@
 				confirmationAdding(".$is_success.");
 				</script>"; 
 			}?>
+
+			<?php if(isset($previewNewsletter))
+			{echo "
+				<script type='text/javascript'>
+				$('#previewNewsletter').modal('show');
+				</script>"; 
+			}?>
 	</body>
 </html>

@@ -27,6 +27,8 @@
 	    		</tbody>
 		</table>
 	</div>
+	</div>
+	</div>
 
 	<!-- Modal -->
 	<div id="viewDetails" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="viewDetailsLabel" data-remote="" aria-hidden="true">

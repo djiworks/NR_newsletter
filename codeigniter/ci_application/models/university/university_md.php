@@ -32,6 +32,12 @@ class University_md extends CI_Model
 						->get($this->table);
 	 }
 	 
+	 public function getName($id){
+		return $this->db->select("name")
+						->where("id_university",$id)
+						->get($this->table);
+	 }
+	 
 	 public function create($name, $address, $country, $subscription, $checking_state){
 		$this->db->set("name",$name)
 				 ->set("address",$address)

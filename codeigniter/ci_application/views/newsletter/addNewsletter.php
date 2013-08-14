@@ -51,6 +51,8 @@
 		
 	</form>
 </div>
+</div>
+</div>
 
 	<div id="failure" class="modal hide fade">
 	<div class="modal-header">
