@@ -550,10 +550,7 @@ class University extends CI_Controller {
 		isAllowedToView($this, 2, '/university/leftmenu');
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );
-		
-	//~ <h3>Object: Newsletter Name</h3>
-			//~ <h3>Content:</h3>
-			//~ newsletter contents in html
+
 	}
 	
 	public function mailNewsletter() {
@@ -562,11 +559,24 @@ class University extends CI_Controller {
 
 		$recipientsList = $this->input->post ('recipientsList');
 		$newsletterId = $this->input->post ( 'newsletterId' );
+		$recipientsList = explode(',',$recipientsList);
+		$mailArray = array();
 
-
-		echo '</br>'.var_dump($recipientsList).'</br>';		
-		echo '</br>'.var_dump($newsletterId).'</br>';
-
+		//~ echo '</br>'.var_dump($recipientsList).'</br>';		
+		//~ echo '</br>'.var_dump($newsletterId).'</br>';
+		
+		foreach($recipientsList as $recipient)
+		{
+			$mailArray[$recipient] = array();
+			$mailList = $this->university_md->getAllMail($recipient)->result();
+			foreach($mailList as $mail)
+			{
+				$mailArray[$recipient][] = $mail;
+				
+			}
+			//~ echo '</br>'.var_dump($mail->result()).'</br>';
+		}
+	echo '</br>'.var_dump($mailArray).'</br>';
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
