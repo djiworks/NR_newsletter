@@ -131,6 +131,10 @@ function confirmationAdding(is_success){
 	{
 		$('#success_deletion').modal('show');
 	}
+	else if(is_success == 3)
+	{
+		$('#success_sending').modal('show');
+	}
 }
 
 function deleteUniversity(id){						

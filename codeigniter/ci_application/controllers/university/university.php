@@ -43,7 +43,6 @@ class University extends CI_Controller {
 			
 			loadTopMenu($this, 'university', $session_data) ;
 			isAllowedToView($this, 2, '/university/leftmenu');
-			//~ $this->load->view ( '/university/leftmenu' );
 			$this->load->view ( 'university/body', $data );
 			$this->load->view ( 'university/footer' );
 	}
@@ -169,6 +168,11 @@ class University extends CI_Controller {
 			if($line->number && ($line->type == 0)){
 				$displayContact [$id_univ] = $displayContact [$id_univ]."
 					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
+				}
+				else if($line->number && ($line->type == 1))
+				{
+					$displayContact [$id_univ] = $displayContact [$id_univ]."
+					<td>Fax</td>";
 				}
 				else
 				{
@@ -571,15 +575,10 @@ class University extends CI_Controller {
 			}
 		}
 
-		//~ echo '</br>'.var_dump($newsletterToSend).'</br>';		
-		//~ echo '</br>'.var_dump($recipientsListArray).'</br>';
-
 		$newsletterPreview  = Newsletter::get($newsletterToSend[0])->row(0)->content;
 		$newsletterPreview  = '<input type="hidden"  name="recipientsList" id="recipientsList"  value="'.$recipientsList.'"/>'.
 							'<input type="hidden"  name="newsletterId" id="newsletterId"  value="'.$newsletterToSend[0].'"/>'.$newsletterPreview;
 
-		//~ echo var_dump($newsletterPreview->row(0)->content);
-					
 		$data = array ();
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
@@ -635,21 +634,48 @@ class University extends CI_Controller {
 		
 		$newsletter = Newsletter::get($newsletterId)->row(0);
 		
-		//~ $this->sendingMail($content, $address, $name, $subject);
-		//~ foreach($recipientsList as $recipient)
+		$result = "";
+		
 		foreach($mailArray as $key => $value)
 		{
+			$name = $this->university_md->getName($key)->row(0)->name;
+
 			foreach($value as $address)
 			{
-				$this->sendingMail($newsletter->content, $address, $key, $newsletter->name);		
-				//~ echo '</br>'.var_dump($newsletter->content).'</br>';
-				//~ echo '</br>'.var_dump($address).'</br>';
-				//~ echo '</br>'.var_dump($key).'</br>';
-				//~ echo '</br>'.var_dump($newsletter->name).'</br>';
+				$tmp = $this->sendingMail($newsletter->content, $address, $name, $newsletter->name);
+				if($tmp != NULL)
+				{
+					$result = $result.$key." - ".$name.": ".$tmp."</br>";	
+					$tmp = NULL;
+				}	
 			}
 		}
-	//~ echo '</br>'.var_dump($recipientsList).'</br>';
-	//~ echo '</br>'.var_dump($mailArray).'</br>';
+		if($result == "")
+		{
+			$this->index(3);
+		}
+		else
+		{
+			$data = array ();
+			$data ['allUniv'] = $this->getAllUniversities ();
+			$data ['allNames'] = Intern::getAllNames ();
+			$data ['allCountries'] = $this->getAllCountries();
+			$data ['newsletterList'] = Newsletter::getNewsletterList();
+			$data ['failureLog'] = $result;
+
+			if(isset($is_success)){
+				$data ['is_success'] = $is_success;
+			}
+		
+			$this->load->view ( 'university/head' );
+			$session_data = $this->session->userdata('logged_in');
+			$data ['role'] = $session_data['role'];
+			
+			loadTopMenu($this, 'university', $session_data) ;
+			isAllowedToView($this, 2, '/university/leftmenu');
+			$this->load->view ( 'university/body', $data );
+			$this->load->view ( 'university/footer' );
+		}
 	}
 
 	public function sendingMail($content, $address, $name, $subject)
@@ -681,14 +707,12 @@ class University extends CI_Controller {
 		
 		if(!$mail->Send())
 		{
-		echo "Mailer Error: " . $mail->ErrorInfo;
+			return $mail->ErrorInfo;
 		}
 		else
 		{
-		echo "Message has been sent";
+			return NULL;
 		}
-		
-		
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {
