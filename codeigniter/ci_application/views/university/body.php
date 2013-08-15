@@ -171,6 +171,34 @@
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
 	</div>
 	</div>
+	
+	<div id="success_sending" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>Newsletter sent with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" >Close</button>
+	</div>
+	</div>
+	
+	<div id="failure_sending" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Failure for sending the newsletter:</br>
+	<?php if(isset($failureLog)){echo $failureLog; }?>
+	</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" >Close</button>
+	</div>
+	</div>
 
 	<div id="confirmDeletion" class="modal hide fade">
 	<div class="modal-header">

@@ -8,6 +8,13 @@
 				confirmationAdding(".$is_success.");
 				</script>"; 
 			}?>
+			
+			<?php if(isset($failureLog))
+			{echo "
+				<script type='text/javascript'>
+				$('#failure_sending').modal('show');
+				</script>"; 
+			}?>
 
 			<?php if(isset($previewNewsletter))
 			{echo "
