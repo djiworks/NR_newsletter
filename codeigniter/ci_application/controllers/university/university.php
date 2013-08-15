@@ -11,6 +11,7 @@ class University extends CI_Controller {
 	private $subscription;
 	private $checking_state;
 	private $comment;
+	
 	public function __construct($id = false) {
 		parent::__construct ();
 		$this->load->helper('login');
@@ -322,8 +323,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public function deleteUniversity()
-	{
+	public function deleteUniversity() {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 		
@@ -333,7 +333,6 @@ class University extends CI_Controller {
 		
 		$this->index(2);
 	}
-	
 	
 	public function get() {
 		isLoggedInRedirect($this);
@@ -353,36 +352,43 @@ class University extends CI_Controller {
 				"comment" => $university->getComment () 
 		) ) );
 	}
+	
 	public function getId() {
 		isLoggedInRedirect($this);
 
 		return $this->id;
 	}
+
 	public function getName($id) {
 		isLoggedInRedirect($this);
 		
 		return $this->university_md->get($id);
 	}
+	
 	public function getAdress() {
 		isLoggedInRedirect($this);
 		
 		return $this->address;
 	}
+	
 	public function getCountry() {
 		isLoggedInRedirect($this);
 		
 		return $this->country;
 	}
+	
 	public function getSubscription() {
 		isLoggedInRedirect($this);
 		
 		return $this->subscription;
 	}
+	
 	public function getCheckingState() {
 		isLoggedInRedirect($this);
 		
 		return $this->checking_state;
 	}
+	
 	public function getComment() {
 		isLoggedInRedirect($this);
 		
@@ -401,6 +407,7 @@ class University extends CI_Controller {
 		
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
+	
 	public function initialiseValue() {
 		isLoggedInRedirect($this);
 		$result = $this->university_md->get ( $this->id );
@@ -424,28 +431,41 @@ class University extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('university/university_md');
 		$this->load->model('contact/contact_md');
+		$this->load->model('intern/intern_md');
 		$this->load->database();
 		
-		$this->form_validation->set_rules ( 'UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'inputIntern', '"Intern"', 'trim|encode_php_tags|xss_clean' );
+		$this->form_validation->set_rules('UniversityName', '"University Name"', 'trim|required|encode_php_tags|xss_clean');
+		$this->form_validation->set_rules('Adress', '"Adress"', 'trim|required|encode_php_tags|xss_clean');
+		$this->form_validation->set_rules('inputCountry', '"Country"', 'trim|required|encode_php_tags|xss_clean');
+		$this->form_validation->set_rules('inputIntern', '"Intern"', 'trim|encode_php_tags|xss_clean');
 		
 		if ($this->form_validation->run ()) {
-			// If the form is valid
-			// In a first time we create the university
-			$name = $this->input->post ( 'UniversityName' );
-			$address = $this->input->post ( 'Adress' );
-			$country = $this->input->post ( 'inputCountry' );
+			//If the form is valid
+			//In a first time we create the university
+			$name = $this->input->post('UniversityName');
+			$address = $this->input->post('Adress');
+			$country = $this->input->post('inputCountry');
 			$subscription = 0;
 			$checking_state = 2;
 			
+			//Getting the id of the new university
 			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
 			foreach ( $result->result () as $line ) {
 				$id_univ = $line->id_univ;
 			}
 			
-			// Then we create the contacts linked to the university
+			//Then we link the intern to the university
+			$person = $this->input->post('inputIntern');
+			$person = explode(" ", $person);
+			$resultPerson = $this->intern_md->getSearchedInterns("last_name", $person[sizeOf($person) -1]);
+			
+			//Getting the id of the intern
+			foreach($resultPerson->result () as $line) {
+				$id_person = $line->id_person;
+			}
+			$this->university_md->university_recommendedBy_intern($id_univ, $id_person);
+
+			//Finally we create the contacts linked to the university
 			$nbContact = $this->input->post('nbIntern2Add');
 			
 			for($i = 1 ; $i <= $nbContact ; $i++) {
@@ -453,35 +473,47 @@ class University extends CI_Controller {
 				$varName = 'textAreaInfoContact'.$i;
 				if($this->input->post($varName)) {
 					$InfoContact = $this->input->post($varName);
-				}
-				
-				$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
-				foreach ( $resultCo->result () as $line ) {
-					$id_contact = $line->id_contact;
-				}
-				
-				//Get the email
-				$varName = 'inputEmail'.$i;
-				if($this->input->post($varName)) {
-					$mail = $this->input->post($varName);
-				}
-				
-				//Get the phone 
-				$varName = 'inputPhone'.$i;
-				if($this->input->post($varName)) {
-					$phone = $this->input->post($varName);
-				}
-				
-				///Check if it's a fax
-				$varName = 'inputCheckFax'.$i;
-				if($this->input->post($varName)) {
-					$type = true;
 				} else {
-					$type = false;
+					$InfoContact = "";
 				}
 				
-				$this->contact_md->addMail2Contact($mail, $id_contact);
-				$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
+				if(!empty($InfoContact)) {
+					//Creation of the contact
+					$resultCo = $this->contact_md->createContact($InfoContact, $id_univ);
+					foreach($resultCo->result () as $line) {
+						$id_contact = $line->id_contact;
+					}
+					
+					//We add the phone and mail of the contact newly created
+					//Get the email
+					$varName = 'inputEmail'.$i;
+					if($this->input->post($varName)) {
+						$mail = $this->input->post($varName);
+					} else {
+						$mail = "";
+					}
+					
+					//Get the phone 
+					$varName = 'inputPhone'.$i;
+					if($this->input->post($varName)) {
+						$phone = $this->input->post($varName);
+					} else {
+						$phone = "";
+					}
+					
+					///Check if it's a fax
+					$varName = 'inputCheckFax'.$i;
+					if($this->input->post($varName)) {
+						$type = true;
+					} else {
+						$type = false;
+					}
+					
+					if((!empty($mail)) && (!empty($phone))) {
+						$this->contact_md->addMail2Contact($mail, $id_contact);
+						$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
+					}
+				}
 			}
 			
 			$this->index (0);
@@ -492,7 +524,6 @@ class University extends CI_Controller {
 			$this->formCompletion ( $address, $inputInfoContact );
 		}
 	}
-	
 	
 	public function modifyUniversity() {
 		isLoggedInRedirect($this);
@@ -660,8 +691,7 @@ class University extends CI_Controller {
 		$this->load->view ( 'university/footer' );
 	}
 	
-	public static function getAllCountries()
-	{	
+	public static function getAllCountries() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -690,8 +720,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public static function getNumberWaitingUniversities()
-	{	
+	public static function getNumberWaitingUniversities() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -707,8 +736,7 @@ class University extends CI_Controller {
 		
 		return $result;	}
 	
-	public static function getNumberWrongUniversities()
-	{	
+	public static function getNumberWrongUniversities() {	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 
@@ -726,8 +754,7 @@ class University extends CI_Controller {
 		return $result;
 	}
 	
-	public function updateCheckingState()
-	{
+	public function updateCheckingState() {
 		isLoggedInRedirect($this);
 		
 		$session_data = $this->session->userdata('logged_in');

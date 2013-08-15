@@ -1,5 +1,7 @@
 /* Global variables */
 var numContact = 0;
+var nbInput = new Array();
+ 
 
 /* Functions */
 function selectedUniv (univName, univId, chkName) {
@@ -171,12 +173,119 @@ function delInternForm(id) {
 	e.parentNode.removeChild(e);
 }
 
+function addField(field, contactNum) {
+	//This function adds an input for the mail in the form 
+	//to add a contact to a university  
+	
+	//Save the number of input for each contact to know how many fields 
+	//are supposed to be displayed
+	
+	//~ alert("contactNum = "+contactNum);
+	
+	if(field == "mail") {
+		nbInput[contactNum][1]++;
+		
+		if(nbInput[contactNum][1] <= nbInput[contactNum][2]) {
+			document.getElementById("inputEmail"+contactNum+nbInput[contactNum][1]).style.visibility = "visible";
+		} else {
+			createField(contactNum, field, nbInput[contactNum][1]);
+		}
+	} else {
+		nbInput[contactNum][2]++;
+		
+		if(nbInput[contactNum][2] <= nbInput[contactNum][1]) {
+			document.getElementById("inputPhone"+contactNum+nbInput[contactNum][2]).style.visibility = "visible";
+			document.getElementById("inputCheckFax"+contactNum+nbInput[contactNum][2]).style.visibility = "visible";
+		} else {
+			createField(contactNum, field, nbInput[contactNum][2]);
+		}
+	} 
+}
+
+function createField(contactNum, field, fieldNum) {
+	
+	//~ alert("contactNum = "+contactNum+"\nfield = "+field+"\nfieldNum = "+fieldNum);
+	
+	//Creation of the new elements
+	var element = document.getElementById("TableContainer"+contactNum);
+	
+	var trTag = document.createElement('tr');
+	var tdTagMail = document.createElement('td');
+	var tdTagPhone = document.createElement('td');
+	
+	//Creation of the div for the e-mail
+	var newElementDivMail = document.createElement('div');
+	newElementDivMail.class = "control-group";
+	
+	var newDivMail = document.createElement('div');
+	newDivMail.class = "controls";
+	
+	var newInputMail = document.createElement('input');
+	newInputMail.type = "text";
+	newInputMail.id = "inputEmail".concat(contactNum).concat(fieldNum);
+	
+	newInputMail.name = "inputEmail".concat(contactNum).concat(fieldNum);
+	newInputMail.setAttribute("class", "input-medium");
+	newInputMail.placeholder = "Email";
+	
+	newDivMail.appendChild(newInputMail);
+	
+	newElementDivMail.appendChild(newDivMail);
+	
+	//Creation of the div for the phone
+	var newElementDivPhone = document.createElement('div');
+	newElementDivPhone.class = "control-group";
+	
+	var newDivPhone = document.createElement('div');
+	newDivPhone.class = "controls";
+	
+	var newInputPhone = document.createElement('input');
+	newInputPhone.type = "text";
+	newInputPhone.id = "inputPhone".concat(contactNum).concat(fieldNum);
+	newInputPhone.name = "inputPhone".concat(contactNum).concat(fieldNum);
+	newInputPhone.setAttribute("class", "input-medium");
+	newInputPhone.placeholder = "Phone";
+	
+	//In case the number is for a fax
+	var newCheckFax = document.createElement('input');
+	newCheckFax.type = "checkbox";
+	newCheckFax.id = "inputCheckFax".concat(contactNum).concat(fieldNum);
+	newCheckFax.name = "inputCheckFax".concat(contactNum).concat(fieldNum);
+	
+	newDivPhone.appendChild(newInputPhone);
+	newDivPhone.appendChild(newCheckFax);
+	
+	newElementDivPhone.appendChild(newDivPhone);
+	
+	tdTagMail.appendChild(newElementDivMail);
+	tdTagPhone.appendChild(newElementDivPhone);
+	
+	trTag.appendChild(tdTagMail);
+	trTag.appendChild(tdTagPhone);
+	
+	element.appendChild(trTag);
+	
+	//Change the style so only one appears
+	if(field == "phone") {
+		newInputMail.style.visibility = "hidden";
+	} else {
+		newInputPhone.style.visibility = "hidden";
+		newCheckFax.style.visibility = "hidden";
+	}
+}
+
 var funcAddContactToUniv = function addInternToUniv() {
 	/*
 	 * This function adds in the form the fields to add an intern
 	 * to the university that is added
 	 */
+	
+	//
 	numContact++;
+	nbInput[numContact] = new Array();
+	nbInput[numContact][1] = 1;
+	nbInput[numContact][2] = 1;
+	
 	
 	var cell = document.getElementById("cellContact");
 	cell.style.visibility = "visible";
@@ -190,7 +299,7 @@ var funcAddContactToUniv = function addInternToUniv() {
 	var newLabelInfo = document.createElement('label');
 	newLabelInfo.class = "control-label";
 	newLabelInfo.for = "textAreaInfoContact".concat(numContact);
-	newLabelInfo.innerText = "Additional Information";
+	newLabelInfo.innerHTML = "Additional Information";
 	
 	var newDivInfo = document.createElement('div');
 	newDivInfo.class = "controls";
@@ -207,64 +316,83 @@ var funcAddContactToUniv = function addInternToUniv() {
 	newElementDivInfo.appendChild(newLabelInfo);
 	newElementDivInfo.appendChild(newDivInfo);
 	
+	//Structure for the phone and mail
+	//Creation of the table
+	var newTableContainer = document.createElement('table');
+	newTableContainer.id = "TableContainer".concat(numContact);
+	
+	//Header of the table
+	var newTableHead = document.createElement('thead');
+	
+	//Header Mail
+	var newTableHeadThMail = document.createElement('th');
+	newTableHeadThMail.innerHTML = "Mail";
+	
+	var newIconMail = document.createElement('i');
+	newIconMail.setAttribute("class", "icon-plus-sign");
+	newIconMail.setAttribute("onclick", "addField('mail', "+numContact+")");
+	
+	newTableHeadThMail.appendChild(newIconMail);
+	
+	//Header phone
+	var newTableHeadThPhone = document.createElement('th');
+	newTableHeadThPhone.innerHTML = "Phone";
+	
+	var newIconPhone = document.createElement('i');
+	newIconPhone.setAttribute("class", "icon-plus-sign");
+	newIconPhone.setAttribute("onclick", "addField('phone', "+numContact+")");
+	
+	newTableHeadThPhone.appendChild(newIconPhone);
+	
+	//Body of the table
+	var newTableBody = document.createElement('tbody');
+	var newTableBodyTdMail = document.createElement('td');
+	var newTableBodyTdPhone = document.createElement('td');
+	
 	//Creation of the div for the e-mail
 	var newElementDivMail = document.createElement('div');
 	newElementDivInfo.class = "control-group";
-	
-	var newLabelMail = document.createElement('label');
-	newLabelMail.class = "control-label";
-	newLabelMail.for = "inputEmail".concat(numContact);
-	newLabelMail.innerText = "Email";
 	
 	var newDivMail = document.createElement('div');
 	newDivMail.class = "controls";
 	
 	var newInputMail = document.createElement('input');
 	newInputMail.type = "text";
-	newInputMail.id = "inputEmail".concat(numContact);
-	newInputMail.name = "inputEmail".concat(numContact);
+	newInputMail.id = "inputEmail".concat(numContact).concat("1");
+	newInputMail.name = "inputEmail".concat(numContact).concat("1");
 	newInputMail.setAttribute("class", "input-medium");
 	newInputMail.placeholder = "Email";
 	newDivMail.appendChild(newInputMail);
 	
-	newElementDivMail.appendChild(newLabelMail);
 	newElementDivMail.appendChild(newDivMail);
+	
+	newTableBodyTdMail.appendChild(newElementDivMail);
 	
 	//Creation of the div for the phone
 	var newElementDivPhone = document.createElement('div');
 	newElementDivPhone.class = "control-group";
-	
-	var newLabelPhone = document.createElement('label');
-	newLabelPhone.class = "control-label";
-	newLabelPhone.for = "inputPhone".concat(numContact);
-	newLabelPhone.innerText = "Phone";
 	
 	var newDivPhone = document.createElement('div');
 	newDivPhone.class = "controls";
 	
 	var newInputPhone = document.createElement('input');
 	newInputPhone.type = "text";
-	newInputPhone.id = "inputPhone".concat(numContact);
-	newInputPhone.name = "inputPhone".concat(numContact);
+	newInputPhone.id = "inputPhone".concat(numContact).concat("1");
+	newInputPhone.name = "inputPhone".concat(numContact).concat("1");
 	newInputPhone.setAttribute("class", "input-medium");
 	newInputPhone.placeholder = "Phone";
 	
-	var newLabelFax = document.createElement('label');
-	newLabelFax.class = "control-label";
-	newLabelFax.for = "inputCheckFax".concat(numContact);
-	newLabelFax.innerText = "Fax";
-	
+	//In case the number is for a fax
 	var newCheckFax = document.createElement('input');
 	newCheckFax.type = "checkbox";
-	newCheckFax.id = "inputCheckFax".concat(numContact);
-	newCheckFax.name = "inputCheckFax".concat(numContact);
+	newCheckFax.id = "inputCheckFax".concat(numContact).concat("1");
+	newCheckFax.name = "inputCheckFax".concat(numContact).concat("1");
 	
 	newDivPhone.appendChild(newInputPhone);
 	newDivPhone.appendChild(newCheckFax);
-	newDivPhone.appendChild(newLabelFax);
+	//~ newDivPhone.appendChild(newLabelFax);
 	
-	newElementDivPhone.appendChild(newLabelPhone);
-	newElementDivPhone.appendChild(newDivPhone);	
+	newElementDivPhone.appendChild(newDivPhone);
 	
 	var newElementDivBlock = document.createElement('div');
 	newElementDivBlock.id = "blockAddIntern";
@@ -306,12 +434,35 @@ var funcAddContactToUniv = function addInternToUniv() {
 	newElementDivHead.appendChild(newElementDivModal);
 	
 	/* inner */
-	newElementDivBlock.appendChild(newElementDivInfo);
-	newElementDivBlock.appendChild(newElementDivMail);
-	newElementDivBlock.appendChild(newElementDivPhone);
+	//Appending the header of the table
+	var trTag = document.createElement('tr');
 	
-	newElementDivInner.appendChild(newElementDivBlock);
+	trTag.appendChild(newTableHeadThMail);
+	trTag.appendChild(newTableHeadThPhone);
 	
+	newTableHead.appendChild(trTag);
+	
+	delete trTag;
+	
+	//Appending the body of the table
+	//Appending the inputs into the cells
+	var trTag = document.createElement('tr');
+	
+	newTableBodyTdMail.appendChild(newElementDivMail);
+	newTableBodyTdPhone.appendChild(newElementDivPhone);
+	
+	trTag.appendChild(newTableBodyTdMail);
+	trTag.appendChild(newTableBodyTdPhone);
+	
+	newTableBody.appendChild(trTag);
+	
+	delete trTag;
+	
+	newTableContainer.appendChild(newTableHead);
+	newTableContainer.appendChild(newTableBody);
+	
+	newElementDivInner.appendChild(newElementDivInfo);
+	newElementDivInner.appendChild(newTableContainer);
 	newElementDivcollapse.appendChild(newElementDivInner);
 	
 	/* group */

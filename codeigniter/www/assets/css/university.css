@@ -25,6 +25,10 @@ a {
 	vertical-align: top;
 }
 
+#TableContainer tr th, #TableContainer tr {
+	vertical-align: top;
+}
+
 /* class table display university */
 .wrapTabColName {
 	height: auto;
