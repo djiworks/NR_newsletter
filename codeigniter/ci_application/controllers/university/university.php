@@ -425,7 +425,8 @@ class University extends CI_Controller {
 	public function verificationAddUniversity() {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
-
+		$numContact = 0;
+		 
 		// loading of the library
 		$this->load->library('form_validation');
 		$this->load->model('university/university_md');
@@ -447,6 +448,8 @@ class University extends CI_Controller {
 			$subscription = 0;
 			$checking_state = 2;
 			
+			$nbInput = explode(",", $this->input->post('nbInputPhoneMail'));
+			
 			//Getting the id of the new university
 			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
 			foreach ( $result->result () as $line ) {
@@ -465,11 +468,12 @@ class University extends CI_Controller {
 			$this->university_md->university_recommendedBy_intern($id_univ, $id_person);
 
 			//Finally we create the contacts linked to the university
-			$nbContact = $this->input->post('nbIntern2Add');
-			
-			for($i = 1 ; $i <= $nbContact ; $i++) {
-				//Get the value of the text area
-				$varName = 'textAreaInfoContact'.$i;
+			$nbContact = $this->input->post('nbContact2Add');
+					
+			for($i = 1 ; $i < sizeOf($nbInput) ; $i = $i + 3) {
+				$numContact++;
+				
+				$varName = 'textAreaInfoContact'.$numContact;
 				if($this->input->post($varName)) {
 					$InfoContact = $this->input->post($varName);
 				} else {
@@ -482,45 +486,49 @@ class University extends CI_Controller {
 					foreach($resultCo->result () as $line) {
 						$id_contact = $line->id_contact;
 					}
-					
-					//We add the phone and mail of the contact newly created
-					//Get the email
-					$varName = 'inputEmail'.$i;
-					if($this->input->post($varName)) {
-						$mail = $this->input->post($varName);
-					} else {
-						$mail = "";
+				
+					//get all the mails for one contact
+					if($nbInput[$i+1] != 0) {
+						for($j = 1 ; $j <= $nbInput[$i+1] ; $j++) {
+							$varName = 'inputEmail'.$numContact.$j;
+							if($this->input->post($varName)) {
+								$mail = $this->input->post($varName);
+								
+								//Save in data base
+								$this->contact_md->addMail2Contact($mail, $id_contact);
+							}
+						}
 					}
 					
-					//Get the phone 
-					$varName = 'inputPhone'.$i;
-					if($this->input->post($varName)) {
-						$phone = $this->input->post($varName);
-					} else {
-						$phone = "";
+					//get all the phones for one contact
+					if($nbInput[$i+2] != 0) {
+						for($j = 1 ; $j <= $nbInput[$i+2] ; $j++) {
+							$varName = 'inputPhone'.$numContact.$j;
+							
+							//Phone number
+							if($this->input->post($varName)) {
+								$phone = $this->input->post($varName);
+							
+								///Check if it's a fax
+								$varName = 'inputCheckFax'.$i;
+								if($this->input->post($varName)) {
+									$type = true;
+								} else {
+									$type = false;
+								}
+								
+								$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
+							}
+						}
 					}
-					
-					///Check if it's a fax
-					$varName = 'inputCheckFax'.$i;
-					if($this->input->post($varName)) {
-						$type = true;
-					} else {
-						$type = false;
-					}
-					
-					if((!empty($mail)) && (!empty($phone))) {
-						$this->contact_md->addMail2Contact($mail, $id_contact);
-						$this->contact_md->addPhone2Contact($phone, $type, $id_contact);
-					}
+				} else {
+					// If the form is not valid or empty
+					$address = $this->input->post ( 'Adress' );
+					$inputInfoContact = $this->input->post ( 'inputInfoContact' );
+					$this->formCompletion ( $address, $inputInfoContact );
 				}
 			}
-			
 			$this->index (0);
-		} else {
-			// If the form is not valid or empty
-			$address = $this->input->post ( 'Adress' );
-			$inputInfoContact = $this->input->post ( 'inputInfoContact' );
-			$this->formCompletion ( $address, $inputInfoContact );
 		}
 	}
 	

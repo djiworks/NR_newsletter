@@ -265,7 +265,7 @@ class Intern extends CI_Controller
 		exit($result);
 	}
 	
-		public function verificationAddIntern() {
+	public function verificationAddIntern() {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 
@@ -309,7 +309,7 @@ class Intern extends CI_Controller
 		}
 	}
 	
-		public function formCompletion() {
+	public function formCompletion() {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 			
@@ -325,7 +325,7 @@ class Intern extends CI_Controller
 		$this->load->view ( 'intern/footer' );
 	}
 	
-		public function formCompletionModify(){
+	public function formCompletionModify(){
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 		$result = "";

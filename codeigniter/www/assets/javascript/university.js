@@ -171,6 +171,17 @@ function delInternForm(id) {
 	 */
 	var e = document.getElementById("groupIntern"+id);
 	e.parentNode.removeChild(e);
+	
+	nbInput[id][1] = 0;
+	nbInput[id][2] = 0;
+}
+
+function saveArrayNbInput() {
+	/*
+	 * This function saves the array nbInput
+	 */
+	
+	document.getElementById("nbInputPhoneMail").value = nbInput.join();
 }
 
 function addField(field, contactNum) {
@@ -180,7 +191,7 @@ function addField(field, contactNum) {
 	//Save the number of input for each contact to know how many fields 
 	//are supposed to be displayed
 	
-	//~ alert("contactNum = "+contactNum);
+	//alert("nbInput["+contactNum+"] = "+nbInput[contactNum]+"\nnbInput["+contactNum+"][1] = "+nbInput[contactNum][1]+"\nnbInput["+contactNum+"][2] = "+nbInput[contactNum][2]);
 	
 	if(field == "mail") {
 		nbInput[contactNum][1]++;
@@ -203,9 +214,6 @@ function addField(field, contactNum) {
 }
 
 function createField(contactNum, field, fieldNum) {
-	
-	//~ alert("contactNum = "+contactNum+"\nfield = "+field+"\nfieldNum = "+fieldNum);
-	
 	//Creation of the new elements
 	var element = document.getElementById("TableContainer"+contactNum);
 	
@@ -280,8 +288,8 @@ var funcAddContactToUniv = function addInternToUniv() {
 	 * to the university that is added
 	 */
 	
-	//
 	numContact++;
+	nbInput[numContact] = numContact;
 	nbInput[numContact] = new Array();
 	nbInput[numContact][1] = 1;
 	nbInput[numContact][2] = 1;

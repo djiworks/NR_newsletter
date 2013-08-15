@@ -58,13 +58,19 @@
 								
 								<div class="control-group">
 									<div class="controls">
-										<input type="hidden" id="nbContact2Add" name="nbIntern2Add" />
+										<input type="hidden" id="nbContact2Add" name="nbContact2Add" />
 									</div>
 								</div>
 								
 								<div class="control-group">
 									<div class="controls">
-										<button type="submit" class="btn">Submit</button>
+										<input type="hidden" id="nbInputPhoneMail" name="nbInputPhoneMail" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<div class="controls">
+										<button type="submit" class="btn" onclick="saveArrayNbInput()">Submit</button>
 									</div>
 								</div>
 							</div>
