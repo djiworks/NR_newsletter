@@ -136,6 +136,8 @@ class University extends CI_Controller {
 		$fetched_Contact = $ci->university_md->getAllUniv_Contact ();
 		$displayContact = array ();
 		$id_univ = "";
+		$mail = "1";
+		$phone = "1";
 		$i = 1;
 		
 		foreach ( $fetched_Contact->result () as $line ) {
@@ -145,12 +147,24 @@ class University extends CI_Controller {
 				$displayContact [$id_univ] = "";
 			}
 			
+			if(($mail != $line->mail) && ($mail != "")) {
+				$mail = $line->mail;
+			} else {
+				$mail = "";
+			}
+			
+			if(($phone != $line->number) && ($phone != "")) {
+				$phone = $line->number;
+			} else {
+				$phone = "";
+			}
+			
 			$displayContact [$id_univ] = $displayContact [$id_univ]."
 				<tr>
 					<td class='classTabContactNumber'>".$line->id_contact."</td>
 					<td class='classTabContactInfo'>".$line->information."</td>
-					<td class='classTabContactMail'>".$line->mail."</td>
-					<td class='classTabContactPhone'>".$line->number."</td>";
+					<td class='classTabContactMail'>".$mail."</td>
+					<td class='classTabContactPhone'>".$phone."</td>";
 					
 			if($line->number && ($line->type == 0)){
 				$displayContact [$id_univ] = $displayContact [$id_univ]."
