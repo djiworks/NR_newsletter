@@ -1,6 +1,7 @@
 <?php
 include_once (APPPATH . "controllers/intern/intern.php");
 include_once (APPPATH . "controllers/newsletter/newsletter.php");
+include_once (APPPATH . "controllers/mailer/class.phpmailer.php");
 
 class University extends CI_Controller {
 	private $id;
@@ -151,7 +152,7 @@ class University extends CI_Controller {
 					<td class='classTabContactMail'>".$line->mail."</td>
 					<td class='classTabContactPhone'>".$line->number."</td>";
 					
-			if($line->number){
+			if($line->number && ($line->type == 0)){
 				$displayContact [$id_univ] = $displayContact [$id_univ]."
 					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
 				}
@@ -589,10 +590,7 @@ class University extends CI_Controller {
 		isAllowedToView($this, 2, '/university/leftmenu');
 		$this->load->view ( 'university/body', $data );
 		$this->load->view ( 'university/footer' );
-		
-	//~ <h3>Object: Newsletter Name</h3>
-			//~ <h3>Content:</h3>
-			//~ newsletter contents in html
+
 	}
 	
 	public function mailNewsletter() {
@@ -601,11 +599,82 @@ class University extends CI_Controller {
 
 		$recipientsList = $this->input->post ('recipientsList');
 		$newsletterId = $this->input->post ( 'newsletterId' );
+		$recipientsList = explode(',',$recipientsList);
+		$mailArray = array();
+		
+		//~ foreach($recipientsList as $recipient)
+		for($i=0; $i<count($recipientsList); $i++)
+		{
+			$index = $recipientsList[$i];
+			$mailList = $this->university_md->getAllMail($index);
+			if($mailList->num_rows() > 0)
+			{
+				$mailList = $mailList->result();
 
+				$mailArray[$index] = array();
+				foreach($mailList as $mail)
+				{
+					$mailArray[$index][] = $mail->mail;
+				}
+			}
+		}
+		
+		$newsletter = Newsletter::get($newsletterId)->row(0);
+		
+		//~ $this->sendingMail($content, $address, $name, $subject);
+		//~ foreach($recipientsList as $recipient)
+		foreach($mailArray as $key => $value)
+		{
+			foreach($value as $address)
+			{
+				$this->sendingMail($newsletter->content, $address, $key, $newsletter->name);		
+				//~ echo '</br>'.var_dump($newsletter->content).'</br>';
+				//~ echo '</br>'.var_dump($address).'</br>';
+				//~ echo '</br>'.var_dump($key).'</br>';
+				//~ echo '</br>'.var_dump($newsletter->name).'</br>';
+			}
+		}
+	//~ echo '</br>'.var_dump($recipientsList).'</br>';
+	//~ echo '</br>'.var_dump($mailArray).'</br>';
+	}
 
-		echo '</br>'.var_dump($recipientsList).'</br>';		
-		echo '</br>'.var_dump($newsletterId).'</br>';
-
+	public function sendingMail($content, $address, $name, $subject)
+	{
+		isLoggedInRedirect($this);
+		isAllowed($this, 2);
+		
+		$mail = new PHPMailer();
+		$mail->IsSMTP(); // send via SMTP
+		$mail->SMTPAuth = true; // turn on SMTP authentication
+		$mail->SMTPSecure = "ssl";
+		$mail->Host = "smtp.gmail.com";
+		$mail->Port = 465;
+		$mail->Username = "hr@internship-uk.com"; // SMTP username
+		$mail->Password = "2Access4Hr2013"; // SMTP password
+		
+		$mail->From = $address;
+		$mail->FromName = "Internship-UK"; //Name to display for from:
+		
+		$mail->AddAddress("bazirehoussin@gmail.com", $name);
+		//~ $mail->AddAddress($address, $name);
+		
+		$mail->AddReplyTo($address,"Internship-UK");//name of the sender
+		
+		$mail->IsHTML(true); // send as HTML
+		$mail->Subject = $subject;
+		$mail->Body = $content; //HTML Body
+		$mail->AltBody = strip_tags(htmlspecialchars_decode($content)); //If the recipients disable the html tag reading
+		
+		if(!$mail->Send())
+		{
+		echo "Mailer Error: " . $mail->ErrorInfo;
+		}
+		else
+		{
+		echo "Message has been sent";
+		}
+		
+		
 	}
 	
 	public function formCompletion($address, $inputInfoContact) {

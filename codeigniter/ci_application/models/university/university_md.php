@@ -32,6 +32,16 @@ class University_md extends CI_Model
 						->get($this->table);
 	 }
 	 
+	 public function getAllMail($id) {
+		return $this->db->query("
+				SELECT m.mail
+				FROM ".$this->table." AS u 
+					INNER JOIN ".$this->table2." AS c ON u.id_university = c.id_university
+					INNER JOIN ".$this->table4." AS m ON m.id_contact = c.id_contact
+				WHERE u.id_university = ".$id."
+				;");
+	} 
+	 
 	 public function getName($id){
 		return $this->db->select("name")
 						->where("id_university",$id)
