@@ -152,7 +152,7 @@
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
 	</div>
 	<div class="modal-body">
-	<p>University added with success.</p>
+	<p>University successfully added.</p>
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
@@ -165,7 +165,7 @@
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
-	<p>University deleted with success.</p>
+	<p>University successfully deleted.</p>
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
@@ -178,7 +178,7 @@
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
-	<p>Newsletter sent with success.</p>
+	<p>Newsletter successfully sent.</p>
 	</div>
 	<div class="modal-footer">
 	<button class="btn" type="button" data-dismiss="modal" >Close</button>
