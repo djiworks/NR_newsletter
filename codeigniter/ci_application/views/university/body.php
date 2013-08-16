@@ -191,7 +191,7 @@
 	<h4>Failure</h4>
 	</div>
 	<div class="modal-body">
-	<p>Failure for sending the newsletter:</br>
+	<p>Failure when sending the newsletter:</br>
 	<?php if(isset($failureLog)){echo $failureLog; }?>
 	</p>
 	</div>

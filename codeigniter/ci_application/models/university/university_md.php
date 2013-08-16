@@ -32,6 +32,12 @@ class University_md extends CI_Model
 						->get($this->table);
 	 }
 	 
+	 public function getComment($id){
+		return $this->db->select("comment")
+						->where("id_university",$id)
+						->get($this->table);
+	 }
+	 
 	 public function getAllMail($id) {
 		return $this->db->query("
 				SELECT m.mail
