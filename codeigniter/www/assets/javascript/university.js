@@ -527,6 +527,10 @@ var funcSearch = function search(field, field) {
 
 
 /* Listeners */
+
+$('#failure_sending').on('hide', function() {
+	window.location.href = "/index.php/university/university/";
+})
 //~ Listener to add interns for a university
 var element = document.getElementById('buttonAddContact');
 element.addEventListener('click', funcAddContactToUniv, false);

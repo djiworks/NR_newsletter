@@ -408,7 +408,7 @@ class University extends CI_Controller {
 	public function getName($id) {
 		isLoggedInRedirect($this);
 		
-		return $this->university_md->get($id);
+		return $this->university_md->getName($id);
 	}
 	
 	public function getAdress() {
@@ -438,19 +438,29 @@ class University extends CI_Controller {
 	public function getComment() {
 		isLoggedInRedirect($this);
 		
-		return $this->comment;
+		$this->load->model ( 'university/university_md' );
+		$id = 3;
+		$id = $this->uri->segment (4);
+		var_dump($id);
+
+		$result = $this->university_md->getComment( $id);
+		
+		//~ return $result->row(0)->comment;
+		//~ var_dump($result->row(0)->comment);
+		echo $result->row(0)->comment;
 	}
 	
 	public function addCommentOnUniversity() {
 		isLoggedInRedirect($this);
 		
-		$ci = new CI_CONTROLLER ();
 		$this->load->model ( 'university/university_md' );
-		$this->load->database ();
-		
+
 		$id = $this->input->post ( 'id' );
 		$comment = $this->input->post ( 'comment' );
-		
+
+		$sess = $this->session->userdata('logged_in');
+
+		$comment = "********************</br>".date("l, j F Y H:i:s")." by ". $sess['username'].":</br>".$comment."</br></br>";
 		$result = $this->university_md->addCommentOnUniversity ( $id, $comment );
 	}
 	
@@ -458,7 +468,7 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		$result = $this->university_md->get ( $this->id );
 		
-		if ($result->num_rows ()) {
+		if ($result->num_rows ()>0) {
 			$data = $result->row ();
 			$this->name = $data->name;
 			$this->address = $data->address;
