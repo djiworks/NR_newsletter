@@ -14,12 +14,14 @@ INSERT INTO `person` (`id_person`, `first_name`, `last_name`, `phone`, `mail`, `
 (1, 'Djothi', 'Grondin', '0634859671', 'djothi.grondin@outlook.com', 'France', '2013-08-09'),
 (2, 'Bazire', 'Houssin', '0352169800', 'enVoitureSimone@gmail.com', 'France', NULL),
 (3, 'Alexis', 'De Marinis', '0635982145', 'alex@terieur.com', 'Spain', '2013-08-27'),
-(4, 'Natazsa', 'I dont know', '0655321484', 'ducks@couack.co', 'Greece', '2013-10-31');
+(4, 'Isabelle', 'Touchefeu', '0655321484', 'ducks@couack.co', 'Greece', '2013-10-31');
 
 INSERT INTO `user` (`id_user`, `login`, `password`, `id_role`) VALUES
-(1, 'djothi', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 1),
+(1, 'alexis', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 1),
 (2, 'bazire', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 2);
-(3, 'oumnia', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 5);
+(2, 'djothi', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 3);
+(2, 'oumnia', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 4);
+(3, 'vittorio', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 5);
 
 INSERT INTO `contact` (`id_contact`, `information`, `id_university`) VALUES
 (1, 'International Partnership Manager', 1),
@@ -31,20 +33,20 @@ INSERT INTO `contact` (`id_contact`, `information`, `id_university`) VALUES
 (7, 'Standard', 5);
 
 INSERT INTO `mail` (`id_mail`, `mail`, `id_contact`) VALUES
-(1, 'university.country@example.com', 6),
-(2, 'university.country@example.com', 7),
-(3, 'instance@example.com', 6),
-(4, 'instance@example.com', 2),
-(5, 'manager.partnership@example.com', 4),
-(6, 'manager.partnership@example.com', 4);
+(1, 'contact6@mail1.com', 6),
+(2, 'contact7@mail1.com', 7),
+(3, 'contact6@mail2.com', 6),
+(4, 'contact2@mail1.com', 2),
+(5, 'contact4@mail1.com', 4),
+(6, 'contact4@mail2.com', 4);
 
 INSERT INTO `phone` (`id_phone`, `number`, `type`, `id_contact`) VALUES
-(5, '54354354353', 0, 3),
-(6, '543543543543543', 0, 5),
-(7, '09098756754', 0, 4),
-(8, '43254387686', 0, 1),
-(9, '65465464646464', 0, 3),
-(10, '544365465465436', 0, 5);
+(1, '1000000301', 0, 3),
+(2, '2010000501', 1, 5),
+(3, '3000000401', 0, 4),
+(4, '4010000101', 1, 1),
+(5, '5010000302', 1, 3),
+(6, '6000000502', 0, 5);
 
 INSERT INTO `recommended_by` (`id_person`, `id_university`, `is_student`) VALUES
 (1, 1, 1),

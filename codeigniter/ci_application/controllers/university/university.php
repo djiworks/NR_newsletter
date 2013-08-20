@@ -76,6 +76,16 @@ class University extends CI_Controller {
 		$this->index ();
 	}
 	
+	public function checkEntryAlreadyExists($array, $entry) {
+		for ($i = 0 ; $i < sizeOf($array) ; $i++) {
+			if($array[$i] == $entry) {
+				return false;
+			}
+		}
+				
+		return true;
+	}
+	
 	public function getAllUniversities() {
 		isLoggedInRedirect($this);
 
@@ -135,9 +145,12 @@ class University extends CI_Controller {
 		$fetched_Contact = $ci->university_md->getAllUniv_Contact ();
 		$displayContact = array ();
 		$id_univ = "";
+		$arrayMail = Array();
+		$arrayPhone = Array();
 		$mail = "1";
 		$phone = "1";
-		$i = 1;
+		$fax = "";
+		$i = 0;
 		
 		foreach ( $fetched_Contact->result () as $line ) {
 			$id_univ = $line->id_university;
@@ -146,42 +159,57 @@ class University extends CI_Controller {
 				$displayContact [$id_univ] = "";
 			}
 			
-			if(($mail != $line->mail) && ($mail != "")) {
-				$mail = $line->mail;
+			if($mail != $line->mail) {
+				if($this->checkEntryAlreadyExists($arrayMail, $line->mail)) {
+					$mail = $line->mail;
+					$arrayMail[$i] = $line->mail;
+					$i++;	
+				} else {
+					$mail = "";
+				}
 			} else {
 				$mail = "";
 			}
 			
-			if(($phone != $line->number) && ($phone != "")) {
+			if($phone != $line->number) {
 				$phone = $line->number;
+				if($line->number && ($line->type == 0)){
+					$fax = "<button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button>";
+				} else if($line->number && ($line->type == 1)) {
+					$fax = "Fax";
+				}
 			} else {
 				$phone = "";
+				$fax = "";
 			}
 			
-			$displayContact [$id_univ] = $displayContact [$id_univ]."
-				<tr>
-					<td class='classTabContactNumber'>".$line->id_contact."</td>
-					<td class='classTabContactInfo'>".$line->information."</td>
-					<td class='classTabContactMail'>".$mail."</td>
-					<td class='classTabContactPhone'>".$phone."</td>";
+			if($mail != "" || $phone != "") {
+				$displayContact [$id_univ] = $displayContact [$id_univ]."
+					<tr>
+						<td class='classTabContactInfo'>".$line->information."</td>
+						<td class='classTabContactMail'>".$mail."</td>
+						<td class='classTabContactPhone'>".$phone."</td>
+						<td>".$fax."</td>
+					</tr>";
+			}
 					
-			if($line->number && ($line->type == 0)){
-				$displayContact [$id_univ] = $displayContact [$id_univ]."
-					<td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
-				}
-				else if($line->number && ($line->type == 1))
-				{
-					$displayContact [$id_univ] = $displayContact [$id_univ]."
-					<td>Fax</td>";
-				}
-				else
-				{
-					$displayContact [$id_univ] = $displayContact [$id_univ]."
-					<td></td>";
-				}
-			
-				$displayContact [$id_univ] = $displayContact [$id_univ]."
-				</tr>";
+			//~ if($line->number && ($line->type == 0)){
+				//~ $displayContact [$id_univ] = $displayContact [$id_univ]."
+					//~ <td><button class='btn btn-small btn-info' onclick=\"window.location.href = 'skype:".$line->number."?call';\"><i class='icon-headphones'></i>Call</button></td>";
+				//~ }
+				//~ else if($line->number && ($line->type == 1))
+				//~ {
+					//~ $displayContact [$id_univ] = $displayContact [$id_univ]."
+					//~ <td>Fax</td>";
+				//~ }
+				//~ else
+				//~ {
+					//~ $displayContact [$id_univ] = $displayContact [$id_univ]."
+					//~ <td></td>";
+				//~ }
+				//~ 
+				//~ $displayContact [$id_univ] = $displayContact [$id_univ]."
+				//~ </tr>";
 		}
 		
 		/**
@@ -311,7 +339,7 @@ class University extends CI_Controller {
 											<table class='classTabContactIn'>
 												<thead>
 													<tr>
-														<th>#</th>
+														<!--<th>#</th>-->
 														<th>Information</th>
 														<th>Mail</th>
 														<th>Phone</th>
@@ -678,8 +706,7 @@ class University extends CI_Controller {
 		}
 	}
 
-	public function sendingMail($content, $address, $name, $subject)
-	{
+	public function sendingMail($content, $address, $name, $subject) {
 		isLoggedInRedirect($this);
 		isAllowed($this, 2);
 		
