@@ -3,6 +3,9 @@
 	<button class="btn btn-small btn btn-info" type="button" data-toggle='modal' data-target='#addUser'>
 	<i class="icon-plus"></i> Add User
 	</button>
+	<button class="btn btn-small" type="button" data-toggle='modal' data-target='#backup'>
+	<i class="icon-plus"></i> Back up database
+	</button>
 	</div>
 	<table class="table table-hover" id="displayUserList">
 		<thead>
@@ -117,7 +120,6 @@
 	</div>
 	
 	<div id="confirmDeletion" class="modal hide fade">
-
 	<form method="post" id="deleteUserForm" action="/index.php/admin/admin/deleteUser" class="form-horizontal">
 	<div class="modal-header">
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
@@ -126,6 +128,24 @@
 	</div>
 	<div class="modal-body">
 	<p>Are you sure you want to delete that user ?</p>
+	</div>
+	<div class="modal-footer">
+	<button type="submit" class="btn">Yes</button>
+
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Cancel</button>
+
+	</div>
+	</form>
+	</div>
+	
+	<div id="backup" class="modal hide fade">
+	<form method="post" id="backupForm" action="/index.php/admin/admin/backup" class="form-horizontal">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<h4>Confirm backup</h4>
+	</div>
+	<div class="modal-body">
+	<p>Are you sure you want to create a backup of the database?</p>
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
