@@ -354,9 +354,10 @@ class University extends CI_Controller {
 							if($sess['role']<= 3)
 							{
 								$result = $result.		
-										"<li class='classBtnModify'><button class='btn btn-small' type='button' onclick =modifyUniversity(".$line->id_university.")>Modify</button></li>
-										<li class='classBtnDelete'><button class='btn btn-small' type='button' onclick =deleteUniversity(".$line->id_university.")>Delete</button></li>";
-							}				
+										//~ "<li class='classBtnModify'><button class='btn btn-small' type='button' onclick=modifyUniversity(".$line->id_university.")>Modify</button></li>
+										"<li class='classBtnModify'><button class='btn btn-small' type='button' onclick=\"window.location.href = '/index.php/university/university/modifyUniversity/".$line->id_university."';\">Modify</button></li>
+										<li class='classBtnDelete'><button class='btn btn-small' type='button' onclick=deleteUniversity(".$line->id_university.")>Delete</button></li>";
+							}
 								$result = $result."</ul>
 								</div>
 							</div>
@@ -484,7 +485,7 @@ class University extends CI_Controller {
 		isAllowed($this, 3);
 		$numContact = 0;
 		 
-		// loading of the library
+		//Loading of the library
 		$this->load->library('form_validation');
 		$this->load->model('university/university_md');
 		$this->load->model('contact/contact_md');
@@ -593,8 +594,108 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		isAllowed($this, 3);
 
-		echo 'TODO faire le controller modifyUniversity (reprendre addUniversity nouvelle version ?)';
-	}
+		//Get the id of the university
+		$ci = new CI_CONTROLLER();
+		$id = $ci->uri->segment(4);
+
+		$this->load->model('university/university_md');
+		$this->load->model('contact/contact_md');
+
+		$data = array ();
+		$data['allUniv'] = $this->getAllUniversities();
+		$data['allNames'] = Intern::getAllNames();
+		$data['allCountries'] = $this->getAllCountries();
+		$data['newsletterList'] = Newsletter::getNewsletterList();
+		
+		
+		$result = $this->university_md->get($id);
+		
+		//Main information of the university
+		foreach ($result->result() as $line) {
+			$data['univName'] = $line->name;
+			$data['univAddress'] = $line->address;
+			$data['univCountry'] = $line->country;
+		}
+		
+		//Name of the intern who recommended the university
+		$result = $this->university_md->getUniv_Intern($id);
+		foreach ($result->result() as $line) {
+			$data['univIntern'] = $line->first_name." ".$line->last_name;
+			//As we only display 1 intern, we stop the boucle
+			break;
+		}
+		
+		//Contacts for the university
+		$result = $this->university_md->getUniv_Contact($id);
+		foreach ($result->result() as $line) {
+			$id_contact = $line->id_contact;
+			
+			$result_contact = $this->contact_md->getInfoContact($id_contact);
+		}
+			
+		$i = 1;
+		
+		/*echo '<div id="groupIntern1">
+				<div>
+					<div>
+						<a href="#collapse1" data-parent="#accordion" data-toggle="collapse" id="linkDisplayContact'.$i.'">New contact '.$i.'</a>
+						<button onclick="delInternForm('.$i.');" aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+					</div>
+				</div>
+				<div id="collapse'.$i.'">
+					<div>
+						<div class="control-group">
+							<label>Additional Information</label>
+							<div>
+								<textarea onblur="changeName('.$i.');" placeholder="Additional Information" name="textAreaInfoContact'.$i.'" id="textAreaInfoContact'.$i.'" rows="3"></textarea>
+							</div>
+						</div>
+						<table id="TableContainer'.$i.'">
+							<thead>
+								<tr>
+									<th>Mail<i onclick="addField(\'mail\', '.$i.')" class="icon-plus-sign"></i></th>
+									<th>Phone<i onclick="addField(\'phone\', '.$i.')" class="icon-plus-sign"></i></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div>
+											<div>
+												<input placeholder="Email" class="input-medium" name="inputEmail'.$i.'1" id="inputEmail11" type="text">
+											</div>
+										</div>
+									</td>
+									<td>
+										<div>
+											<div>
+												<input placeholder="Phone" class="input-medium" name="inputPhone11" id="inputPhone11" type="text">
+												<input name="inputCheckFax11" id="inputCheckFax11" type="checkbox">
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>';
+		*/
+		
+		//Loading the page
+		if(isset($is_success)){
+			$data ['is_success'] = $is_success;
+		}
+	
+		$this->load->view ( 'university/head' );
+		$session_data = $this->session->userdata('logged_in');
+		
+		loadTopMenu($this, 'university', $session_data) ;
+
+		//~ $this->load->view ( 'university/leftmenu' );
+		$this->load->view ( 'university/modifyUniversity', $data );
+		$this->load->view ( 'university/footer' );
+}
 	
 	public function sendNewsletter() {
 		isLoggedInRedirect($this);

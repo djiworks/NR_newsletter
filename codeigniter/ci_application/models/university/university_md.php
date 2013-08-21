@@ -9,7 +9,7 @@ class University_md extends CI_Model
 	private $table5 = "recommended_by";
 	private $table6 = "person";
 	
-	public function update($id, $name, $address, $country, $subscription, $checking_state){
+	public function update($id, $name, $address, $country, $subscription, $checking_state) {
 		$this->db->set("name",$name)
 				 ->set("address",$address)
 				 ->set("country",$country)
@@ -19,26 +19,26 @@ class University_md extends CI_Model
 				 ->update($this->table);
 	}
 	 
-	 public function addCommentOnUniversity($id, $comment){
+	public function addCommentOnUniversity($id, $comment) {
 		 return $this->db->query("
 		 			UPDATE ".$this->table."
 		 			SET comment = CONCAT(comment,  '".$comment."')
 					WHERE ".$this->table.".id_university = " .$id
 					);
 	 }
-	 
-	 public function get($id){
+	
+	public function get($id) {
 		return $this->db->where("id_university",$id)
 						->get($this->table);
 	 }
-	 
-	 public function getComment($id){
+	
+	public function getComment($id) {
 		return $this->db->select("comment")
 						->where("id_university",$id)
 						->get($this->table);
 	 }
-	 
-	 public function getAllMail($id) {
+	
+	public function getAllMail($id) {
 		return $this->db->query("
 				SELECT m.mail
 				FROM ".$this->table." AS u 
@@ -47,14 +47,14 @@ class University_md extends CI_Model
 				WHERE u.id_university = ".$id."
 				;");
 	} 
-	 
-	 public function getName($id){
+	
+	public function getName($id) {
 		return $this->db->select("name")
 						->where("id_university",$id)
 						->get($this->table);
 	 }
-	 
-	 public function create($name, $address, $country, $subscription, $checking_state){
+	
+	public function create($name, $address, $country, $subscription, $checking_state) {
 		$this->db->set("name",$name)
 				 ->set("address",$address)
 				 ->set("country",$country)
@@ -66,16 +66,16 @@ class University_md extends CI_Model
 					SELECT MAX(id_university) as id_univ
 						FROM ".$this->table.";");
 	 }
-	 
-	 public function getSearchedUniversities($field, $value){
+	
+	public function getSearchedUniversities($field, $value) {
 		 return $this->db->query("
 					SELECT id_university
 					FROM ".$this->table."
 					WHERE ".$this->table.".".$field." LIKE '%".$value."%'
 			");
 	 }
-	 
-	public function delete($id_university){			 
+	
+	public function delete($id_university) {
 		$this->db->where('id_university', $id_university)
 				 ->delete($this->table);	
 	}
@@ -89,7 +89,7 @@ class University_md extends CI_Model
 					FROM ".$this->table6."
 					");
 	}
-	 
+	
 	public function getAll() {
 				return $this->db->query("
 					SELECT u.id_university, u.name, u.address, u.country, u.subscription, u.checking_state, u.comment, m.mail, p.number
@@ -142,6 +142,24 @@ class University_md extends CI_Model
 					LEFT OUTER JOIN ".$this->table6." AS p ON r.id_person = p.id_person
 				ORDER BY u.id_university ASC;");
 	} 
+	//~ 
+	public function getUniv_Contact($id) {
+		return $this->db->query("
+			SELECT c.id_contact
+				FROM ".$this->table2." AS c
+				WHERE c.id_university = $id;");
+	}
+	
+	
+	public function getUniv_Intern($id) {
+		return $this->db->query("
+			SELECT p.first_name, 
+				   p.last_name 
+				FROM ".$this->table6." AS p 
+					INNER JOIN ".$this->table5." AS r 
+						ON p.id_person = r.id_person 
+				WHERE r.id_university = $id;");
+	}
 	
 	public function getNumberWaitingUniversities() {
 		return $this->db->query("
@@ -159,8 +177,7 @@ class University_md extends CI_Model
 				;");
 	} 
 	
-	function updateCheckingState($id_university, $checking_state)
-	{
+	function updateCheckingState($id_university, $checking_state) {
 		return $this->db->query("
 			UPDATE ".$this->table."
 			SET checking_state = ".$checking_state."
