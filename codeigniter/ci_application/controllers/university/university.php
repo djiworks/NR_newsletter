@@ -2,7 +2,6 @@
 include_once (APPPATH . "controllers/intern/intern.php");
 include_once (APPPATH . "controllers/newsletter/newsletter.php");
 include_once (APPPATH . "controllers/mailer/class.phpmailer.php");
-include_once (APPPATH . "controllers/parser/simple_html_dom.php");
 
 class University extends CI_Controller {
 	private $id;
@@ -12,9 +11,7 @@ class University extends CI_Controller {
 	private $subscription;
 	private $checking_state;
 	private $comment;
-	private $mail;
-	private $img_array;
-
+	
 	public function __construct($id = false) {
 		parent::__construct ();
 		$this->load->helper('login');
@@ -629,61 +626,67 @@ class University extends CI_Controller {
 		}
 		
 		//Contacts for the university
+		$i = 1;
+		$numMail = 1;
+		$numPhone = 1;
+		$data['univContactList'] = "";
+		
 		$result = $this->university_md->getUniv_Contact($id);
 		foreach ($result->result() as $line) {
 			$id_contact = $line->id_contact;
 			
+			$data['univContactList'] = $data['univContactList'] . "
+			<div id='groupIntern".$i."'>
+				<div>
+					<div>
+						<a href='#collapse".$i."' data-parent='#accordion' data-toggle='collapse' id='linkDisplayContact".$i."'>New contact ".$i."</a>
+						<button onclick='delInternForm(".$i.");' aria-hidden='true' data-dismiss='modal' class='close' type='button'>×</button>
+					</div>
+				</div>
+				<div id='collapse".$i."'>
+					<div>
+						<div class='control-group'>
+							<label>Additional Information</label>
+							<div>
+								<textarea onblur='changeName(".$i.");' placeholder='Additional Information' name='textAreaInfoContact".$i."' id='textAreaInfoContact".$i."' rows='3'></textarea>
+							</div>
+						</div>
+						<table id='TableContainer".$i."'>
+							<thead>
+								<tr>
+									<th>Mail<i onclick='addField(\'mail\', ".$i.")' class='icon-plus-sign'></i></th>
+									<th>Phone<i onclick='addField(\'phone\', ".$i.")' class='icon-plus-sign'></i></th>
+								</tr>
+							</thead>
+							<tbody>";
+			
 			$result_contact = $this->contact_md->getInfoContact($id_contact);
+			foreach ($result_contact->result() as $line_contact) {
+				$mail = ($line_contact->mail) ? $line_contact->mail : "";
+				$phone = ($line_contact->phone) ? $line_contact->phone : "";
+				$fax = ($line_contact->type) ? "checked" : "";
+				
+				$data['univContactList'] = $data['univContactList'] . "
+				<tr>
+					<td>
+						<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text'>
+					</td>
+					<td>
+						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text'>
+						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' checked='$fax'>
+					</td>
+				</tr>";
+				
+				$numMail++;
+				$numPhone++;
+			}
+			
+			$i++;
 		}
 			
 		$i = 1;
 		
-		/*echo '<div id="groupIntern1">
-				<div>
-					<div>
-						<a href="#collapse1" data-parent="#accordion" data-toggle="collapse" id="linkDisplayContact'.$i.'">New contact '.$i.'</a>
-						<button onclick="delInternForm('.$i.');" aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-					</div>
-				</div>
-				<div id="collapse'.$i.'">
-					<div>
-						<div class="control-group">
-							<label>Additional Information</label>
-							<div>
-								<textarea onblur="changeName('.$i.');" placeholder="Additional Information" name="textAreaInfoContact'.$i.'" id="textAreaInfoContact'.$i.'" rows="3"></textarea>
-							</div>
-						</div>
-						<table id="TableContainer'.$i.'">
-							<thead>
-								<tr>
-									<th>Mail<i onclick="addField(\'mail\', '.$i.')" class="icon-plus-sign"></i></th>
-									<th>Phone<i onclick="addField(\'phone\', '.$i.')" class="icon-plus-sign"></i></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<div>
-											<div>
-												<input placeholder="Email" class="input-medium" name="inputEmail'.$i.'1" id="inputEmail11" type="text">
-											</div>
-										</div>
-									</td>
-									<td>
-										<div>
-											<div>
-												<input placeholder="Phone" class="input-medium" name="inputPhone11" id="inputPhone11" type="text">
-												<input name="inputCheckFax11" id="inputCheckFax11" type="checkbox">
-											</div>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>';
-		*/
+		
 		
 		//Loading the page
 		if(isset($is_success)){
@@ -784,8 +787,6 @@ class University extends CI_Controller {
 
 			foreach($value as $address)
 			{
-				$this->mail = new PHPMailer();
-				$this->img_array = array();
 				$tmp = $this->sendingMail($newsletter->content, $address, $name, $newsletter->name);
 				if($tmp != NULL)
 				{
@@ -794,7 +795,6 @@ class University extends CI_Controller {
 				}	
 			}
 		}
-		
 		if($result == "")
 		{
 			$this->index(3);
@@ -827,76 +827,31 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		isAllowed($this, 2);
 		
-		$content = preg_replace_callback("#background-image\s*:\s*url\s*\(.*\)\s*;#",
-        function ($matches) {
-            $tmp = explode("'", $matches[0]);
-            $replace = '';
-            if(isset($tmp)&& count($tmp)>2)
-            {
-				 $replace = explode('/', $tmp[1]);
-				 $replace = str_replace(' ', '_', $replace[count($replace)-1]);
-				 if(!in_array($replace,$this->img_array))
-				 { 
-					$this->img_array[] = $replace;
-					$this->mail->AddEmbeddedImage($tmp[1], $replace,  $replace);
-				 }
-			}
-			else
-			{ 
-				$tmp = explode('"', $matches[0]);
-				 if(isset($tmp)&& count($tmp)>2)
-			   	{
-				 $replace = explode('/', $tmp[1]);
-				 $replace = str_replace(' ', '_', $replace[count($replace)-1]);
-				 if(!in_array($replace,$this->img_array))
-					 { 
-						$this->img_array[] = $replace;
-						$this->mail->AddEmbeddedImage($tmp[1], $replace,  $replace);
-					 }
-				}
-			}
-            return "background-image:url(cid:".$replace.");";
-        },
-        $content);
-
-		// Create DOM from URL or file
-		$html = str_get_html($content);
-
-		// Find all images
-		foreach($html->find('img') as $element)
+		$mail = new PHPMailer();
+		$mail->IsSMTP(); // send via SMTP
+		$mail->SMTPAuth = true; // turn on SMTP authentication
+		$mail->SMTPSecure = "ssl";
+		$mail->Host = "smtp.gmail.com";
+		$mail->Port = 465;
+		$mail->Username = "hr@internship-uk.com"; // SMTP username
+		$mail->Password = "2Access4Hr2013"; // SMTP password
+		
+		$mail->From = $address;
+		$mail->FromName = "Internship-UK"; //Name to display for from:
+		
+		$mail->AddAddress("bazirehoussin@gmail.com", $name);
+		//~ $mail->AddAddress($address, $name);
+		
+		$mail->AddReplyTo($address,"Internship-UK");//name of the sender
+		
+		$mail->IsHTML(true); // send as HTML
+		$mail->Subject = $subject;
+		$mail->Body = $content; //HTML Body
+		$mail->AltBody = strip_tags(htmlspecialchars_decode($content)); //If the recipients disable the html tag reading
+		
+		if(!$mail->Send())
 		{
-			   $replace = explode('/', $element->src);
-			   $replace = str_replace(' ', '_', $replace[count($replace)-1]);
-			   
-			   $element->src = "cid:".$replace;
-		}
-		$content = $html->save();
-		//~ echo $content;
-		
-		$this->mail->IsSMTP(); // send via SMTP
-		$this->mail->SMTPAuth = true; // turn on SMTP authentication
-		$this->mail->SMTPSecure = "ssl";
-		$this->mail->Host = "smtp.gmail.com";
-		$this->mail->Port = 465;
-		$this->mail->Username = "hr@internship-uk.com"; // SMTP username
-		$this->mail->Password = "2Access4Hr2013"; // SMTP password
-		
-		$this->mail->From = $address;
-		$this->mail->FromName = "Internship-UK"; //Name to display for from:
-		
-		$this->mail->AddAddress("bazirehoussin@gmail.com", $name);
-		//~ $this->mail->AddAddress($address, $name);
-		
-		$this->mail->AddReplyTo($address,"Internship-UK");//name of the sender
-		
-		$this->mail->IsHTML(true); // send as HTML
-		$this->mail->Subject = $subject;
-		$this->mail->Body = $content; //HTML Body
-		$this->mail->AltBody = strip_tags(htmlspecialchars_decode($content)); //If the recipients disable the html tag reading
-		
-		if(!$this->mail->Send())
-		{
-			return $this->mail->ErrorInfo;
+			return $mail->ErrorInfo;
 		}
 		else
 		{

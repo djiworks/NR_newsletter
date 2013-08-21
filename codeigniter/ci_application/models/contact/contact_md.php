@@ -40,8 +40,7 @@ class Contact_md extends CI_Model {
 				FROM ".$this->table." AS c 
 					LEFT OUTER JOIN ".$this->table2." AS m ON c.id_contact = m.id_contact 
 					LEFT OUTER JOIN ".$this->table3." AS p ON c.id_contact = p.id_contact
-				WHERE c.id_contact = $id;
-		");
+				WHERE c.id_contact = ".$id.";");
 			
 			
 			
