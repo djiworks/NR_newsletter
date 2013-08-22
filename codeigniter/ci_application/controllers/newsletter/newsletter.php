@@ -95,7 +95,7 @@ class Newsletter extends CI_Controller
 		$fetched_roles = $ci->newsletter_md->getNewsletterList();
 		$result = "";
 				
-		foreach ( $fetched_roles->result () as $line_bis ) {				
+		foreach ( $fetched_roles->result () as $line_bis ) {
 				$result = $result . '<option>'.$line_bis->id_newsletter.'-'. $line_bis->name .'</option>';
 		}
 
@@ -221,7 +221,7 @@ class Newsletter extends CI_Controller
 			}
 			//~ var_dump($path); 
 			//~ var_dump($_FILES['Path']['name']); 
-			$config['upload_path'] = 'uploads/';
+			$config['upload_path'] = '../univ_news_data/uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
 			$config['max_size'] = '2048';
 			$config['remove_spaces'] = true;

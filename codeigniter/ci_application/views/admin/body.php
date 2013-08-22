@@ -169,6 +169,32 @@
 	</div>
 	</div>
 	
+	<div id="success_backup" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<h4>Success</h4>
+	</div>
+	<div class="modal-body">
+	<p>Backup of the database created with success.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	</div>
+	</div>
+	
+	<div id="failure_backup" class="modal hide fade">
+	<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<h4>Failure</h4>
+	</div>
+	<div class="modal-body">
+	<p>Backup of the database failed (too heavy ?). Try again or try directly using command line in terminal.</p>
+	</div>
+	<div class="modal-footer">
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	</div>
+	</div>
+	
 	
 	<div id="failure" class="modal hide fade">
 	<div class="modal-header">

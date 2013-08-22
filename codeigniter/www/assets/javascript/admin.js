@@ -19,6 +19,14 @@
 			{
 				$('#success_deletion').modal('show');
 			}
+			else if(is_success == 5)
+			{
+				$('#success_backup').modal('show');
+			}
+			else if(is_success == 4)
+			{
+				$('#failure_backup').modal('show');
+			}
 		}
 		
 		function modifyPassword(id){			

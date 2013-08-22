@@ -57,25 +57,19 @@ class Admin extends CI_Controller {
 		// Backup your entire database and assign it to a variable
 		$backup =& 	$this->dbutil->backup($prefs); 
 
-		var_dump($backup);
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
-		
-		//~ echo FCPATH  .'backup/'.date("Y-m-d_H:i:s").'.txt';
-		var_dump(get_filenames("."));
-		echo symbolic_permissions(fileperms('.\\backup'));
-		//~ $bla ='';
-		//~ get_file_info(".",$bla);
-		//~ var_dump($bla);
-		if(!write_file('.\\date'.("Y-m-d H:i:s").'.txt', $backup,'w+'))
+
+		if(!write_file('../univ_news_data/backup_database/'.date("Y-m-d H:i:s").'.txt', $backup,'w+'))
 		{
-			echo 'ERROR';
+			//~ echo 'ERROR';
+			$this->index (6);
 		}
 		else
 		{
-			echo 'SUCCESS';
+			//~ echo 'SUCCESS';
+			$this->index (5);
 		}
-		//~ $this->index ();
 	}
 	
 	public function updateRole()
