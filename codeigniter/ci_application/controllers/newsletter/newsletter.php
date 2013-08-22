@@ -186,7 +186,6 @@ class Newsletter extends CI_Controller
 		// loading of the library
 		$this->load->library ( 'form_validation' );
 		$this->load->model ( 'newsletter/newsletter_md' );
-		//~ $this->load->database ();
 		
 		$this->form_validation->set_rules ( 'Name', '"Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Description', '"Description"', 'trim|required|encode_php_tags|xss_clean' );
@@ -202,6 +201,7 @@ class Newsletter extends CI_Controller
 			$content = $this->input->post ( 'Content' );
 			$description = $this->input->post ( 'Description' );
 			$id_modify = $this->input->post ( 'modifyId' );
+			
 			if($id_modify != -1)
 			{
 				$creation_date = $this->input->post ( 'creationDate' );
@@ -210,8 +210,17 @@ class Newsletter extends CI_Controller
 			else
 			{
 				$creation_date = date("Y-m-d");
-				$checking_state = 2;
+				$checking_state = 2;	
 			}
+			
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '100';
+			$config['max_width']  = '1024';
+			$config['max_height']  = '768';
+
+			$this->load->library('upload', $config);
+
 			
 			if($id_modify != -1)
 			{
@@ -220,8 +229,20 @@ class Newsletter extends CI_Controller
 			}
 			else
 			{
-				$result = $this->newsletter_md->create ( $name, $cover, $path, $content, $description, $creation_date, $checking_state);
-				$this->index (0);
+				$this->load->helper('path');
+				echo set_realpath('.');
+				//~ echo symbolic_permissions(fileperms('.\\backup'));
+				$res = $this->upload->do_upload();
+				if($res)
+				{
+					echo 'SUCCESS';
+				}
+				else
+				{		
+					echo 'FAILURE';					
+				}
+				//~ $result = $this->newsletter_md->create ( $name, $cover, $path, $content, $description, $creation_date, $checking_state);
+				//~ $this->index (0);
 			}
 		} else {
 			// If the form is not valid or empty
