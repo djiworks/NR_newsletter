@@ -45,4 +45,5 @@ class Contact_md extends CI_Model {
 			
 			
 	}
+	
 }

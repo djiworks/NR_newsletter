@@ -596,6 +596,8 @@ class University extends CI_Controller {
 
 		//Get the id of the university
 		$ci = new CI_CONTROLLER();
+		$ci->load->model('contact/contact_md');
+
 		$id = $ci->uri->segment(4);
 
 		$this->load->model('university/university_md');
@@ -659,21 +661,25 @@ class University extends CI_Controller {
 								</tr>
 							</thead>
 							<tbody>";
+							
+			//~ $result_contact = $this->contact_md->getInfoContact($id_contact);
+
+			$result_contact = $ci->contact_md->getInfoContact($id_contact);
 			
-			$result_contact = $this->contact_md->getInfoContact($id_contact);
+			//~ echo var_dump($result_contact->result());
 			foreach ($result_contact->result() as $line_contact) {
 				$mail = ($line_contact->mail) ? $line_contact->mail : "";
-				$phone = ($line_contact->phone) ? $line_contact->phone : "";
+				$phone = ($line_contact->number) ? $line_contact->number : "";
 				$fax = ($line_contact->type) ? "checked" : "";
 				
 				$data['univContactList'] = $data['univContactList'] . "
 				<tr>
 					<td>
-						<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text'>
+						<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text' value='".$mail."'>
 					</td>
 					<td>
-						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text'>
-						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' checked='$fax'>
+						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text value='".$phone."''>
+						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' checked='".$fax."'>
 					</td>
 				</tr>";
 				
@@ -681,12 +687,14 @@ class University extends CI_Controller {
 				$numPhone++;
 			}
 			
+			$data['univContactList'] = $data['univContactList'] . "
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>";
 			$i++;
 		}
-			
-		$i = 1;
-		
-		
 		
 		//Loading the page
 		if(isset($is_success)){
