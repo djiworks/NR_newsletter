@@ -6,5 +6,5 @@ sudo rm -rf /var/www
 sudo cp -Rf ci_application /var/
 sudo cp -Rf ci_system /var/
 sudo cp -Rf www /var/
-
+sudo chmod -R 777 /var/www/uploads
 echo "Copie terminee"

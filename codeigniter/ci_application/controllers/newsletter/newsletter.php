@@ -55,6 +55,13 @@ class Newsletter extends CI_Controller
 		
 		$id = $this->input->post ( 'confirmDeletionId' );
 
+		$old_result = $this->newsletter_md->get($id)->row(0);
+		
+		$this->load->helper('file');
+
+		unlink($old_result->cover);
+		unlink($old_result->path);
+
 		$this->newsletter_md->delete($id);
 		
 		$this->index(2);
@@ -190,14 +197,14 @@ class Newsletter extends CI_Controller
 		$this->form_validation->set_rules ( 'Name', '"Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Description', '"Description"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Content', '"Content"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Path', '"Path"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Cover', '"Cover"', 'trim|required|encode_php_tags|xss_clean' );
+		//~ $this->form_validation->set_rules ( 'Path', '"Path"', 'trim|required|encode_php_tags|xss_clean' );
+		//~ $this->form_validation->set_rules ( 'Cover', '"Cover"', 'trim|required|encode_php_tags|xss_clean' );
 		
-		if ($this->form_validation->run ()) {
+		if ($this->form_validation->run () && ($_FILES['Path']['name']!='') && ($_FILES['Cover']['name']!='')) {
 			// If the form is valid
 			$name = $this->input->post ( 'Name' );
-			$cover = $this->input->post ( 'Cover' );
-			$path = $this->input->post ( 'Path' );
+			//~ $cover = $this->input->post ( 'Cover' );
+			//~ $path = $this->input->post ( 'Path' );
 			$content = $this->input->post ( 'Content' );
 			$description = $this->input->post ( 'Description' );
 			$id_modify = $this->input->post ( 'modifyId' );
@@ -212,44 +219,101 @@ class Newsletter extends CI_Controller
 				$creation_date = date("Y-m-d");
 				$checking_state = 2;	
 			}
-			
-			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']	= '100';
-			$config['max_width']  = '1024';
-			$config['max_height']  = '768';
+			//~ var_dump($path); 
+			//~ var_dump($_FILES['Path']['name']); 
+			$config['upload_path'] = 'uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+			$config['max_size'] = '2048';
+			$config['remove_spaces'] = true;
+			$config['overwrite'] = false;
+			$config['encrypt_name'] = false;
+			$config['max_width']  = '';
+			$config['max_height']  = '';
 
 			$this->load->library('upload', $config);
-
 			
 			if($id_modify != -1)
 			{
-				$this->newsletter_md->update( $id_modify, $name, $cover, $path, $content, $description, $creation_date, $checking_state);
-				$this->index (3);
+				$old_result = $this->newsletter_md->get($id_modify)->row(0);
+				
+				//~ var_dump($old_result);
+				$this->load->helper('file');
+
+				unlink($old_result->cover);
+				unlink($old_result->path);
+				
+				$errors = "";
+				if(!$this->upload->do_upload('Path'))
+				{
+					$errors .= $this->upload->display_errors();
+				}
+				else
+				{
+					$pdf_name = $this->upload->data()['full_path'];
+				}
+				if(!$this->upload->do_upload('Cover'))
+				{
+					$errors .= $this->upload->display_errors();
+				}
+				else
+				{
+					$cover_name = $this->upload->data()['full_path'];
+				}
+				if($errors == "")
+				{
+					//~ var_dump( $this->upload->data());
+					$this->newsletter_md->update( $id_modify, $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
+					$this->index (3);
+				}
+				else
+				{
+					$description = $this->input->post ( 'Description' );
+					$content = $this->input->post ( 'Content' );
+					
+					echo $errors;
+					//~ $this->addNewsletter(1);
+				}
 			}
 			else
 			{
-				$this->load->helper('path');
-				echo set_realpath('.');
-				//~ echo symbolic_permissions(fileperms('.\\backup'));
-				$res = $this->upload->do_upload();
-				if($res)
+				//~ $this->load->helper('path');
+				$errors = "";
+				if(!$this->upload->do_upload('Path'))
 				{
-					echo 'SUCCESS';
+					$errors .= $this->upload->display_errors();
 				}
 				else
-				{		
-					echo 'FAILURE';					
+				{
+					$pdf_name = $this->upload->data()['full_path'];
 				}
-				//~ $result = $this->newsletter_md->create ( $name, $cover, $path, $content, $description, $creation_date, $checking_state);
-				//~ $this->index (0);
+				if(!$this->upload->do_upload('Cover'))
+				{
+					$errors .= $this->upload->display_errors();
+				}
+				else
+				{
+					$cover_name = $this->upload->data()['full_path'];
+				}
+				if($errors == "")
+				{
+					//~ var_dump( $this->upload->data());
+					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
+					$this->index (0);
+				}
+				else
+				{
+					$description = $this->input->post ( 'Description' );
+					$content = $this->input->post ( 'Content' );
+					
+					echo $errors;
+					//~ $this->addNewsletter(1);
+				}
 			}
 		} else {
 			// If the form is not valid or empty
 			$description = $this->input->post ( 'Description' );
 			$content = $this->input->post ( 'Content' );
 			
-			//~ $this->formCompletion ( $description, $content );
 			$this->addNewsletter(1);
 		}
 	}

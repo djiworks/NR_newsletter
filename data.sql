@@ -18,10 +18,10 @@ INSERT INTO `person` (`id_person`, `first_name`, `last_name`, `phone`, `mail`, `
 
 INSERT INTO `user` (`id_user`, `login`, `password`, `id_role`) VALUES
 (1, 'alexis', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 1),
-(2, 'bazire', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 2);
-(2, 'djothi', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 3);
-(2, 'oumnia', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 4);
-(3, 'vittorio', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 5);
+(2, 'bazire', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 2),
+(3, 'djothi', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 3),
+(4, 'oumnia', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 4),
+(5, 'vittorio', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 5);
 
 INSERT INTO `contact` (`id_contact`, `information`, `id_university`) VALUES
 (1, 'International Partnership Manager', 1),

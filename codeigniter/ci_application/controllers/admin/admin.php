@@ -93,7 +93,7 @@ class Admin extends CI_Controller {
 		isLoggedInRedirect($ci);
 		
 		$ci->load->model('/user/user_md');
-		$ci->load->database();
+		//~ $ci->load->database();
 		$id_user = $ci->uri->segment(4);
 		$id_role = $ci->uri->segment(5);
 		

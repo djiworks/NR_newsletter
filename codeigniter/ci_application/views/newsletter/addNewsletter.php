@@ -1,6 +1,6 @@
 <div class="container">
 	<form class="form-horizontal" name="addNewsletter" action="/index.php/newsletter/newsletter/verificationAddNewsletter"
-		method="post" id="addNewsletter">
+		method="post" id="addNewsletter" enctype="multipart/form-data">
 
 		<input type="hidden"  name="modifyId" id="modifyId"  value="<?php if(isset($id_modify)){echo $id_modify;}else{echo '-1';} ?>"/>
 		<input type="hidden"  name="creationDate" id="creationDate"  value="<?php if(isset($id_modify)){echo $id_modify;}else{echo '-1';} ?>"/>
@@ -25,20 +25,20 @@
 		</div>
 
 		<div class="control-group">
-			<label class="control-label" for="Path">Path:</label>
+			<label class="control-label" for="Path">PDF:</label>
 			<div class="controls">
+<!--
 				<input type="text" id="Path" name="Path" size="50" placeholder="Path" <?php if(isset($pathnews)){echo 'value ="'.$pathnews.'" ';} ?> />
 				<input class="btn" type="button" value="Browse..." onclick="document.getElementById('hiddenfilepath').click();" />
-				<input type="file"  id="hiddenfilepath" style="visibility:hidden" />
+-->
+				<input type="file"  id="Path" name="Path" accept="application/pdf" placeholder="Path"/>
 			</div>
 		</div>
 		
 		<div class="control-group">
 			<label class="control-label" for="Cover">Cover:</label>
 			<div class="controls">
-				<input type="text" id="Cover" name="Cover" size="50" placeholder="Path" <?php if(isset($cover)){echo 'value ="'.$cover.'" ';} ?> />
-				<input class="btn" type="button" value="Browse..." onclick="document.getElementById('hiddenfilecover').click();" />
-				<input type="file"  id="hiddenfilecover" style="visibility:hidden" />
+				<input type="file"  id="Cover" name="Cover" accept="image/*" />
 			</div>
 		</div>
 
