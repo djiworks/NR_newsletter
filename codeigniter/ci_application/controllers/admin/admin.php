@@ -48,7 +48,7 @@ class Admin extends CI_Controller {
 						'tables'      => array(),  // Array of tables to backup.
 						'ignore'      => array(),           // List of tables to omit from the backup
 						'format'      => 'txt',             // gzip, zip, txt
-						//~ 'filename'    => 'mybackup.sql',    // File name - NEEDED ONLY WITH ZIP FILES
+						'filename'    => 'mybackup.sql',    // File name - NEEDED ONLY WITH ZIP FILES
 						'add_drop'    => TRUE,              // Whether to add DROP TABLE statements to backup file
 						'add_insert'  => TRUE,              // Whether to add INSERT data to backup file
 						'newline'     => "\n"               // Newline character used in backup file
@@ -61,12 +61,13 @@ class Admin extends CI_Controller {
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
 		
-		echo FCPATH  .'backup\\'.date("Y-m-d_H:i:s").'.txt';
-		var_dump(get_dir_file_info("."));
-		$bla ='';
-		get_file_info(".",$bla);
-		var_dump($bla);
-		if(!write_file(date("Y-m-d H:i:s").'.txt', $backup))
+		//~ echo FCPATH  .'backup/'.date("Y-m-d_H:i:s").'.txt';
+		var_dump(get_filenames("."));
+		echo symbolic_permissions(fileperms('.\\backup'));
+		//~ $bla ='';
+		//~ get_file_info(".",$bla);
+		//~ var_dump($bla);
+		if(!write_file('.\\date'.("Y-m-d H:i:s").'.txt', $backup,'w+'))
 		{
 			echo 'ERROR';
 		}
