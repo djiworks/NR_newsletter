@@ -223,7 +223,7 @@ class Newsletter extends CI_Controller
 			//~ var_dump($_FILES['Path']['name']); 
 			$config['upload_path'] = '../univ_news_data/uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-			$config['max_size'] = '2048';
+			$config['max_size'] = '0';
 			$config['remove_spaces'] = true;
 			$config['overwrite'] = false;
 			$config['encrypt_name'] = false;
@@ -259,6 +259,31 @@ class Newsletter extends CI_Controller
 				{
 					$cover_name = $this->upload->data()['full_path'];
 				}
+				
+				$files = $_FILES;
+				$cpt = count($_FILES['Newsletter_images']['name']);
+				for($i=0; $i<$cpt; $i++)
+				{
+
+					$_FILES['Newsletter_images']['name']= $files['Newsletter_images']['name'][$i];
+					$_FILES['Newsletter_images']['type']= $files['Newsletter_images']['type'][$i];
+					$_FILES['Newsletter_images']['tmp_name']= $files['Newsletter_images']['tmp_name'][$i];
+					$_FILES['Newsletter_images']['error']= $files['Newsletter_images']['error'][$i];
+					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
+					
+					$config['upload_path'] = '../univ_news_data/img';
+					$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+					$config['max_size'] = '0';
+					$config['remove_spaces'] = true;
+					$config['overwrite'] = true;
+					$config['encrypt_name'] = false;
+					$config['max_width']  = '';
+					$config['max_height']  = '';
+						
+					$this->upload->initialize($config);
+					$this->upload->do_upload('Newsletter_images');
+				}
+				
 				if($errors == "")
 				{
 					//~ var_dump( $this->upload->data());
@@ -294,8 +319,35 @@ class Newsletter extends CI_Controller
 				{
 					$cover_name = $this->upload->data()['full_path'];
 				}
+				
+				$files = $_FILES;
+				$cpt = count($_FILES['Newsletter_images']['name']);
+				for($i=0; $i<$cpt; $i++)
+				{
+
+					$_FILES['Newsletter_images']['name']= $files['Newsletter_images']['name'][$i];
+					$_FILES['Newsletter_images']['type']= $files['Newsletter_images']['type'][$i];
+					$_FILES['Newsletter_images']['tmp_name']= $files['Newsletter_images']['tmp_name'][$i];
+					$_FILES['Newsletter_images']['error']= $files['Newsletter_images']['error'][$i];
+					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
+					
+					$config['upload_path'] = '../univ_news_data/img';
+					$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+					$config['max_size'] = '0';
+					$config['remove_spaces'] = true;
+					$config['overwrite'] = true;
+					$config['encrypt_name'] = false;
+					$config['max_width']  = '';
+					$config['max_height']  = '';
+						
+					$this->upload->initialize($config);
+					$this->upload->do_upload('Newsletter_images');
+				}
+				
 				if($errors == "")
 				{
+					//~ var_dump($_FILES['Newsletter_images']);
+					//~ var_dump(count($_FILES['Newsletter_images']['name']));
 					//~ var_dump( $this->upload->data());
 					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
 					$this->index (0);

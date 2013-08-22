@@ -41,7 +41,14 @@
 				<input type="file"  id="Cover" name="Cover" accept="image/*" />
 			</div>
 		</div>
-
+		
+		<div class="control-group">
+			<label class="control-label" for="Newsletter_images">Newsletter images:</label>
+			<div class="controls">
+				<input type="file"  id="Newsletter_images" name="Newsletter_images[]" accept="image/*" multiple=""/>
+			</div>
+		</div>
+		
 		<div class="control-group">
 				Content:
 			<textarea id='Content' name='Content' class="myTextEditor"><?php if(isset($content)){echo $content;} ?></textarea>
