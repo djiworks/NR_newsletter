@@ -2,6 +2,7 @@
 include_once (APPPATH . "controllers/intern/intern.php");
 include_once (APPPATH . "controllers/newsletter/newsletter.php");
 include_once (APPPATH . "controllers/mailer/class.phpmailer.php");
+include_once (APPPATH . "controllers/parser/simple_html_dom.php");
 
 class University extends CI_Controller {
 	private $id;
@@ -11,6 +12,8 @@ class University extends CI_Controller {
 	private $subscription;
 	private $checking_state;
 	private $comment;
+	private $mail;
+	private $img_array;
 	
 	public function __construct($id = false) {
 		parent::__construct ();
@@ -795,6 +798,8 @@ class University extends CI_Controller {
 
 			foreach($value as $address)
 			{
+				$this->mail = new PHPmailer();
+				$this->img_array = array();
 				$tmp = $this->sendingMail($newsletter->content, $address, $name, $newsletter->name);
 				if($tmp != NULL)
 				{
@@ -831,40 +836,43 @@ class University extends CI_Controller {
 		}
 	}
 
+	public function parse_css($matches) {
+					$tmp = explode("'", $matches[0]);
+					$replace = '';
+					if(isset($tmp)&& count($tmp)>2)
+					{
+			$replace = explode('/', $tmp[1]);
+			$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+			if(!in_array($replace,$this->img_array))
+				{
+				$this->img_array[] = $replace;
+				$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
+				}
+			}
+		else
+		{
+		$tmp = explode('"', $matches[0]);
+		if(isset($tmp)&& count($tmp)>2)
+			{
+			$replace = explode('/', $tmp[1]);
+			$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+			if(!in_array($replace,$this->img_array))
+				{
+				$this->img_array[] = $replace;
+				$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
+				}
+			}
+		}
+					return "background-image:url(cid:".$replace.");";
+				}
+
+
 	public function sendingMail($content, $address, $name, $subject) {
 		isLoggedInRedirect($this);
 		isAllowed($this, 2);
 		
 			$content = preg_replace_callback("#background-image\s*:\s*url\s*\(.*\)\s*;#",
-				function ($matches) {
-					$tmp = explode("'", $matches[0]);
-					$replace = '';
-					if(isset($tmp)&& count($tmp)>2)
-					{
-		$replace = explode('/', $tmp[1]);
-		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
-		if(!in_array($replace,$this->img_array))
-		{
-		$this->img_array[] = $replace;
-		$this->mail->AddEmbeddedImage($tmp[1], $replace, $replace);
-		}
-		}
-		else
-		{
-		$tmp = explode('"', $matches[0]);
-		if(isset($tmp)&& count($tmp)>2)
-		{
-		$replace = explode('/', $tmp[1]);
-		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
-		if(!in_array($replace,$this->img_array))
-		{
-		$this->img_array[] = $replace;
-		$this->mail->AddEmbeddedImage($tmp[1], $replace, $replace);
-		}
-		}
-		}
-					return "background-image:url(cid:".$replace.");";
-				},
+				array($this, "parse_css"),
 				$content);
 
 		// Create DOM from URL or file
@@ -875,6 +883,7 @@ class University extends CI_Controller {
 		{
 		$replace = explode('/', $element->src);
 		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+		$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
 
 		$element->src = "cid:".$replace;
 		}

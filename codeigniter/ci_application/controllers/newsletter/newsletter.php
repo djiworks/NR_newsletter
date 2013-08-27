@@ -206,6 +206,7 @@ class Newsletter extends CI_Controller
 			//~ $cover = $this->input->post ( 'Cover' );
 			//~ $path = $this->input->post ( 'Path' );
 			$content = $this->input->post ( 'Content' );
+			echo $content;
 			$description = $this->input->post ( 'Description' );
 			$id_modify = $this->input->post ( 'modifyId' );
 			
@@ -353,8 +354,9 @@ class Newsletter extends CI_Controller
 					//~ var_dump($_FILES['Newsletter_images']);
 					//~ var_dump(count($_FILES['Newsletter_images']['name']));
 					//~ var_dump( $this->upload->data());
+					echo $content;
 					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
-					$this->index (0);
+					//~ $this->index (0);
 				}
 				else
 				{
