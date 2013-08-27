@@ -56,7 +56,8 @@ Class User_md extends CI_Model
 		  	$result = array();
 		  	foreach($query->result() as $row)
 		  	{
-		  		if($row->password == crypt($password, $row->password))
+				$pass = crypt($password, $row->password);
+		  		if($row->password == substr($pass, 0, strlen($pass))
 		  		{
 		  			$result['id'] = $row->id_user;
 		  			$result['role'] = $row->id_role;
