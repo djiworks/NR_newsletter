@@ -46,7 +46,7 @@ class ChangePassword extends CI_Controller {
 		if ($this->form_validation->run ()) {
 			// If the form is valid			
 			$new_password = crypt($this->input->post ( 'NewPassword' ));
-			$confirm_new_password = crypt($this->input->post ( 'ConfirmNewPassword' ), $new_password);
+			$confirm_new_password = substr(crypt($this->input->post ( 'ConfirmNewPassword' ), $new_password), 0, strlen($new_password));
 			
 			$session_data = $this->session->userdata('logged_in');
 			$id = $session_data['id'];
@@ -55,7 +55,7 @@ class ChangePassword extends CI_Controller {
 			
 			foreach ( $password_array as $line ) {	
 				$password = $line->password;
-				$current_password = crypt($this->input->post ( 'CurrentPassword' ), $password);
+				$current_password = substr(crypt($this->input->post ( 'CurrentPassword' ), $password), 0, strlen($password));
 			}
 			
 			if(($password == $current_password) && ($new_password == $confirm_new_password))
