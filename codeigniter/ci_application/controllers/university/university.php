@@ -835,35 +835,80 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		isAllowed($this, 2);
 		
-		$mail = new PHPMailer();
-		$mail->IsSMTP(); // send via SMTP
-		$mail->SMTPAuth = true; // turn on SMTP authentication
-		$mail->SMTPSecure = "ssl";
-		$mail->Host = "smtp.gmail.com";
-		$mail->Port = 465;
-		$mail->Username = "hr@internship-uk.com"; // SMTP username
-		$mail->Password = "2Access4Hr2013"; // SMTP password
-		
-		$mail->From = $address;
-		$mail->FromName = "Internship-UK"; //Name to display for from:
-		
-		$mail->AddAddress("bazirehoussin@gmail.com", $name);
-		//~ $mail->AddAddress($address, $name);
-		
-		$mail->AddReplyTo($address,"Internship-UK");//name of the sender
-		
-		$mail->IsHTML(true); // send as HTML
-		$mail->Subject = $subject;
-		$mail->Body = $content; //HTML Body
-		$mail->AltBody = strip_tags(htmlspecialchars_decode($content)); //If the recipients disable the html tag reading
-		
-		if(!$mail->Send())
+			$content = preg_replace_callback("#background-image\s*:\s*url\s*\(.*\)\s*;#",
+				function ($matches) {
+					$tmp = explode("'", $matches[0]);
+					$replace = '';
+					if(isset($tmp)&& count($tmp)>2)
+					{
+		$replace = explode('/', $tmp[1]);
+		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+		if(!in_array($replace,$this->img_array))
 		{
-			return $mail->ErrorInfo;
+		$this->img_array[] = $replace;
+		$this->mail->AddEmbeddedImage($tmp[1], $replace, $replace);
+		}
 		}
 		else
 		{
-			return NULL;
+		$tmp = explode('"', $matches[0]);
+		if(isset($tmp)&& count($tmp)>2)
+		{
+		$replace = explode('/', $tmp[1]);
+		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+		if(!in_array($replace,$this->img_array))
+		{
+		$this->img_array[] = $replace;
+		$this->mail->AddEmbeddedImage($tmp[1], $replace, $replace);
+		}
+		}
+		}
+					return "background-image:url(cid:".$replace.");";
+				},
+				$content);
+
+		// Create DOM from URL or file
+		$html = str_get_html($content);
+
+		// Find all images
+		foreach($html->find('img') as $element)
+		{
+		$replace = explode('/', $element->src);
+		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+
+		$element->src = "cid:".$replace;
+		}
+		$content = $html->save();
+		//~ echo $content;
+
+		$this->mail->IsSMTP(); // send via SMTP
+		$this->mail->SMTPAuth = true; // turn on SMTP authentication
+		$this->mail->SMTPSecure = "ssl";
+		$this->mail->Host = "smtp.gmail.com";
+		$this->mail->Port = 465;
+		$this->mail->Username = "hr@internship-uk.com"; // SMTP username
+		$this->mail->Password = "2Access4Hr2013"; // SMTP password
+
+		$this->mail->From = $address;
+		$this->mail->FromName = "Internship-UK"; //Name to display for from:
+
+		$this->mail->AddAddress("bazirehoussin@gmail.com", $name);
+		//~ $this->mail->AddAddress($address, $name);
+
+		$this->mail->AddReplyTo($address,"Internship-UK");//name of the sender
+
+		$this->mail->IsHTML(true); // send as HTML
+		$this->mail->Subject = $subject;
+		$this->mail->Body = $content; //HTML Body
+		$this->mail->AltBody = strip_tags(htmlspecialchars_decode($content)); //If the recipients disable the html tag reading
+
+		if(!$this->mail->Send())
+		{
+		return $this->mail->ErrorInfo;
+		}
+		else
+		{
+		return NULL;
 		}
 	}
 	
