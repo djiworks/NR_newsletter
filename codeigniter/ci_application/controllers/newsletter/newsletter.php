@@ -248,8 +248,9 @@ class Newsletter extends CI_Controller
 					$errors .= $this->upload->display_errors();
 				}
 				else
-				{
-					$pdf_name = $this->upload->data()['full_path'];
+				{	
+					$pdf_name = $this->upload->data();
+					$pdf_name = $pdf_name['full_path'];
 				}
 				if(!$this->upload->do_upload('Cover'))
 				{
@@ -257,7 +258,8 @@ class Newsletter extends CI_Controller
 				}
 				else
 				{
-					$cover_name = $this->upload->data()['full_path'];
+					$cover_name = $this->upload->data();
+					$cover_name = $cover_name['full_path'];
 				}
 				
 				$files = $_FILES;
@@ -309,7 +311,8 @@ class Newsletter extends CI_Controller
 				}
 				else
 				{
-					$pdf_name = $this->upload->data()['full_path'];
+					$pdf_name = $this->upload->data();
+					$pdf_name = $pdf_name['full_path'];
 				}
 				if(!$this->upload->do_upload('Cover'))
 				{
@@ -317,7 +320,8 @@ class Newsletter extends CI_Controller
 				}
 				else
 				{
-					$cover_name = $this->upload->data()['full_path'];
+					$cover_name = $this->upload->data();
+					$cover_name = $cover_name['full_path'];
 				}
 				
 				$files = $_FILES;
