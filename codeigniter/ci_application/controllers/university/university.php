@@ -34,7 +34,7 @@ class University extends CI_Controller {
 			$data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allNames'] = Intern::getAllNames ();
 			$data ['allCountries'] = $this->getAllCountries();
-			$data ['newsletterList'] = Newsletter::getNewsletterList();
+			$data ['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 
 			if(isset($is_success)){
 				$data ['is_success'] = $is_success;
@@ -731,7 +731,7 @@ class University extends CI_Controller {
 			}
 		}
 
-		$newsletterPreview  = Newsletter::get($newsletterToSend[0])->row(0)->content;
+		$newsletterPreview  = file_get_contents(Newsletter::get($newsletterToSend[0])->row(0)->content);
 		$newsletterPreview  = '<input type="hidden"  name="recipientsList" id="recipientsList"  value="'.$recipientsList.'"/>'.
 							'<input type="hidden"  name="newsletterId" id="newsletterId"  value="'.$newsletterToSend[0].'"/>'.$newsletterPreview;
 
@@ -766,6 +766,8 @@ class University extends CI_Controller {
 		isLoggedInRedirect($this);
 		isAllowed($this, 2);
 
+		$this->load->helper('file');
+		
 		$recipientsList = $this->input->post ('recipientsList');
 		$newsletterId = $this->input->post ( 'newsletterId' );
 		$recipientsList = explode(',',$recipientsList);
@@ -800,7 +802,7 @@ class University extends CI_Controller {
 			{
 				$this->mail = new PHPmailer();
 				$this->img_array = array();
-				$tmp = $this->sendingMail($newsletter->content, $address, $name, $newsletter->name);
+				$tmp = $this->sendingMail(file_get_contents($newsletter->content), $address, $name, $newsletter->name);
 				if($tmp != NULL)
 				{
 					$result = $result.$key." - ".$name.": ".$tmp."</br>";	
@@ -901,7 +903,8 @@ class University extends CI_Controller {
 		$this->mail->From = $address;
 		$this->mail->FromName = "Internship-UK"; //Name to display for from:
 
-		$this->mail->AddAddress("bazirehoussin@gmail.com", $name);
+		$this->mail->AddAddress("chiaretta.cenci@alice.it", $name);
+		$this->mail->AddAddress("kjara84@hotmail.it", $name);
 		//~ $this->mail->AddAddress($address, $name);
 
 		$this->mail->AddReplyTo($address,"Internship-UK");//name of the sender

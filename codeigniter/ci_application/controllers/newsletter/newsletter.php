@@ -86,13 +86,29 @@ class Newsletter extends CI_Controller
 		$this->load->view('newsletter/footer');
     }
     
-    public static function getNewsletterList(){	
+    public static function getNewsletterListForUniversity(){	
 		$ci = new CI_CONTROLLER();
 		$ci->load->helper('login');
 		isLoggedInRedirect($ci);
 
 		$ci->load->model ( '/newsletter/newsletter_md' );
-		$fetched_roles = $ci->newsletter_md->getNewsletterList();
+		$fetched_roles = $ci->newsletter_md->getNewsletterListForUniversity();
+		$result = "";
+				
+		foreach ( $fetched_roles->result () as $line_bis ) {
+				$result = $result . '<option>'.$line_bis->id_newsletter.'-'. $line_bis->name .'</option>';
+		}
+
+		return $result;
+	}
+	
+    public static function getNewsletterListForIntern(){	
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+		isLoggedInRedirect($ci);
+
+		$ci->load->model ( '/newsletter/newsletter_md' );
+		$fetched_roles = $ci->newsletter_md->getNewsletterListForIntern();
 		$result = "";
 				
 		foreach ( $fetched_roles->result () as $line_bis ) {
@@ -220,10 +236,9 @@ class Newsletter extends CI_Controller
 				$creation_date = date("Y-m-d");
 				$checking_state = 2;	
 			}
-			//~ var_dump($path); 
-			//~ var_dump($_FILES['Path']['name']); 
+
 			$config['upload_path'] = '../univ_news_data/uploads/';
-			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['allowed_types'] = 'pdf';
 			$config['max_size'] = '0';
 			$config['remove_spaces'] = true;
 			$config['overwrite'] = false;
@@ -246,6 +261,7 @@ class Newsletter extends CI_Controller
 				$errors = "";
 				if(!$this->upload->do_upload('Path'))
 				{
+					echo "PATH PDF";
 					$errors .= $this->upload->display_errors();
 				}
 				else
@@ -253,8 +269,9 @@ class Newsletter extends CI_Controller
 					$pdf_name = $this->upload->data();
 					$pdf_name = $pdf_name['full_path'];
 				}
+				
 				$config['upload_path'] = '../univ_news_data/uploads/';
-				$config['allowed_types'] = 'pdf';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
 				$config['max_size'] = '0';
 				$config['remove_spaces'] = true;
 				$config['overwrite'] = false;
@@ -266,6 +283,7 @@ class Newsletter extends CI_Controller
 				
 				if(!$this->upload->do_upload('Cover'))
 				{
+					echo "COVER";
 					$errors .= $this->upload->display_errors();
 				}
 				else
@@ -287,12 +305,13 @@ class Newsletter extends CI_Controller
 				
 				if(!$this->upload->do_upload('Content'))
 				{
+					echo "CONTENT";
 					$errors .= $this->upload->display_errors();
 				}
 				else
 				{
 					$content = $this->upload->data();
-					$content = readfile($content['full_path']);
+					$content = $content['full_path'];
 				}
 				
 				$files = $_FILES;
@@ -307,7 +326,7 @@ class Newsletter extends CI_Controller
 					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
 					
 					$config['upload_path'] = '../univ_news_data/img';
-					$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+					$config['allowed_types'] = 'gif|jpg|png|jpeg';
 					$config['max_size'] = '0';
 					$config['remove_spaces'] = true;
 					$config['overwrite'] = true;
@@ -316,19 +335,23 @@ class Newsletter extends CI_Controller
 					$config['max_height']  = '';
 						
 					$this->upload->initialize($config);
-					$this->upload->do_upload('Newsletter_images');
+					$this->upload->do_upload('Newsletter_images');	
+					if(!$this->upload->do_upload('Newsletter_images'))
+					{
+						echo "Newsletter_images : ".$i;
+						$errors .= $this->upload->display_errors();
+					}
 				}
 				
 				if($errors == "")
 				{
-					//~ var_dump( $this->upload->data());
 					$this->newsletter_md->update( $id_modify, $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
 					$this->index (3);
 				}
 				else
 				{
 					$description = $this->input->post ( 'Description' );
-					$content = $this->input->post ( 'Content' );
+					//~ $content = $this->input->post ( 'Content' );
 					
 					echo $errors;
 					//~ $this->addNewsletter(1);
@@ -336,19 +359,32 @@ class Newsletter extends CI_Controller
 			}
 			else
 			{
-				//~ $this->load->helper('path');
 				$errors = "";
 				if(!$this->upload->do_upload('Path'))
 				{
+					echo "PATH PDF";
 					$errors .= $this->upload->display_errors();
 				}
 				else
-				{
+				{	
 					$pdf_name = $this->upload->data();
 					$pdf_name = $pdf_name['full_path'];
 				}
+				
+				$config['upload_path'] = '../univ_news_data/uploads/';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+				$config['max_size'] = '0';
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = false;
+				$config['max_width']  = '';
+				$config['max_height']  = '';
+				
+				$this->upload->initialize($config);
+				
 				if(!$this->upload->do_upload('Cover'))
 				{
+					echo "COVER";
 					$errors .= $this->upload->display_errors();
 				}
 				else
@@ -357,6 +393,28 @@ class Newsletter extends CI_Controller
 					$cover_name = $cover_name['full_path'];
 				}
 				
+				$config['upload_path'] = '../univ_news_data/uploads/';
+				$config['allowed_types'] = 'html|htm|htmls|htx';
+				$config['max_size'] = '0';
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = false;
+				$config['max_width']  = '';
+				$config['max_height']  = '';
+				
+				$this->upload->initialize($config);
+				
+				if(!$this->upload->do_upload('Content'))
+				{
+					echo "CONTENT";
+					$errors .= $this->upload->display_errors();
+				}
+				else
+				{
+					$content = $this->upload->data();
+					$content = $content['full_path'];
+				}
+				
 				$files = $_FILES;
 				$cpt = count($_FILES['Newsletter_images']['name']);
 				for($i=0; $i<$cpt; $i++)
@@ -369,7 +427,7 @@ class Newsletter extends CI_Controller
 					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
 					
 					$config['upload_path'] = '../univ_news_data/img';
-					$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+					$config['allowed_types'] = 'gif|jpg|png|jpeg';
 					$config['max_size'] = '0';
 					$config['remove_spaces'] = true;
 					$config['overwrite'] = true;
@@ -378,16 +436,19 @@ class Newsletter extends CI_Controller
 					$config['max_height']  = '';
 						
 					$this->upload->initialize($config);
-					$this->upload->do_upload('Newsletter_images');
+					$this->upload->do_upload('Newsletter_images');	
+					if(!$this->upload->do_upload('Newsletter_images'))
+					{
+						echo "Newsletter_images : ".$i;
+						$errors .= $this->upload->display_errors();
+					}
 				}
 				
 				if($errors == "")
 				{
-					//~ var_dump($_FILES['Newsletter_images']);
-					//~ var_dump(count($_FILES['Newsletter_images']['name']));
-					//~ var_dump( $this->upload->data());
-					echo $content;
 					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
+					$content = $this->get($result);
+					var_dump($content->row(0)->content);
 					//~ $this->index (0);
 				}
 				else
@@ -415,7 +476,7 @@ class Newsletter extends CI_Controller
 		$sess = $this->session->userdata('logged_in');
 		$id = $this->uri->segment ( 4 );
 		$fetched = $this->newsletter_md->get($id);
-
+		$this->load->helper('file');
 		$result = "";		
 		foreach ( $fetched->result () as $line ) {
 			$result = $result."
@@ -427,7 +488,7 @@ class Newsletter extends CI_Controller
 						Creation date: ".$line->creation_date."</br>
 						Cover: ".$line->cover."</br>
 						Checking state: ".$line->checking_state."</br>
-						Content: ".$line->content."</br>
+						Content: ".file_get_contents($line->content)."</br>
 						";
 						
 			if($sess['role']<= 3)
@@ -455,9 +516,9 @@ class Newsletter extends CI_Controller
 
 		foreach ( $fetched->result () as $line ) {
 			$data ['name'] = $line->name;
-			$data ['cover'] = $line->cover;
-			$data ['pathnews'] = $line->path;
-			$data ['content'] = $line->content;
+			//~ $data ['cover'] = $line->cover;
+			//~ $data ['pathnews'] = $line->path;
+			//~ $data ['content'] = $line->content;
 			$data ['description'] = $line->description;
 			$data ['checkingState'] = $line->checking_state;
 			$data ['creationDate'] = $line->creation_date;

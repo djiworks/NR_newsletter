@@ -35,7 +35,7 @@
 									<label class="control-label" for="inputIntern">Intern</label>
 									<div class="controls">
 										<div class="input-append">
-											<input class="span2" type="text" id="inputIntern" name="inputIntern"
+											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="50"
 											placeholder="Intern" data-provide="typeahead" data-items="4"
 											data-source= <?php echo $allNames; ?>
 											autocomplete="off" value="<?php echo set_value('inputIntern'); ?>"/>

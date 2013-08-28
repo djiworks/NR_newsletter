@@ -27,6 +27,8 @@ class Newsletter_md extends CI_Model
 				 ->set("creation_date",$creation_date)
 				 ->set("checking_state",$checking_state)
 		 		 ->insert($this->table);  
+		 
+		 return $this->db->insert_id();
 	 }
 	 
 	 public function update ( $id, $name, $cover, $path, $content, $description, $creation_date, $checking_state){
@@ -65,7 +67,7 @@ class Newsletter_md extends CI_Model
 				   n.cover
 				FROM ".$this->table." AS n;");
 	} 
-	public function getNewsletterList() {
+	public function getNewsletterListForUniversity() {
 		return $this->db->query("
 			SELECT n.id_newsletter,
 				   n.name,
@@ -74,7 +76,18 @@ class Newsletter_md extends CI_Model
 				   n.checking_state,
 				   n.cover
 				FROM ".$this->table." AS n
-				WHERE n.checking_state <= 1;");
+				WHERE n.checking_state <= 1 AND n.type = 0;");
+	}
+	public function getNewsletterListForIntern() {
+		return $this->db->query("
+			SELECT n.id_newsletter,
+				   n.name,
+				   n.description,
+				   n.creation_date,
+				   n.checking_state,
+				   n.cover
+				FROM ".$this->table." AS n
+				WHERE n.checking_state <= 1 AND n.type = 1;");
 	}
 	public function getNumberWaitingNewsletters() {
 		return $this->db->query("
