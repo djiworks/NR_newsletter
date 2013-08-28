@@ -70,7 +70,7 @@
 </div>
 </div>
 </div>
-
+ 
 	<div id="failure" class="modal hide fade">
 	<div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
