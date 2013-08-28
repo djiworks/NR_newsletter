@@ -41,6 +41,7 @@
 				<input type="file"  id="Cover" name="Cover" accept="image/*" />
 			</div>
 		</div>
+
 		
 		<div class="control-group">
 			<label class="control-label" for="Newsletter_images">Newsletter images:</label>
@@ -50,10 +51,19 @@
 		</div>
 		
 		<div class="control-group">
+			<label class="control-label" for="Content">Content:</label>
+			<div class="controls">
+				<input type="file"  id="Content" name="Content" accept="text/html" />
+			</div>
+		</div>
+		
+<!--
+		<div class="control-group">
 				Content:
 			<textarea id='Content' name='Content' class="myTextEditor"><?php if(isset($content)){echo $content;} ?></textarea>
 		</div>
 		
+-->
 		<button type="submit" class="btn">Submit</button>
 		
 	</form>

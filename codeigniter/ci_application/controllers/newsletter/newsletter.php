@@ -196,16 +196,16 @@ class Newsletter extends CI_Controller
 		
 		$this->form_validation->set_rules ( 'Name', '"Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Description', '"Description"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Content', '"Content"', 'trim|required|encode_php_tags|xss_clean' );
+		//~ $this->form_validation->set_rules ( 'Content', '"Content"', 'trim|required|encode_php_tags|xss_clean' );
 		//~ $this->form_validation->set_rules ( 'Path', '"Path"', 'trim|required|encode_php_tags|xss_clean' );
 		//~ $this->form_validation->set_rules ( 'Cover', '"Cover"', 'trim|required|encode_php_tags|xss_clean' );
 		
-		if ($this->form_validation->run () && ($_FILES['Path']['name']!='') && ($_FILES['Cover']['name']!='')) {
+		if ($this->form_validation->run () && ($_FILES['Path']['name']!='') && ($_FILES['Cover']['name']!='') && ($_FILES['Content']['name']!='')) {
 			// If the form is valid
 			$name = $this->input->post ( 'Name' );
 			//~ $cover = $this->input->post ( 'Cover' );
 			//~ $path = $this->input->post ( 'Path' );
-			$content = $this->input->post ( 'Content' );
+			//~ $content = $this->input->post ( 'Content' );
 			$description = $this->input->post ( 'Description' );
 			$id_modify = $this->input->post ( 'modifyId' );
 			
@@ -222,7 +222,7 @@ class Newsletter extends CI_Controller
 			//~ var_dump($path); 
 			//~ var_dump($_FILES['Path']['name']); 
 			$config['upload_path'] = '../univ_news_data/uploads/';
-			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$config['max_size'] = '0';
 			$config['remove_spaces'] = true;
 			$config['overwrite'] = false;
@@ -252,6 +252,17 @@ class Newsletter extends CI_Controller
 					$pdf_name = $this->upload->data();
 					$pdf_name = $pdf_name['full_path'];
 				}
+				$config['upload_path'] = '../univ_news_data/uploads/';
+				$config['allowed_types'] = 'pdf';
+				$config['max_size'] = '0';
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = false;
+				$config['max_width']  = '';
+				$config['max_height']  = '';
+				
+				$this->upload->initialize($config);
+				
 				if(!$this->upload->do_upload('Cover'))
 				{
 					$errors .= $this->upload->display_errors();
@@ -260,6 +271,27 @@ class Newsletter extends CI_Controller
 				{
 					$cover_name = $this->upload->data();
 					$cover_name = $cover_name['full_path'];
+				}
+				
+				$config['upload_path'] = '../univ_news_data/uploads/';
+				$config['allowed_types'] = 'html|htm|htmls|htx';
+				$config['max_size'] = '0';
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = false;
+				$config['encrypt_name'] = false;
+				$config['max_width']  = '';
+				$config['max_height']  = '';
+				
+				$this->upload->initialize($config);
+				
+				if(!$this->upload->do_upload('Content'))
+				{
+					$errors .= $this->upload->display_errors();
+				}
+				else
+				{
+					$content = $this->upload->data();
+					$content = readfile($content['full_path']);
 				}
 				
 				$files = $_FILES;
