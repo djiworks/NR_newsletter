@@ -81,7 +81,7 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`newsletter` (
   `creation_date` DATE NOT NULL ,
   `cover` VARCHAR(100) NOT NULL ,
   `checking_state` INT(11) NOT NULL COMMENT '0= writing, 1 = Designing, 2= HTML, 3= sent' ,
-  `content` LONGTEXT NOT NULL ,
+  `content` VARCHAR(255) NOT NULL ,
   `comment` LONGTEXT NOT NULL ,
   PRIMARY KEY (`id_newsletter`) )
 ENGINE = InnoDB
@@ -269,3 +269,6 @@ INSERT INTO `role` (`id_role`, `name`) VALUES
 (3, 'Agent'),
 (4, 'User'),
 (5, 'Not Confirmed');
+
+INSERT INTO `user` (`id_user`, `login`, `password`, `id_role`) VALUES
+(1, 'Liz', '$6$VqO/n2o6QjG6$dejDH4jEWsbS1tlcjS3S0fn8FkZAF', 1);
