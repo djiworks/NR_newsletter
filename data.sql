@@ -17,7 +17,7 @@ INSERT INTO `person` (`id_person`, `first_name`, `last_name`, `phone`, `mail`, `
 (4, 'Isabelle', 'Touchefeu', '0655321484', 'ducks@couack.co', 'Greece', '2013-10-31');
 
 INSERT INTO `user` (`id_user`, `login`, `password`, `id_role`) VALUES
-(1, 'alexis', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 2),
+(6, 'alexis', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 2),
 (2, 'bazire', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 1),
 (3, 'djothi', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 3),
 (4, 'oumnia', '$1$IZ2.x1..$pgJ.lDkEay/66ZTZCPCZx.', 4),

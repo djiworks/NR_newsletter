@@ -447,9 +447,9 @@ class Newsletter extends CI_Controller
 				if($errors == "")
 				{
 					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
-					$content = $this->get($result);
-					var_dump($content->row(0)->content);
-					//~ $this->index (0);
+					//~ $content = $this->get($result);
+					//~ var_dump($content->row(0)->content);
+					$this->index (0);
 				}
 				else
 				{

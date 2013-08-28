@@ -145,7 +145,7 @@ class University_md extends CI_Model
 	//~ 
 	public function getUniv_Contact($id) {
 		return $this->db->query("
-			SELECT c.id_contact
+			SELECT c.id_contact, c.information
 				FROM ".$this->table2." AS c
 				WHERE c.id_university = $id;");
 	}

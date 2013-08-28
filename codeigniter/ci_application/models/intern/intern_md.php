@@ -47,7 +47,8 @@ class Intern_md extends CI_Model
 	}
 	
 	public function getAllNames() {
-		return $this->db->select("first_name")
+		return $this->db->select("id_person")
+						->select("first_name")
 						->select("last_name")
 						->get($this->table);
 	}

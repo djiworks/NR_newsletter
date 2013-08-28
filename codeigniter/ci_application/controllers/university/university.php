@@ -57,7 +57,7 @@ class University extends CI_Controller {
 			$data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allNames'] = Intern::getAllNames ();
 			$data ['allCountries'] = $this->getAllCountries();
-			$data ['newsletterList'] = Newsletter::getNewsletterList();
+			$data ['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 
 			if(isset($is_success)){
 				$data ['is_success'] = $is_success;
@@ -610,7 +610,7 @@ class University extends CI_Controller {
 		$data['allUniv'] = $this->getAllUniversities();
 		$data['allNames'] = Intern::getAllNames();
 		$data['allCountries'] = $this->getAllCountries();
-		$data['newsletterList'] = Newsletter::getNewsletterList();
+		$data['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 		
 		
 		$result = $this->university_md->get($id);
@@ -653,7 +653,7 @@ class University extends CI_Controller {
 						<div class='control-group'>
 							<label>Additional Information</label>
 							<div>
-								<textarea onblur='changeName(".$i.");' placeholder='Additional Information' name='textAreaInfoContact".$i."' id='textAreaInfoContact".$i."' rows='3'></textarea>
+								<textarea onblur='changeName(".$i.");' placeholder='Additional Information' name='textAreaInfoContact".$i."' id='textAreaInfoContact".$i."' rows='3'>".$line->information."</textarea>
 							</div>
 						</div>
 						<table id='TableContainer".$i."'>
@@ -672,8 +672,9 @@ class University extends CI_Controller {
 			//~ echo var_dump($result_contact->result());
 			foreach ($result_contact->result() as $line_contact) {
 				$mail = ($line_contact->mail) ? $line_contact->mail : "";
+				
 				$phone = ($line_contact->number) ? $line_contact->number : "";
-				$fax = ($line_contact->type) ? "checked" : "";
+				$fax = (isset($line_contact->type) && ($line_contact->type == 1)) ? "checked" : "";
 				
 				$data['univContactList'] = $data['univContactList'] . "
 				<tr>
@@ -681,8 +682,8 @@ class University extends CI_Controller {
 						<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text' value='".$mail."'>
 					</td>
 					<td>
-						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text value='".$phone."''>
-						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' checked='".$fax."'>
+						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text' value='".$phone."'>
+						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' ".$fax.">
 					</td>
 				</tr>";
 				
@@ -739,7 +740,7 @@ class University extends CI_Controller {
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
 		$data ['allCountries'] = $this->getAllCountries();
-		$data ['newsletterList'] = Newsletter::getNewsletterList();
+		$data ['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 		
 		if(isset($recipientsListArray))
 		{
@@ -820,7 +821,7 @@ class University extends CI_Controller {
 			$data ['allUniv'] = $this->getAllUniversities ();
 			$data ['allNames'] = Intern::getAllNames ();
 			$data ['allCountries'] = $this->getAllCountries();
-			$data ['newsletterList'] = Newsletter::getNewsletterList();
+			$data ['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 			$data ['failureLog'] = $result;
 
 			if(isset($is_success)){
@@ -903,8 +904,7 @@ class University extends CI_Controller {
 		$this->mail->From = $address;
 		$this->mail->FromName = "Internship-UK"; //Name to display for from:
 
-		$this->mail->AddAddress("chiaretta.cenci@alice.it", $name);
-		$this->mail->AddAddress("kjara84@hotmail.it", $name);
+		$this->mail->AddAddress("bazirehoussin@gmail.com", $name);
 		//~ $this->mail->AddAddress($address, $name);
 
 		$this->mail->AddReplyTo($address,"Internship-UK");//name of the sender
@@ -932,7 +932,7 @@ class University extends CI_Controller {
 		$data ['allUniv'] = $this->getAllUniversities ();
 		$data ['allNames'] = Intern::getAllNames ();
 		$data ['allCountries'] = University::getAllCountries();
-		$data ['newsletterList'] = Newsletter::getNewsletterList();
+		$data ['newsletterList'] = Newsletter::getNewsletterListForUniversity();
 		$data ['address'] = $address;
 		$data ['inputInfoContact'] = $inputInfoContact;
 		$data ['is_success'] = 1;

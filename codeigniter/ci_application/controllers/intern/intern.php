@@ -222,12 +222,12 @@ class Intern extends CI_Controller
 			if ($first)
 			{
 				$first = false;
-				$result = $result.'"'.$ligne->first_name." ".$ligne->last_name.'"';
+				$result = $result.'"'.$ligne->id_person.'-'.$ligne->first_name." ".$ligne->last_name.'"';
 
 			}
 			else
 			{
-				$result = $result.',"'.$ligne->first_name." ".$ligne->last_name.'"';
+				$result = $result.',"'.$ligne->id_person.'-'.$ligne->first_name." ".$ligne->last_name.'"';
 			}
 		}
 		$result = $result."]'";
