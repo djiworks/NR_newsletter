@@ -3,7 +3,7 @@
 				<tr>
 					<td id="cellUniversity">
 						<div id="blockAddUniversity">
-							<h3 id="addUniversityLabel">Add a University</h3>
+							<h3 id="addUniversityLabel">Modify a University</h3>
 							<div>
 								<div class="control-group">
 									<label class="control-label" for="inputName">University Name</label>
@@ -35,7 +35,7 @@
 									<label class="control-label" for="inputIntern">Intern</label>
 									<div class="controls">
 										<div class="input-append">
-											<input class="span2" type="text" id="inputIntern" name="inputIntern"
+											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="50"
 											placeholder="Intern" data-provide="typeahead" data-items="4"
 											data-source= <?php echo $allNames; ?> 
 											autocomplete="off" value="<?php echo $univIntern; ?>"/>
@@ -102,3 +102,8 @@
 				<button class="btn" type="button" data-dismiss="modal" >Close</button>	
 			</div>
 		</div>
+
+<script type='text/javascript'>
+	var cell = document.getElementById("cellContact");
+	cell.style.visibility = "visible";
+</script>";
