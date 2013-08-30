@@ -157,7 +157,16 @@ class Newsletter extends CI_Controller
 					break;
 			}
 			
-			$image = (isset($ligne->cover)) ? $ligne->cover : "/assets/holder/holder.js/80x100";
+				if(isset($ligne->cover)) {
+					$cover_url = explode('/', $ligne->cover);
+					$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+					$image = $cover_url;
+				}
+				else
+				{
+					$image = "/assets/holder/holder.js/80x100";
+				}
+
 			
 			$state_list = '<ul><li class="dropdown">
 						<a id="dropCheckingState'.$ligne->id_newsletter.'" class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
@@ -189,7 +198,7 @@ class Newsletter extends CI_Controller
 			
 			$result =  $result."
 				<tr class='".$classUniv."'>
-					<td><img class='media-object' src='".$image."' alt='".$image."'/></td>
+					<td><img class='media-object' src='".$image."' alt='".$image."' width='100'/></td>
 					<td>".$ligne->id_newsletter."</td>
 					<td>".$ligne->name."</td>
 					<td>".$ligne->description."</td>
@@ -237,6 +246,19 @@ class Newsletter extends CI_Controller
 				$checking_state = 2;	
 			}
 
+			//If modify only, deletion of old files
+			if($id_modify != -1)
+			{
+				$old_result = $this->newsletter_md->get($id_modify)->row(0);
+				
+				//~ var_dump($old_result);
+				$this->load->helper('file');
+
+				unlink($old_result->cover);
+				unlink($old_result->path);
+			}
+			
+			//Upload of the pdf
 			$config['upload_path'] = '../univ_news_data/uploads/';
 			$config['allowed_types'] = 'pdf';
 			$config['max_size'] = '0';
@@ -248,101 +270,95 @@ class Newsletter extends CI_Controller
 
 			$this->load->library('upload', $config);
 			
+			$errors = "";
+			if(!$this->upload->do_upload('Path'))
+			{
+				echo "PATH PDF";
+				$errors .= $this->upload->display_errors();
+			}
+			else
+			{	
+				$pdf_name = $this->upload->data();
+				$pdf_name = $pdf_name['full_path'];
+			}
+				
+			//Upload of the cover
+			$config['upload_path'] = 'assets/images';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+			$config['max_size'] = '0';
+			$config['remove_spaces'] = true;
+			$config['overwrite'] = false;
+			$config['encrypt_name'] = false;
+			$config['max_width']  = '';
+			$config['max_height']  = '';
+			
+			$this->upload->initialize($config);
+			
+			if(!$this->upload->do_upload('Cover'))
+			{
+				echo "COVER";
+				$errors .= $this->upload->display_errors();
+			}
+			else
+			{
+				$cover_name = $this->upload->data();
+				$cover_name = $cover_name['full_path'];
+			}
+				
+			//Upload of the content
+			$config['upload_path'] = '../univ_news_data/uploads/';
+			$config['allowed_types'] = 'html|htm|htmls|htx';
+			$config['max_size'] = '0';
+			$config['remove_spaces'] = true;
+			$config['overwrite'] = false;
+			$config['encrypt_name'] = false;
+			$config['max_width']  = '';
+			$config['max_height']  = '';
+			
+			$this->upload->initialize($config);
+			
+			if(!$this->upload->do_upload('Content'))
+			{
+				echo "CONTENT";
+				$errors .= $this->upload->display_errors();
+			}
+			else
+			{
+				$content = $this->upload->data();
+				$content = $content['full_path'];
+			}
+				
+			//Upload of the images of the newsletter
+			$files = $_FILES;
+			$cpt = count($_FILES['Newsletter_images']['name']);
+			for($i=0; $i<$cpt; $i++)
+			{
+
+				$_FILES['Newsletter_images']['name']= $files['Newsletter_images']['name'][$i];
+				$_FILES['Newsletter_images']['type']= $files['Newsletter_images']['type'][$i];
+				$_FILES['Newsletter_images']['tmp_name']= $files['Newsletter_images']['tmp_name'][$i];
+				$_FILES['Newsletter_images']['error']= $files['Newsletter_images']['error'][$i];
+				$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
+				
+				$config['upload_path'] = '../univ_news_data/img';
+				$config['allowed_types'] = 'gif|jpg|png|jpeg';
+				$config['max_size'] = '0';
+				$config['remove_spaces'] = true;
+				$config['overwrite'] = true;
+				$config['encrypt_name'] = false;
+				$config['max_width']  = '';
+				$config['max_height']  = '';
+					
+				$this->upload->initialize($config);
+				$this->upload->do_upload('Newsletter_images');	
+				if(!$this->upload->do_upload('Newsletter_images'))
+				{
+					echo "Newsletter_images : ".$i;
+					$errors .= $this->upload->display_errors();
+				}
+			}
 			if($id_modify != -1)
 			{
-				$old_result = $this->newsletter_md->get($id_modify)->row(0);
-				
-				//~ var_dump($old_result);
-				$this->load->helper('file');
-
-				unlink($old_result->cover);
-				unlink($old_result->path);
-				
-				$errors = "";
-				if(!$this->upload->do_upload('Path'))
-				{
-					echo "PATH PDF";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{	
-					$pdf_name = $this->upload->data();
-					$pdf_name = $pdf_name['full_path'];
-				}
-				
-				$config['upload_path'] = '../univ_news_data/uploads/';
-				$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-				$config['max_size'] = '0';
-				$config['remove_spaces'] = true;
-				$config['overwrite'] = false;
-				$config['encrypt_name'] = false;
-				$config['max_width']  = '';
-				$config['max_height']  = '';
-				
-				$this->upload->initialize($config);
-				
-				if(!$this->upload->do_upload('Cover'))
-				{
-					echo "COVER";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{
-					$cover_name = $this->upload->data();
-					$cover_name = $cover_name['full_path'];
-				}
-				
-				$config['upload_path'] = '../univ_news_data/uploads/';
-				$config['allowed_types'] = 'html|htm|htmls|htx';
-				$config['max_size'] = '0';
-				$config['remove_spaces'] = true;
-				$config['overwrite'] = false;
-				$config['encrypt_name'] = false;
-				$config['max_width']  = '';
-				$config['max_height']  = '';
-				
-				$this->upload->initialize($config);
-				
-				if(!$this->upload->do_upload('Content'))
-				{
-					echo "CONTENT";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{
-					$content = $this->upload->data();
-					$content = $content['full_path'];
-				}
-				
-				$files = $_FILES;
-				$cpt = count($_FILES['Newsletter_images']['name']);
-				for($i=0; $i<$cpt; $i++)
-				{
-
-					$_FILES['Newsletter_images']['name']= $files['Newsletter_images']['name'][$i];
-					$_FILES['Newsletter_images']['type']= $files['Newsletter_images']['type'][$i];
-					$_FILES['Newsletter_images']['tmp_name']= $files['Newsletter_images']['tmp_name'][$i];
-					$_FILES['Newsletter_images']['error']= $files['Newsletter_images']['error'][$i];
-					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
-					
-					$config['upload_path'] = '../univ_news_data/img';
-					$config['allowed_types'] = 'gif|jpg|png|jpeg';
-					$config['max_size'] = '0';
-					$config['remove_spaces'] = true;
-					$config['overwrite'] = true;
-					$config['encrypt_name'] = false;
-					$config['max_width']  = '';
-					$config['max_height']  = '';
-						
-					$this->upload->initialize($config);
-					$this->upload->do_upload('Newsletter_images');	
-					if(!$this->upload->do_upload('Newsletter_images'))
-					{
-						echo "Newsletter_images : ".$i;
-						$errors .= $this->upload->display_errors();
-					}
-				}
-				
 				if($errors == "")
 				{
 					$this->newsletter_md->update( $id_modify, $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
@@ -359,91 +375,6 @@ class Newsletter extends CI_Controller
 			}
 			else
 			{
-				$errors = "";
-				if(!$this->upload->do_upload('Path'))
-				{
-					echo "PATH PDF";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{	
-					$pdf_name = $this->upload->data();
-					$pdf_name = $pdf_name['full_path'];
-				}
-				
-				$config['upload_path'] = '../univ_news_data/uploads/';
-				$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-				$config['max_size'] = '0';
-				$config['remove_spaces'] = true;
-				$config['overwrite'] = false;
-				$config['encrypt_name'] = false;
-				$config['max_width']  = '';
-				$config['max_height']  = '';
-				
-				$this->upload->initialize($config);
-				
-				if(!$this->upload->do_upload('Cover'))
-				{
-					echo "COVER";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{
-					$cover_name = $this->upload->data();
-					$cover_name = $cover_name['full_path'];
-				}
-				
-				$config['upload_path'] = '../univ_news_data/uploads/';
-				$config['allowed_types'] = 'html|htm|htmls|htx';
-				$config['max_size'] = '0';
-				$config['remove_spaces'] = true;
-				$config['overwrite'] = false;
-				$config['encrypt_name'] = false;
-				$config['max_width']  = '';
-				$config['max_height']  = '';
-				
-				$this->upload->initialize($config);
-				
-				if(!$this->upload->do_upload('Content'))
-				{
-					echo "CONTENT";
-					$errors .= $this->upload->display_errors();
-				}
-				else
-				{
-					$content = $this->upload->data();
-					$content = $content['full_path'];
-				}
-				
-				$files = $_FILES;
-				$cpt = count($_FILES['Newsletter_images']['name']);
-				for($i=0; $i<$cpt; $i++)
-				{
-
-					$_FILES['Newsletter_images']['name']= $files['Newsletter_images']['name'][$i];
-					$_FILES['Newsletter_images']['type']= $files['Newsletter_images']['type'][$i];
-					$_FILES['Newsletter_images']['tmp_name']= $files['Newsletter_images']['tmp_name'][$i];
-					$_FILES['Newsletter_images']['error']= $files['Newsletter_images']['error'][$i];
-					$_FILES['Newsletter_images']['size']= $files['Newsletter_images']['size'][$i];
-					
-					$config['upload_path'] = '../univ_news_data/img';
-					$config['allowed_types'] = 'gif|jpg|png|jpeg';
-					$config['max_size'] = '0';
-					$config['remove_spaces'] = true;
-					$config['overwrite'] = true;
-					$config['encrypt_name'] = false;
-					$config['max_width']  = '';
-					$config['max_height']  = '';
-						
-					$this->upload->initialize($config);
-					$this->upload->do_upload('Newsletter_images');	
-					if(!$this->upload->do_upload('Newsletter_images'))
-					{
-						echo "Newsletter_images : ".$i;
-						$errors .= $this->upload->display_errors();
-					}
-				}
-				
 				if($errors == "")
 				{
 					$result = $this->newsletter_md->create ( $name, $cover_name, $pdf_name, $content, $description, $creation_date, $checking_state);
@@ -479,6 +410,9 @@ class Newsletter extends CI_Controller
 		$this->load->helper('file');
 		$result = "";		
 		foreach ( $fetched->result () as $line ) {
+			$cover_url = explode('/', $line->cover);
+			$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+			
 			$result = $result."
 						ID : ".$line->id_newsletter."</br>
 						Type : ".$line->type."</br>
@@ -488,14 +422,15 @@ class Newsletter extends CI_Controller
 						Creation date: ".$line->creation_date."</br>
 						Cover: ".$line->cover."</br>
 						Checking state: ".$line->checking_state."</br>
-						Content: ".file_get_contents($line->content)."</br>
+						Content: ".$line->content."</br></br>
+						<center><img src='".$cover_url."' alt='".$cover_url."' width='450'></center></br></br>
 						";
 						
 			if($sess['role']<= 3)
 				{		
 					$result = $result."
 					<button class='btn btn-small' type='button' onclick=\"window.location.href = '/index.php/newsletter/newsletter/modifyNewsletter/".$id."';\">Modify</button>
-					<button class='btn btn-small' type='button' onclick=deleteNewsletter(".$line->id_newsletter.")>Delete</button>";
+					<button class='btn btn-small' type='button' onclick=deleteNewsletter(".$line->id_newsletter.")>Delete</button></br>";
 				}
 			}
 		exit($result);

@@ -731,8 +731,12 @@ class University extends CI_Controller {
 				$recipientsListArray[$i] = $this->getName($recipientsListArray[$i])->row(0)->name;
 			}
 		}
+		$tmp_news = Newsletter::get($newsletterToSend[0])->row(0);
 
-		$newsletterPreview  = file_get_contents(Newsletter::get($newsletterToSend[0])->row(0)->content);
+		$cover_url = explode('/', $tmp_news->cover);
+		$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+
+		$newsletterPreview  = "<center><img src='".$cover_url."' alt='".$cover_url."' width='450'></center>";
 		$newsletterPreview  = '<input type="hidden"  name="recipientsList" id="recipientsList"  value="'.$recipientsList.'"/>'.
 							'<input type="hidden"  name="newsletterId" id="newsletterId"  value="'.$newsletterToSend[0].'"/>'.$newsletterPreview;
 

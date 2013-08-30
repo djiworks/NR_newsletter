@@ -9,4 +9,5 @@ sudo cp -Rf ci_system /var/
 sudo cp -Rf www /var/
 sudo cp -Rf univ_news_data /var/
 sudo chmod -R 777 /var/univ_news_data
+sudo chmod -R 777 /var/www/assets
 echo "Copie terminee"
