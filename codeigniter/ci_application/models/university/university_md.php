@@ -154,7 +154,8 @@ class University_md extends CI_Model
 	public function getUniv_Intern($id) {
 		return $this->db->query("
 			SELECT p.first_name, 
-				   p.last_name 
+				   p.last_name,
+				   p.id_person 
 				FROM ".$this->table6." AS p 
 					INNER JOIN ".$this->table5." AS r 
 						ON p.id_person = r.id_person 
@@ -188,6 +189,15 @@ class University_md extends CI_Model
 	function university_recommendedBy_intern($id_university, $id_person) {
 		$this->db->set("id_university",$id_university)
 				 ->set("id_person",$id_person)
+				 ->set("is_student",1)
 		 		 ->insert($this->table5);
+	}
+	
+	function clearData($id_university) {
+		$this->db->where("id_university",$id_university)
+		 		 ->delete($this->table5);
+		 		 
+		$this->db->where("id_university",$id_university)
+		 		 ->delete($this->table2);
 	}
 }

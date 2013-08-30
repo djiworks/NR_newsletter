@@ -87,6 +87,21 @@ class Intern extends CI_Controller
 							)
 		));
 	 }
+	 
+   	public static function staticGet($id)
+	{
+		$ci = new CI_CONTROLLER();
+		$ci->load->helper('login');
+
+		isLoggedInRedirect($ci);
+		$ci->load->model('intern/intern_md');
+
+		//~ $id = $ci->uri->segment(4);
+		
+		$result = $ci->intern_md->get($id);
+
+		return $result;
+	 }
 
 	public function getId() {
 		isLoggedInRedirect($this);
@@ -168,7 +183,7 @@ class Intern extends CI_Controller
 
 		$ci = new CI_CONTROLLER();
 		$ci->load->model('intern/intern_md');
-		$this->load->database();
+		//~ $this->load->database();
 		$fetched = $ci->intern_md->getAll();
 		
 		$result = "";		

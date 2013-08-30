@@ -1,4 +1,7 @@
 		<form method="post" action="/index.php/university/university/verificationAddUniversity" class="form-horizontal">
+			<input type="hidden"  name="modifyId" id="modifyId"  value="<?php if(isset($modifyId)){echo $modifyId;}else{echo '-1';} ?>"/>
+			<input type="hidden"  name="subscription" id="subscription"  value="<?php if(isset($subscription)){echo $subscription;}else{echo '0';} ?>"/>
+			<input type="hidden"  name="checkingState" id="checkingState"  value="<?php if(isset($checkingState)){echo $checkingState;}else{echo '2';} ?>"/>
 			<table id="tableFormAddUniversity">
 				<tr>
 					<td id="cellUniversity">
@@ -34,16 +37,11 @@
 								<div class="control-group">
 									<label class="control-label" for="inputIntern">Intern</label>
 									<div class="controls">
-										<div class="input-append">
-											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="50"
+											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="60"
 											placeholder="Intern" data-provide="typeahead" data-items="4"
 											data-source= <?php echo $allNames; ?> 
-											autocomplete="off" value="<?php echo $univIntern; ?>"/>
+											autocomplete="off" value="<?php if(isset($univIntern)) {echo $univIntern;} ?>"/>
 											<?php echo form_error('inputIntern'); ?>
-											<button class="btn btn-success" type="button" id="button2AddIntern">
-												<i class="icon-plus icon-white"></i>
-											</button>
-										</div>
 									</div>
 								</div>
 								

@@ -34,16 +34,11 @@
 								<div class="control-group">
 									<label class="control-label" for="inputIntern">Intern</label>
 									<div class="controls">
-										<div class="input-append">
-											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="50"
+											<input class="span2" type="text" id="inputIntern" name="inputIntern" size="60"
 											placeholder="Intern" data-provide="typeahead" data-items="4"
 											data-source= <?php echo $allNames; ?>
 											autocomplete="off" value="<?php echo set_value('inputIntern'); ?>"/>
 											<?php echo form_error('inputIntern'); ?>
-											<button class="btn btn-success" type="button" id="button2AddIntern">
-												<i class="icon-plus icon-white"></i>
-											</button>
-										</div>
 									</div>
 								</div>
 								

@@ -506,28 +506,43 @@ class University extends CI_Controller {
 			$name = $this->input->post('UniversityName');
 			$address = $this->input->post('Adress');
 			$country = $this->input->post('inputCountry');
-			$subscription = 0;
-			$checking_state = 2;
+
+			$subscription = $this->input->post('subscription');
+			$checking_state = $this->input->post('checkingState');
 			
 			$nbInput = explode(",", $this->input->post('nbInputPhoneMail'));
-			
 			//Getting the id of the new university
-			$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
-			foreach ( $result->result () as $line ) {
-				$id_univ = $line->id_univ;
+			if($this->input->post('modifyId')==-1)
+			{
+				$result = $this->university_md->create($name, $address, $country, $subscription, $checking_state);
+				foreach ( $result->result () as $line ) {
+					$id_univ = $line->id_univ;
+				}
 			}
-			
+			else
+			{
+				$id_univ = $this->input->post('modifyId');
+				$this->university_md->update($id_univ, $name, $address, $country, $subscription, $checking_state);
+				$this->university_md->clearData($id_univ);
+				//~ $this->university_md->clearData($id_univ);
+			}
+
+				
 			//Then we link the intern to the university
 			$person = $this->input->post('inputIntern');
-			$person = explode(" ", $person);
-			$resultPerson = $this->intern_md->getSearchedInterns("last_name", $person[sizeOf($person) -1]);
+			$id_person = explode("-", $person);
+			$id_person = $id_person[0];
+		
+			$verif = Intern::staticGet($id_person);
 			
-			//Getting the id of the intern
-			foreach($resultPerson->result () as $line) {
-				$id_person = $line->id_person;
+			if(count($verif->result()) == 1)
+			{
+				$verif = $verif->row(0);
+				if($person == $id_person."-".$verif->first_name." ".$verif->last_name)
+				{
+					$this->university_md->university_recommendedBy_intern($id_univ, $id_person);
+				}
 			}
-			$this->university_md->university_recommendedBy_intern($id_univ, $id_person);
-
 			//Finally we create the contacts linked to the university
 			$nbContact = $this->input->post('nbContact2Add');
 					
@@ -620,12 +635,15 @@ class University extends CI_Controller {
 			$data['univName'] = $line->name;
 			$data['univAddress'] = $line->address;
 			$data['univCountry'] = $line->country;
+			$data['modifyId'] = $id;
+			$data['checkingState'] = $line->checking_state;
+			$data['subscription'] = $line->subscription;
 		}
 		
 		//Name of the intern who recommended the university
 		$result = $this->university_md->getUniv_Intern($id);
 		foreach ($result->result() as $line) {
-			$data['univIntern'] = $line->first_name." ".$line->last_name;
+			$data['univIntern'] = $line->id_person."-".$line->first_name." ".$line->last_name;
 			//As we only display 1 intern, we stop the boucle
 			break;
 		}
