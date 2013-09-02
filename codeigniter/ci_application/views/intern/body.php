@@ -53,7 +53,7 @@
 			<h3 id="addInternLabel">Add an Intern</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" id="addInternForm" action="/index.php/intern/intern/verificationAddIntern" class="form-horizontal">
+			<form method="post" id="addInternForm" action="<?php echo base_url("index.php/intern/intern/verificationAddIntern"); ?>" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="FirstName">First name</label>
 					<div class="controls">
@@ -121,27 +121,27 @@
 		aria-labelledby="modifyInternLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">x</button>
+				aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">x</button>
 			<h3 id="modifyInternLabel">Modify an Intern</h3>
 		</div>
 		<div class="modal-body">
 			
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">Close</button>
 		</div>
 	</div>
 
 	<div id="success" class="modal hide fade">
 	<div class="modal-header">
 	<h4>Success</h4>
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">&times;</button>
 	</div>
 	<div class="modal-body">
 	<p>Intern added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn close" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	<button class="btn close" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">Close</button>
 	</div>
 	</div>
 	
@@ -160,10 +160,10 @@
 	</div>
 	
 	<div id="confirmDeletion" class="modal hide fade">
-	<form method="post" id="deleteUserForm" action="/index.php/intern/intern/deleteIntern" class="form-horizontal">
+	<form method="post" id="deleteUserForm" action="<?php echo base_url("index.php/intern/intern/deleteIntern"); ?>" class="form-horizontal">
 	<div class="modal-header">
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value=""/>
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">&times;</button>
 	<h4>Confirm deletion</h4>
 	</div>
 	<div class="modal-body">
@@ -171,33 +171,33 @@
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Cancel</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">Cancel</button>
 	</div>
 	</form>
 	</div>
 	
 	<div id="success_deletion" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>Intern deleted with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">Close</button>
 	</div>
 	</div>
 	
 	<div id="success_modify" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/intern/intern';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>Intern modified with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/intern/intern';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/intern/intern'); ?>';">Close</button>
 	</div>
 	</div>
