@@ -43,7 +43,7 @@ class Admin extends CI_Controller {
 		// Load the DB utility class
 		$this->load->dbutil();
 
-
+		//~ echo base_url('../univ_news_data/backup_database/');
 		$prefs = array(
 						'tables'      => array(),  // Array of tables to backup.
 						'ignore'      => array(),           // List of tables to omit from the backup
@@ -60,7 +60,7 @@ class Admin extends CI_Controller {
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
 
-		if(!write_file('../univ_news_data/backup_database/'.date("Y-m-d H:i:s").'.txt', $backup,'w+'))
+		if(!write_file(base_url('../univ_news_data/backup_database/').date("Y-m-d H:i:s").'.txt', $backup,'w+'))
 		{
 			//~ echo 'ERROR';
 			$this->index (6);

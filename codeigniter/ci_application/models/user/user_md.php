@@ -49,6 +49,7 @@ Class User_md extends CI_Model
 		   
 		  if($rows == 0 || $rows > 1)
 		  {
+			  //~ return $query->result();
 		     return false;
 		  }
 		  else
@@ -56,6 +57,7 @@ Class User_md extends CI_Model
 		  	$result = array();
 		  	foreach($query->result() as $row)
 		  	{
+			
 		  		if($row->password == substr(crypt($password, $row->password), 0, strlen($row->password)))
 		  		{
 		  			$result['id'] = $row->id_user;
@@ -65,6 +67,10 @@ Class User_md extends CI_Model
 		  		}
 		  		else
 		  		{
+					//~ $result['id'] = $password;
+		  			//~ $result['role'] = $row->password;
+		  			//~ $result['login'] = substr(crypt($password, $row->password), 0, strlen($row->password));
+		  			//~ return $result;
 		  			return false;
 		  		}
 		  	}

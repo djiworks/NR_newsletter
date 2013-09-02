@@ -6,7 +6,6 @@
 		</div>
 		<?php endif; ?>
 		<?php echo form_open('login/verifylogin'); ?>
-		<form>
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<input type="text" class="input-block-level" placeholder="Username" id="username" name="username"> 
 			<input type="password" class="input-block-level" placeholder="Password" id="passowrd" name="password"> 
@@ -25,7 +24,7 @@
 			<h3 id="addUserLabel">Add an User</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/login/login/verificationAddUser" class="form-horizontal">
+			<form method="post" action="<?php echo base_url("index.php/login/login/verificationAddUser");?>" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="Login">Login</label>
 					<div class="controls">
@@ -62,14 +61,14 @@
 	
 	<div id="success" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>Account created with success. </br>Please wait for an administrator to validate your account.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	

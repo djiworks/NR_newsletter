@@ -159,12 +159,12 @@ class Newsletter extends CI_Controller
 			
 				if(isset($ligne->cover)) {
 					$cover_url = explode('/', $ligne->cover);
-					$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+					$cover_url = base_url("assets/images/")."/".$cover_url[count($cover_url)-1];
 					$image = $cover_url;
 				}
 				else
 				{
-					$image = "/assets/holder/holder.js/80x100";
+					$image = base_url("assets/images/")."/"."assets/holder/holder.js/80x100";
 				}
 
 			
@@ -411,7 +411,7 @@ class Newsletter extends CI_Controller
 		$result = "";		
 		foreach ( $fetched->result () as $line ) {
 			$cover_url = explode('/', $line->cover);
-			$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+			$cover_url = base_url("assets/images/")."/".$cover_url[count($cover_url)-1];
 			
 			$result = $result."
 						ID : ".$line->id_newsletter."</br>
@@ -429,7 +429,7 @@ class Newsletter extends CI_Controller
 			if($sess['role']<= 3)
 				{		
 					$result = $result."
-					<button class='btn btn-small' type='button' onclick=\"window.location.href = '/index.php/newsletter/newsletter/modifyNewsletter/".$id."';\">Modify</button>
+					<button class='btn btn-small' type='button' onclick=\"window.location.href = '".base_url("index.php/newsletter/newsletter/modifyNewsletter")."/".$id."';\">Modify</button>
 					<button class='btn btn-small' type='button' onclick=deleteNewsletter(".$line->id_newsletter.")>Delete</button></br>";
 				}
 			}

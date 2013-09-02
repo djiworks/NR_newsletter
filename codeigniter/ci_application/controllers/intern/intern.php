@@ -276,7 +276,7 @@ class Intern extends CI_Controller
 		$result = "";		
 		foreach ( $fetched->result () as $line ) {
 			$result = $result.'
-			<form method="post" name="modifyInternForm" id="modifyInternForm" action="/index.php/intern/intern/verificationAddIntern/true" class="form-horizontal">
+			<form method="post" name="modifyInternForm" id="modifyInternForm" action="'.base_url("index.php/intern/intern/verificationAddIntern/true").'" class="form-horizontal">
 			<input type="hidden"  name="modifyId" id="modifyId"  value=""/>
 
 			<div class="control-group">

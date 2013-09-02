@@ -347,7 +347,7 @@ class University extends CI_Controller {
 							{
 								$result = $result.		
 										//~ "<li class='classBtnModify'><button class='btn btn-small' type='button' onclick=modifyUniversity(".$line->id_university.")>Modify</button></li>
-										"<li class='classBtnModify'><button class='btn btn-small' type='button' onclick=\"window.location.href = '/index.php/university/university/modifyUniversity/".$line->id_university."';\">Modify</button></li>
+										"<li class='classBtnModify'><button class='btn btn-small' type='button' onclick=\"window.location.href = '".base_url("index.php/university/university/modifyUniversity")."/".$line->id_university."';\">Modify</button></li>
 										<li class='classBtnDelete'><button class='btn btn-small' type='button' onclick=deleteUniversity(".$line->id_university.")>Delete</button></li>";
 							}
 								$result = $result."</ul>
@@ -732,13 +732,13 @@ class University extends CI_Controller {
 		
 			for($i = 0; $i < count($recipientsListArray); $i++)
 			{
-				$recipientsListArray[$i] = $this->getName($recipientsListArray[$i])->row(0)->name;
+				$recipientsListArray[$i] = $this->university_md->getName($recipientsListArray[$i])->row(0)->name;
 			}
 		}
 		$tmp_news = Newsletter::get($newsletterToSend[0])->row(0);
 
 		$cover_url = explode('/', $tmp_news->cover);
-		$cover_url = "/assets/images/".$cover_url[count($cover_url)-1];
+		$cover_url = base_url("assets/images/")."/".$cover_url[count($cover_url)-1];
 
 		$newsletterPreview  = "<center><img src='".$cover_url."' alt='".$cover_url."' width='450'></center>";
 		$newsletterPreview  = '<input type="hidden"  name="recipientsList" id="recipientsList"  value="'.$recipientsList.'"/>'.
@@ -857,7 +857,7 @@ class University extends CI_Controller {
 			if(!in_array($replace,$this->img_array))
 				{
 				$this->img_array[] = $replace;
-				$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
+				$this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
 				}
 			}
 		else
@@ -870,7 +870,7 @@ class University extends CI_Controller {
 			if(!in_array($replace,$this->img_array))
 				{
 				$this->img_array[] = $replace;
-				$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
+				$this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
 				}
 			}
 		}
@@ -892,11 +892,12 @@ class University extends CI_Controller {
 		// Find all images
 		foreach($html->find('img') as $element)
 		{
-		$replace = explode('/', $element->src);
-		$replace = str_replace(' ', '_', $replace[count($replace)-1]);
-		$this->mail->AddEmbeddedImage("/var/univ_news_data/img/".$replace, $replace, $replace);
+			$replace = explode('/', $element->src);
+			$replace = str_replace(' ', '_', $replace[count($replace)-1]);
+			echo "/xsp/newsletter_project/univ_news_data/img/".$replace."<br>";
+			echo $this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
 
-		$element->src = "cid:".$replace;
+			$element->src = "cid:".$replace;
 		}
 		$content = $html->save();
 		//~ echo $content;

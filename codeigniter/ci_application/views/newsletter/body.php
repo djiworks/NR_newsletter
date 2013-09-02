@@ -5,7 +5,7 @@
 					<?php if($role<=3)
 				{echo '
 			<button class="btn btn-small btn btn-info" type="button"
-				onclick="window.location.href = \'<?php echo base_url('index.php/newsletter/newsletter/addNewsletter\'); ?>';">
+				onclick="window.location.href = \''.base_url("index.php/newsletter/newsletter/addNewsletter").'\';"
 				<i class="icon-plus"></i> Add a Newsletter
 			</button>';} ?>
 		</div>

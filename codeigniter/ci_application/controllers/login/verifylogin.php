@@ -39,6 +39,7 @@ class VerifyLogin extends CI_Controller {
    //query the database
    $result = $this->user_md->login($username, $password);
    
+   //~ var_dump($result);
    if($result && $result['role']< 5)
    {
      $sess_array = array();

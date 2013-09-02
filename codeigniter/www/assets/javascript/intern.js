@@ -18,7 +18,7 @@ function confirmationAdding(is_success){
 }
 
 function viewDetails(id){
-	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/intern/intern/viewDetails/" + id);
+	document.getElementById('viewDetails').setAttribute('data-remote', "http://192.168.2.7/newsletter_project/www/index.php/intern/intern/viewDetails/" + id);
 	$('#viewDetails').modal('show');
 }
 
@@ -31,7 +31,7 @@ function deleteIntern(id){
 		
 function modifyIntern(id){
 	document.getElementById('hasToRefresh').value = 1;																		
-	document.getElementById('modifyIntern').setAttribute('data-remote', "/index.php/intern/intern/formCompletionModify/" + id);
+	document.getElementById('modifyIntern').setAttribute('data-remote', "http://192.168.2.7/newsletter_project/www/index.php/intern/intern/formCompletionModify/" + id);
 	$('#viewDetails').modal('hide');
 	$('#modifyIntern').modal('show');
 	setTimeout(function(){document.forms['modifyInternForm'].elements['modifyId'].value = id;},1000);
@@ -40,10 +40,10 @@ function modifyIntern(id){
 $('#viewDetails').on('hide', function() {
 	if (document.getElementById('hasToRefresh').value == 0)
 	{
-		window.location.href = "/index.php/intern/intern/";
+		window.location.href = "http://192.168.2.7/newsletter_project/www/index.php/intern/intern/";
 	}
 })
 
 $('#modifyIntern').on('hide', function() {
-		window.location.href = "/index.php/intern/intern/";
+		window.location.href = "http://192.168.2.7/newsletter_project/www/index.php/intern/intern/";
 })

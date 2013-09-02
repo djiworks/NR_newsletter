@@ -38,7 +38,7 @@
 			<h3 id="addUserLabel">Add User</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/admin/admin/verificationAddUser" class="form-horizontal">
+			<form method="post" action="<?php echo base_url("index.php/admin/admin/verificationAddUser"); ?>" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="Login">Login</label>
 					<div class="controls">
@@ -91,7 +91,7 @@
 			<h3 id="modifyPasswordLabel">Change Password</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" id="modifyPasswordForm" action="/index.php/admin/admin/modifyPassword" class="form-horizontal">
+			<form method="post" id="modifyPasswordForm" action="<?php echo base_url("index.php/admin/admin/modifyPassword"); ?>" class="form-horizontal">
 				<input type="hidden"  name="id"  value="">
 				<div class="control-group">
 					<label class="control-label" for="Password">New Password</label>
@@ -120,10 +120,10 @@
 	</div>
 	
 	<div id="confirmDeletion" class="modal hide fade">
-	<form method="post" id="deleteUserForm" action="/index.php/admin/admin/deleteUser" class="form-horizontal">
+	<form method="post" id="deleteUserForm" action="<?php echo base_url("index.php/admin/admin/deleteUser");?>" class="form-horizontal">
 	<div class="modal-header">
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Confirm deletion</h4>
 	</div>
 	<div class="modal-body">
@@ -132,16 +132,16 @@
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
 
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Cancel</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin"); ?>';">Cancel</button>
 
 	</div>
 	</form>
 	</div>
 	
 	<div id="backup" class="modal hide fade">
-	<form method="post" id="backupForm" action="/index.php/admin/admin/backup" class="form-horizontal">
+	<form method="post" id="backupForm" action="<?php echo base_url("index.php/admin/admin/backup"); ?>" class="form-horizontal">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Confirm backup</h4>
 	</div>
 	<div class="modal-body">
@@ -150,7 +150,7 @@
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
 
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Cancel</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Cancel</button>
 
 	</div>
 	</form>
@@ -158,40 +158,40 @@
 	
 	<div id="success" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin"); ?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>User added with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	
 	<div id="success_backup" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>Backup of the database created with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	
 	<div id="failure_backup" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Failure</h4>
 	</div>
 	<div class="modal-body">
 	<p>Backup of the database failed (too heavy ?). Try again or try directly using command line in terminal.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	
@@ -211,40 +211,40 @@
 	
 	<div id="success_pwd" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>Password modified with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	
 	<div id="success_deletion" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/admin/admin';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>User deleted with success.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>
 	</div>
 	</div>
 	
 	
 	<div id="failure_pwd" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';" aria-hidden="true">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';" aria-hidden="true">&times;</button>
 	<h4>Failure</h4>
 	</div>
 	<div class="modal-body">
 	<p>Failed to modify password. Please try again.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/admin/admin';">Close</button>	
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/admin/admin");?>';">Close</button>	
 	</div>
 	</div>

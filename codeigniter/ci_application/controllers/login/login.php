@@ -23,6 +23,7 @@ class Login extends CI_Controller {
 	 	$this->load->view('login/head');
 	   	$this->load->view('login/login_view', $data);
 	   	$this->load->view('login/footer');
+
 	 }
 	 
 	 function logout()

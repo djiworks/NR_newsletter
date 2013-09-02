@@ -3,7 +3,7 @@
 				<?php if($role<=3)
 				{echo 
 					'<button class="btn btn-small btn btn-info" type="button"
-						 onclick="window.location.href = \'<?php echo base_url('index.php/university/university/addUniversity\'); ?>';">
+						 onclick="window.location.href = \''.base_url("index.php/university/university/addUniversity").'\';">
 						<i class="icon-plus"></i> Add University
 					</button>
 				';} ?>
@@ -54,7 +54,7 @@
 				<?php if($role<=3)
 				{echo 
 					'<button class="btn btn-small btn btn-info" type="button"
-						 onclick="window.location.href = \'<?php echo base_url('index.php/university/university/addUniversity\'); ?>';">
+						 onclick="window.location.href = \''.base_url("index.php/university/university/addUniversity").';">
 						<i class="icon-plus"></i> Add University
 					</button>
 				';} ?>
@@ -214,7 +214,7 @@
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url(/index.php/university/university'); ?>';">Cancel</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url("index.php/university/university"); ?>';">Cancel</button>
 	</div>
 
 	</form>

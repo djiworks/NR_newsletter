@@ -18,7 +18,7 @@ function confirmationAdding(is_success){
 }
 
 function viewDetails(id){
-	document.getElementById('viewDetails').setAttribute('data-remote', "/index.php/newsletter/newsletter/viewDetails/" + id);
+	document.getElementById('viewDetails').setAttribute('data-remote', "http://192.168.2.7/newsletter_project/www/index.php/newsletter/newsletter/viewDetails/" + id);
 
 	$('#viewDetails').modal('show');
 }
@@ -41,26 +41,7 @@ $('#hiddenfilecover').on('change', function() {
 $('#viewDetails').on('hide', function() {
 	if (document.getElementById('hasToRefresh').value == 0)
 	{
-		window.location.href = "/index.php/newsletter/newsletter/";
+		window.location.href = "http://192.168.2.7/newsletter_project/www/index.php/newsletter/newsletter/";
 	}
 })
 	
-	tinymce.init({
-		mode : "specific_textareas",
-        editor_selector : "myTextEditor",
-	    theme: "modern",
-	    plugins: [
-	              "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-	              "searchreplace wordcount visualblocks visualchars code fullscreen",
-	              "insertdatetime media nonbreaking save table contextmenu directionality",
-	              "emoticons template paste textcolor"
-	          ],
-	    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-	    toolbar2: "print preview media | forecolor backcolor emoticons | code",
-	    image_advtab: true,
-	    templates: [
-	        {title: 'Test template 1', content: 'Test 1'},
-	        {title: 'Test template 2', content: 'Test 2'}
-	    ]
-	});
-
