@@ -3,7 +3,7 @@
 				<?php if($role<=3)
 				{echo 
 					'<button class="btn btn-small btn btn-info" type="button"
-						 onclick="window.location.href = \'/index.php/university/university/addUniversity\';">
+						 onclick="window.location.href = \'<?php echo base_url('index.php/university/university/addUniversity\'); ?>';">
 						<i class="icon-plus"></i> Add University
 					</button>
 				';} ?>
@@ -54,7 +54,7 @@
 				<?php if($role<=3)
 				{echo 
 					'<button class="btn btn-small btn btn-info" type="button"
-						 onclick="window.location.href = \'/index.php/university/university/addUniversity\';">
+						 onclick="window.location.href = \'<?php echo base_url('index.php/university/university/addUniversity\'); ?>';">
 						<i class="icon-plus"></i> Add University
 					</button>
 				';} ?>
@@ -82,7 +82,7 @@
 			<h3 id="modifyUniversityLabel">Add University</h3>
 		</div>
 		<div class="modal-body">
-			<form method="post" action="/index.php/university/university/modifyUniversity" class="form-horizontal">
+			<form method="post" action="<?php echo base_url("index.php/university/university/modifyUniversity"); ?>" class="form-horizontal">
 				TODO reprendre addUniversity nouvelle version
 
 				<div class="control-group">
@@ -105,7 +105,7 @@
 			<h3 id="sendNewsletterLabel">Prepare to send Newsletter</h3>
 		</div>
 		
-		<form method="post" id="sendNewsletter" action="/index.php/university/university/sendNewsletter" class="form-horizontal">
+		<form method="post" id="sendNewsletter" action="<?php echo base_url("index.php/university/university/sendNewsletter"); ?>" class="form-horizontal">
 		<input type="hidden"  name="sendNewsletterList" id="sendNewsletterList"  value=""/>
 
 		<div class="modal-body">
@@ -127,7 +127,7 @@
 
 	<div id="previewNewsletter" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="PreviewLabel" aria-hidden="true">
-	<form method="post" action="/index.php/university/university/mailNewsletter" class="form-horizontal">
+	<form method="post" action="<?php echo base_url("/index.php/university/university/mailNewsletter"); ?>" class="form-horizontal">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">x</button>
@@ -149,26 +149,26 @@
 	<div id="success" class="modal hide fade">
 	<div class="modal-header">
 	<h4>Success</h4>
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/university/university'); ?>';">&times;</button>
 	</div>
 	<div class="modal-body">
 	<p>University successfully added.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/university/university'); ?>';">Close</button>
 	</div>
 	</div>
 	
 	<div id="success_deletion" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/university/university'); ?>';">&times;</button>
 	<h4>Success</h4>
 	</div>
 	<div class="modal-body">
 	<p>University successfully deleted.</p>
 	</div>
 	<div class="modal-footer">
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Close</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url('index.php/university/university'); ?>';">Close</button>
 	</div>
 	</div>
 	
@@ -202,10 +202,10 @@
 
 	<div id="confirmDeletion" class="modal hide fade">
 	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '/index.php/university/university';">&times;</button>
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.href = '<?php echo base_url('index.php/university/university'); ?>';">&times;</button>
 	</div>
 
-	<form method="post" id="deleteUserForm" action="/index.php/university/university/deleteUniversity" class="form-horizontal">
+	<form method="post" id="deleteUserForm" action="<?php echo base_url("index.php/university/university/deleteUniversity"); ?>" class="form-horizontal">
 
 	<input type="hidden"  name="confirmDeletionId" id="confirmDeletionId"  value="">
 	<h4>Confirm deletion</h4>
@@ -214,7 +214,7 @@
 	</div>
 	<div class="modal-footer">
 	<button type="submit" class="btn">Yes</button>
-	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '/index.php/university/university';">Cancel</button>
+	<button class="btn" type="button" data-dismiss="modal" onclick="window.location.href = '<?php echo base_url(/index.php/university/university'); ?>';">Cancel</button>
 	</div>
 
 	</form>

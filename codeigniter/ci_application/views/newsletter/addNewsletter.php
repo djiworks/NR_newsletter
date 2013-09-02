@@ -1,5 +1,5 @@
 <div class="container">
-	<form class="form-horizontal" name="addNewsletter" action="/index.php/newsletter/newsletter/verificationAddNewsletter"
+	<form class="form-horizontal" name="addNewsletter" action="<?php echo base_url("index.php/newsletter/newsletter/verificationAddNewsletter"); ?>"
 		method="post" id="addNewsletter" enctype="multipart/form-data">
 
 		<input type="hidden"  name="modifyId" id="modifyId"  value="<?php if(isset($id_modify)){echo $id_modify;}else{echo '-1';} ?>"/>
