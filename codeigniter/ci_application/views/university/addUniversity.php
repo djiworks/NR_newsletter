@@ -1,4 +1,7 @@
 		<form method="post" action="/index.php/university/university/verificationAddUniversity" class="form-horizontal">
+			<input type="hidden"  name="modifyId" id="modifyId"  value="<?php if(isset($modifyId)){echo $modifyId;}else{echo '-1';} ?>"/>
+			<input type="hidden"  name="subscription" id="subscription"  value="<?php if(isset($subscription)){echo $subscription;}else{echo '0';} ?>"/>
+			<input type="hidden"  name="checkingState" id="checkingState"  value="<?php if(isset($checkingState)){echo $checkingState;}else{echo '2';} ?>"/>
 			<table id="tableFormAddUniversity">
 				<tr>
 					<td id="cellUniversity">

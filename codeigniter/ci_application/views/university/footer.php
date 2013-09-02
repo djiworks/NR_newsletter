@@ -22,5 +22,30 @@
 				$('#previewNewsletter').modal('show');
 				</script>"; 
 			}?>
+			
+			<?php if(isset($numContact_js)&& isset($nbInput_js))
+			{
+			echo "
+				<script type='text/javascript'>
+				numContact = ".$numContact_js."
+				"; 
+
+				for($i=1 ; $i <= $numContact_js; $i++)
+				{
+					echo "
+					nbInput[".$i."] = ".$i.";
+					nbInput[".$i."] = new Array();
+					nbInput[".$i."][1] = ".$nbInput_js[$i][1].";
+					nbInput[".$i."][2] = ".$nbInput_js[$i][2].";
+					";
+				}
+				
+				echo "</script>"; 
+				//~ echo "
+				//~ <script type='text/javascript'>
+				//~ numContact = ".$numContact_js."
+				//~ nbInput = ".$nbInput_js."
+				//~ </script>"; 
+			}?>
 	</body>
 </html>

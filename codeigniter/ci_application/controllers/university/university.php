@@ -650,13 +650,17 @@ class University extends CI_Controller {
 		
 		//Contacts for the university
 		$i = 1;
-		$numMail = 1;
-		$numPhone = 1;
+		$numMail = 0;
+		$numPhone = 0;
 		$data['univContactList'] = "";
+		
+		$nbInput_js = array();
 		
 		$result = $this->university_md->getUniv_Contact($id);
 		foreach ($result->result() as $line) {
 			$id_contact = $line->id_contact;
+			$numMail = 0;
+			$numPhone = 0;
 			
 			$data['univContactList'] = $data['univContactList'] . "
 			<div id='groupIntern".$i."'>
@@ -677,8 +681,8 @@ class University extends CI_Controller {
 						<table id='TableContainer".$i."'>
 							<thead>
 								<tr>
-									<th>Mail<i onclick='addField(\'mail\', ".$i.")' class='icon-plus-sign'></i></th>
-									<th>Phone<i onclick='addField(\'phone\', ".$i.")' class='icon-plus-sign'></i></th>
+									<th>Mail<i onclick=\"addField('mail', ".$i.")\" class='icon-plus-sign'></i></th>
+									<th>Phone<i onclick=\"addField('phone', ".$i.")\" class='icon-plus-sign'></i></th>
 								</tr>
 							</thead>
 							<tbody>";
@@ -686,28 +690,68 @@ class University extends CI_Controller {
 			//~ $result_contact = $this->contact_md->getInfoContact($id_contact);
 
 			$result_contact = $ci->contact_md->getInfoContact($id_contact);
+			$result_mail = $ci->contact_md->getInfoMail($id_contact)->result();
+			$result_phone = $ci->contact_md->getInfoPhone($id_contact)->result();
 			
 			//~ echo var_dump($result_contact->result());
-			foreach ($result_contact->result() as $line_contact) {
-				$mail = ($line_contact->mail) ? $line_contact->mail : "";
-				
-				$phone = ($line_contact->number) ? $line_contact->number : "";
-				$fax = (isset($line_contact->type) && ($line_contact->type == 1)) ? "checked" : "";
+			//~ foreach ($result_contact->result() as $line_contact) {
+			while($numMail < count($result_mail) || $numPhone < count($result_phone))
+			{
+				//~ $mail = ($line_contact->mail) ? $line_contact->mail : "";
+				//~ 
+				//~ $phone = ($line_contact->number) ? $line_contact->number : "";
+				//~ $fax = (isset($line_contact->type) && ($line_contact->type == 1)) ? "checked" : "";
 				
 				$data['univContactList'] = $data['univContactList'] . "
 				<tr>
-					<td>
-						<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text' value='".$mail."'>
-					</td>
-					<td>
-						<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text' value='".$phone."'>
-						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' ".$fax.">
-					</td>
-				</tr>";
-				
-				$numMail++;
-				$numPhone++;
+					<td><div><div>";
+					if($numMail < count($result_mail))
+					{
+							$numMail++;
+							$data['univContactList'] = $data['univContactList'] . "<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text' value='".$result_mail[$numMail-1]->mail."'>";
+					}
+					else
+					{
+							$numMail++;
+							$data['univContactList'] = $data['univContactList'] . "<input placeholder='Email' class='input-medium' name='inputEmail".$i.$numMail."' id='inputEmail".$i.$numMail."' type='text' value=''>";
+					}
+					$data['univContactList'] = $data['univContactList'] . "</div></div></td>
+					<td><div><div>";
+					if($numPhone < count($result_phone))
+					{
+						$numPhone++;
+						if($result_phone[$numPhone-1]->type == 1)
+						{
+							$type_phone = "checked";
+						}
+						else
+						{
+							$type_phone = "";
+						} 
+						$data['univContactList'] = $data['univContactList'] . "<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text' value='".$result_phone[$numPhone-1]->number."'>
+						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' ".$type_phone.">";
+					}
+					else
+					{
+						$numPhone++;
+						$data['univContactList'] = $data['univContactList'] . "<input placeholder='Phone' class='input-medium' name='inputPhone".$i.$numPhone."' id='inputPhone".$i.$numPhone."' type='text' value=''>
+						<input name='inputCheckFax".$i.$numPhone."' id='inputCheckFax".$i.$numPhone."' type='checkbox' >";
+					}
+					$data['univContactList'] = $data['univContactList'] . "</div></div></td>
+				</tr>";				
 			}
+			
+			//~ if($i == 1)
+			//~ {
+				$nbInput_js[$i] = array();
+				$nbInput_js[$i][1] = $numMail;
+				$nbInput_js[$i][2] = $numPhone;
+				//~ $nbInput_js .= "[".($numMail-1).",".($numPhone-1)."]";
+			//~ }
+			//~ else
+			//~ {
+				//~ $nbInput_js .= ",[".($numMail-1).",".($numPhone-1)."]";
+			//~ }
 			
 			$data['univContactList'] = $data['univContactList'] . "
 							</tbody>
@@ -717,6 +761,14 @@ class University extends CI_Controller {
 			</div>";
 			$i++;
 		}
+		//~ $nbInput_js .= "]";
+		//~ var_dump($nbInput_js);
+		$numContact_js = $i-1;
+		//~ var_dump($numContact_js);
+
+		$data_js = array();
+		$data_js['nbInput_js'] = $nbInput_js;
+		$data_js['numContact_js'] = $numContact_js;
 		
 		//Loading the page
 		if(isset($is_success)){
@@ -730,7 +782,7 @@ class University extends CI_Controller {
 
 		//~ $this->load->view ( 'university/leftmenu' );
 		$this->load->view ( 'university/modifyUniversity', $data );
-		$this->load->view ( 'university/footer' );
+		$this->load->view ( 'university/footer', $data_js );
 }
 	
 	public function sendNewsletter() {

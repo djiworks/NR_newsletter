@@ -298,6 +298,10 @@ var funcAddContactToUniv = function addInternToUniv() {
 	nbInput[numContact][1] = 1;
 	nbInput[numContact][2] = 1;
 	
+	//~ alert(numContact);
+	//~ alert(nbInput);
+	//~ alert(nbInput[numContact-1]);
+	//~ alert(nbInput[numContact]);
 	
 	var cell = document.getElementById("cellContact");
 	cell.style.visibility = "visible";

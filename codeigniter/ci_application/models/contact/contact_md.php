@@ -41,6 +41,20 @@ class Contact_md extends CI_Model {
 					LEFT OUTER JOIN ".$this->table2." AS m ON c.id_contact = m.id_contact 
 					LEFT OUTER JOIN ".$this->table3." AS p ON c.id_contact = p.id_contact
 				WHERE c.id_contact = ".$id.";");
+	}
+	
+	public function getInfoMail($id) {
+		return $this->db->query("
+			SELECT m.mail 
+				FROM ".$this->table2." AS m 
+				WHERE m.id_contact = ".$id.";");
+	}
+	
+	public function getInfoPhone($id) {
+		return $this->db->query("
+			SELECT p.number, p.type
+				FROM ".$this->table3." AS p 
+				WHERE p.id_contact = ".$id.";");
 			
 			
 			
