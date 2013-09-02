@@ -21,7 +21,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`university` (
   `comment` LONGTEXT NOT NULL ,
   PRIMARY KEY (`id_university`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -42,7 +41,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`contact` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -63,7 +61,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`mail` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -85,7 +82,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`newsletter` (
   `comment` LONGTEXT NOT NULL ,
   PRIMARY KEY (`id_newsletter`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -104,7 +100,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`person` (
   `worked_until` DATE NULL DEFAULT NULL ,
   PRIMARY KEY (`id_person`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -126,7 +121,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`phone` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -166,7 +160,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`role` (
   `name` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id_role`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -240,7 +233,6 @@ CREATE  TABLE IF NOT EXISTS `marketing_univ`.`user` (
     ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
 

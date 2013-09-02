@@ -4,26 +4,11 @@ include_once (APPPATH . "controllers/university/university.php");
  
 class Intern extends CI_Controller
 {
-	private $id;
-	private $first_name;
-	private $last_name;
-	private $country;
-	private $mail;
-	private $phone;
-	private $work_until;
 	
 	public function __construct($id = false){
 		parent::__construct(); 
 		$this->load->model('intern/intern_md');
 		$this->load->helper('login');
-
-		$this->load->database();
-
-		if($id){
-					
-			$this->id = $id;
-			$this->initialiseValue();	
-		}
 	}
 
     public function index($is_success = NULL)
@@ -66,28 +51,6 @@ class Intern extends CI_Controller
 		$this->index(2);
 	}
     
-    public function get()
-    {
-		isLoggedInRedirect($this);
-
-		$ci = new CI_CONTROLLER();
-		$id = $ci->uri->segment(4);
-		
-		$intern = new Intern($id);
-		
-		exit (json_encode(
-							array(
-									"id" => $intern->getId(), 
-									"first_name" => $intern->getFirstName(), 
-									"last_name" => $intern->getLastName(),
-									"country" => $intern->getCountry(), 
-									"phone" => $intern->getPhone(), 
-									"mail" => $intern->getMail(),  
-									"work_until" => $intern->getWorkUntil()
-							)
-		));
-	 }
-	 
    	public static function staticGet($id)
 	{
 		$ci = new CI_CONTROLLER();
@@ -102,46 +65,6 @@ class Intern extends CI_Controller
 
 		return $result;
 	 }
-
-	public function getId() {
-		isLoggedInRedirect($this);
-
-		return $this->id;
-	}
-
-	public function getFirstName() {
-		isLoggedInRedirect($this);
-		return $this->first_name;
-	}
-
-	public function getLastName() {
-		isLoggedInRedirect($this);
-
-		return $this->last_name;
-	}
-
-	public function getCountry() {
-		isLoggedInRedirect($this);
-
-		return $this->country;
-	}
-
-	public function getPhone() {
-		isLoggedInRedirect($this);
-
-		return $this->phone;
-	}
-
-	public function getMail() {
-		isLoggedInRedirect($this);
-
-		return $this->mail;
-	}
-
-	public function getWorkUntil() {
-		isLoggedInRedirect($this);
-		return $this->work_until;
-	}
 
 	public function addIntern(){
 		isLoggedInRedirect($this);

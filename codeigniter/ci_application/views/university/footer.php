@@ -41,11 +41,6 @@
 				}
 				
 				echo "</script>"; 
-				//~ echo "
-				//~ <script type='text/javascript'>
-				//~ numContact = ".$numContact_js."
-				//~ nbInput = ".$nbInput_js."
-				//~ </script>"; 
 			}?>
 	</body>
 </html>

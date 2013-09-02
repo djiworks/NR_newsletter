@@ -5,26 +5,15 @@ include_once (APPPATH . "controllers/mailer/class.phpmailer.php");
 include_once (APPPATH . "controllers/parser/simple_html_dom.php");
 
 class University extends CI_Controller {
-	private $id;
-	private $name;
-	private $address;
-	private $country;
-	private $subscription;
-	private $checking_state;
-	private $comment;
+	
 	private $mail;
 	private $img_array;
 	
-	public function __construct($id = false) {
+	public function __construct() {
 		parent::__construct ();
 		$this->load->helper('login');
 		$this->load->model ( 'university/university_md' );
-		$this->load->database ();
-		
-		if ($id) {
-			$this->id = $id;
-			$this->initialiseValue ();
-		}
+
 	}
 	
 	public function index($is_success = NULL) {
@@ -382,61 +371,6 @@ class University extends CI_Controller {
 		$this->university_md->delete($id);
 		
 		$this->index(2);
-	}
-	
-	public function get() {
-		isLoggedInRedirect($this);
-
-		$ci = new CI_CONTROLLER ();
-		$id = $ci->uri->segment ( 4 );
-		
-		$university = new University ( $id );
-		
-		exit ( json_encode ( array (
-				"id" => $university->getId (),
-				"name" => $university->getName (),
-				"address" => $university->getAdress (),
-				"country" => $university->getCountry (),
-				"subscription" => $university->getSubscription (),
-				"checking state" => $university->getCheckingState (),
-				"comment" => $university->getComment () 
-		) ) );
-	}
-	
-	public function getId() {
-		isLoggedInRedirect($this);
-
-		return $this->id;
-	}
-
-	public function getName($id) {
-		isLoggedInRedirect($this);
-		
-		return $this->university_md->getName($id);
-	}
-	
-	public function getAdress() {
-		isLoggedInRedirect($this);
-		
-		return $this->address;
-	}
-	
-	public function getCountry() {
-		isLoggedInRedirect($this);
-		
-		return $this->country;
-	}
-	
-	public function getSubscription() {
-		isLoggedInRedirect($this);
-		
-		return $this->subscription;
-	}
-	
-	public function getCheckingState() {
-		isLoggedInRedirect($this);
-		
-		return $this->checking_state;
 	}
 	
 	public function getComment() {
