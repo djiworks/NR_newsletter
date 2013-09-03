@@ -60,14 +60,12 @@ class Admin extends CI_Controller {
 		// Load the file helper and write the file to your server
 		$this->load->helper('file');
 
-		if(!write_file(base_url('../univ_news_data/backup_database/').date("Y-m-d H:i:s").'.txt', $backup,'w+'))
+		if(!write_file('/var/www/newsletter_project/univ_news_data/backup_database/'.date("Y-m-d H:i:s").'.txt', $backup,'w+'))
 		{
-			//~ echo 'ERROR';
 			$this->index (6);
 		}
 		else
 		{
-			//~ echo 'SUCCESS';
 			$this->index (5);
 		}
 	}

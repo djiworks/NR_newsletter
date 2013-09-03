@@ -23,7 +23,7 @@
 			{
 				$('#success_backup').modal('show');
 			}
-			else if(is_success == 4)
+			else if(is_success == 6)
 			{
 				$('#failure_backup').modal('show');
 			}

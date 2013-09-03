@@ -214,7 +214,7 @@ class Intern extends CI_Controller
 		
 		$this->form_validation->set_rules ( 'FirstName', '"First Name"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'LastName', '"LastName"', 'trim|required|encode_php_tags|xss_clean' );
-		$this->form_validation->set_rules ( 'Phone', '"Phone"', 'trim|required|encode_php_tags|xss_clean|' );
+		$this->form_validation->set_rules ( 'Phone', '"Phone"', 'trim|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'Mail', '"Mail"', 'trim|required|encode_php_tags|xss_clean|valid_email' );
 		$this->form_validation->set_rules ( 'Country', '"Country"', 'trim|required|encode_php_tags|xss_clean' );
 		$this->form_validation->set_rules ( 'WorkedUntil', '"Worked until"', 'trim|required|encode_php_tags|xss_clean' );
@@ -226,7 +226,7 @@ class Intern extends CI_Controller
 			// If the form is valid
 			$first_name = $this->input->post ( 'FirstName' );
 			$last_name = $this->input->post ( 'LastName' );
-			$phone = $this->input->post ( 'Phone' );
+			$phone = ($this->input->post ( 'Phone' )) ? $this->input->post ( 'Phone' ) : "" ;			
 			$mail = $this->input->post ( 'Mail' );
 			$country = $this->input->post ( 'Country' );
 			$worked_until = $this->input->post ( 'WorkedUntil' );

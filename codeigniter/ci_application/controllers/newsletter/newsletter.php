@@ -61,6 +61,7 @@ class Newsletter extends CI_Controller
 
 		unlink($old_result->cover);
 		unlink($old_result->path);
+		unlink($old_result->content);
 
 		$this->newsletter_md->delete($id);
 		
@@ -256,6 +257,7 @@ class Newsletter extends CI_Controller
 
 				unlink($old_result->cover);
 				unlink($old_result->path);
+				unlink($old_result->content);
 			}
 			
 			//Upload of the pdf

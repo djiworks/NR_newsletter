@@ -533,7 +533,7 @@ var funcSearch = function search(field, field) {
 /* Listeners */
 
 $('#failure_sending').on('hide', function() {
-	window.location.href = "/index.php/university/university/";
+	window.location.href = "http://192.168.2.7/newsletter_project/www/index.php/university/university/";
 })
 //~ Listener to add interns for a university
 var element = document.getElementById('buttonAddContact');

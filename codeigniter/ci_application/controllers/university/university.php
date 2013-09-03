@@ -857,7 +857,7 @@ class University extends CI_Controller {
 			if(!in_array($replace,$this->img_array))
 				{
 				$this->img_array[] = $replace;
-				$this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
+				$this->mail->AddEmbeddedImage("/var/www/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
 				}
 			}
 		else
@@ -870,7 +870,7 @@ class University extends CI_Controller {
 			if(!in_array($replace,$this->img_array))
 				{
 				$this->img_array[] = $replace;
-				$this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
+				$this->mail->AddEmbeddedImage("/var/www/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
 				}
 			}
 		}
@@ -894,8 +894,10 @@ class University extends CI_Controller {
 		{
 			$replace = explode('/', $element->src);
 			$replace = str_replace(' ', '_', $replace[count($replace)-1]);
-			echo "/xsp/newsletter_project/univ_news_data/img/".$replace."<br>";
-			echo $this->mail->AddEmbeddedImage("/xsp/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
+			//~ echo "/xsp/newsletter_project/univ_news_data/img/".$replace."<br>";
+			$this->mail->AddEmbeddedImage("/var/www/newsletter_project/univ_news_data/img/".$replace, $replace, $replace);
+			//~ echo "3333img/".$replace."<br>";
+			//~ echo base_url("../univ_news_data/img/").$replace."<br>";
 
 			$element->src = "cid:".$replace;
 		}
